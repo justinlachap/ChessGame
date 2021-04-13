@@ -1,24 +1,38 @@
-// Livrable 1
-// Par Justin Lachapelle, matricule 2076412 et Esmé Généreux, matricule 2081518.
+/* 
+** Livrable 1
+** Par Justin Lachapelle, matricule 2076412 et Esmé Généreux, matricule 2081518.
+*/
+
+#pragma once
+#pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
+#include <QObject>
+#pragma pop()
+#include <functional>
 
 #include <vector>
 
-class Echiquier
+class Echiquier // public QObject
 {
 public:
 	void initialiserVide();
-	int cases[8][8];   // Toutes les pièces doivent pouvoir accéder facilement aux cases de l'échiquier. C'est pourquoi l'attribut cases est public et qu'il n'y a pas d'encapsulation.
+	int cases[8][8];   
+	// Toutes les pièces doivent pouvoir accéder facilement aux cases de l'échiquier. 
+	// C'est pourquoi l'attribut cases est public et qu'il n'y a pas d'encapsulation.
 };
 
-class Piece
+class Piece // public QObject
 {
+	// Q_OBJECT
 protected:
 	std::pair<int, int> m_position;
 	std::string m_couleur;
 	std::vector<std::pair<int, int>> m_mouvementsDisponibles; 
+
+// public slots:
+
 public:
 	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, std::string couleur);
-	int conversionCouleurInt(); // Cette fonction sera souvent comparée avec la fonction conversionIntLimite(), pour déterminer si 2 pièces ont la même couleur.
+	int conversionCouleurInt(); 
 	void afficheMouvements();
 	void estCapturé() {};
 	std::vector<std::pair<int, int>> obtenirMouvements() { return m_mouvementsDisponibles; }

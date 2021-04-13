@@ -11,9 +11,11 @@ void Calc::changerValeur(int valeur) {
 		emit valeurChangee(valeur_);
 	}
 }
+
 void Calc::effacer() {
 	operation_ = egal; changerValeur(0);
 }
+
 void Calc::ajouterChiffre(int chiffre) {
 	if (estResultat_) {
 		valeur_ = 0;

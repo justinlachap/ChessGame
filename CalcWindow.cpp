@@ -16,38 +16,42 @@
 #include <cppitertools/range.hpp>
 #include "classes.hpp"
 
-
-
 using iter::range;
 
-
-
-
-CalcWindow::CalcWindow(QWidget* parent) :
+ChessWindow::ChessWindow(QWidget* parent) :
 	QMainWindow(parent)
-	//(new Ui::MainWindow)
-	
 {
-	//ui->setupUi(this);
+	QString filename = "C:/Users/esmeg/Desktop/H2021/INF1015/Livrable2/Chess_Board.png";
+	QLabel* lbl = new QLabel(this);
 
-	QPixmap bkgnd("C:/Users/justi/source/repos/ProjetTestQt/Chess_Board.png");
-	bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
-	QPixmap pix();
+	QPixmap pix;
 
-	setWindowTitle("Jeu échecs");
+	lbl->setMinimumSize(900, 900);
+	if (pix.load(filename))
+	{
+		/** scale pixmap to fit in label'size and keep ratio of pixmap */
+		pix = pix.scaled(900, 900, Qt::KeepAspectRatio);
+		lbl->setPixmap(pix);
+	}
+
+	//QPixmap bkgnd("C:/Users/justi/source/repos/ProjetTestQt/Chess_Board.png");
+	//bkgnd = bkgnd.scaled(this->size(), Qt::IgnoreAspectRatio);
+	
+
+	setWindowTitle("Jeu d'échecs");
 }
 
 
 // Pour la version QButtonGroup.
 // Pourrait aussi être sans paramètre et faire calc_.obtenirValeur()
-void CalcWindow::changerValeurAffichee(int valeur)
+void ChessWindow::changerValeurAffichee(int valeur)
 {
-	//affichage_->setText(QString::number(valeur));
+	affichage_->setText(QString::number(valeur));
 }
 
 
 // Pour la version setProperty.
-void CalcWindow::chiffreAppuye()
+void ChessWindow::chiffreAppuye()
 {
 	// QObject::sender() est l'objet d'où vient le signal connecté à ce slot; attention qu'il sera nullptr si le slot est appelé directement au lieu de passer par un signal.
 	//calc_.ajouterChiffre(QObject::sender()->property("chiffre").value<int>());

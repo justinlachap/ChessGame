@@ -370,7 +370,7 @@ int main(int argc, char* argv[])
 	QApplication app(argc, argv);
 	initialiserBibliothequeCours(argc, argv);
 	
-	CalcWindow calcWindow;
-	calcWindow.show();
+	ChessWindow chessWindow;
+	chessWindow.showMaximized();
 	return app.exec();
 }

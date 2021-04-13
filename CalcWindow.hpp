@@ -10,16 +10,17 @@
 #include <QLabel>
 #pragma pop()
 
-class CalcWindow : public QMainWindow {
+class ChessWindow : public QMainWindow {
 	Q_OBJECT
 
 public:
-	CalcWindow(QWidget* parent = nullptr);
-	~CalcWindow() override = default;
+	ChessWindow(QWidget* parent = nullptr);
+	~ChessWindow() override = default;
 
 public slots:
-	void changerValeurAffichee(int valeur);  // Pour la version QButtonGroup.
-	void chiffreAppuye(); //QAbstractButton* bouton);  // Pour la version setProperty.
+	void changerValeurAffichee(int valeur);		// Pour la version QButtonGroup.
+	void chiffreAppuye();						//QAbstractButton* bouton);  // Pour la version setProperty.
+
 
 private:
 	//template <typename T = decltype(nullptr)>
@@ -27,5 +28,5 @@ private:
 
 	//Echiquier echiquier_;  // Le Modèle (pourrait être un pointeur mais pas nécessaire dans ce cas).
 
-	//QLabel* affichage_;  // Pour la version QButtonGroup.
+	QLabel* affichage_;  // Pour la version QButtonGroup.
 };

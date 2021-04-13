@@ -53,7 +53,7 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\ProjetINF1015\ProjetINF1015\classes.hpp">
+    <ClInclude Include="classes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
