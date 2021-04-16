@@ -21,7 +21,7 @@ using iter::range;
 ChessWindow::ChessWindow(QWidget* parent) :
 	QMainWindow(parent)
 {
-	QString filename = "C:/Users/esmeg/Desktop/H2021/INF1015/Livrable2/Chess_Board.png";
+	QString filename = "Chess_board.png";
 	QLabel* lbl = new QLabel(this);
 
 	QPixmap pix;

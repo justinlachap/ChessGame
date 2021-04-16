@@ -1,4 +1,4 @@
-/* 
+/*
 ** Livrable 1
 ** Par Justin Lachapelle, matricule 2076412 et Esmé Généreux, matricule 2081518.
 */
@@ -14,31 +14,31 @@ class Echiquier // public QObject
 {
 public:
 	void initialiserVide();
-	int cases[8][8];   
+	int cases[8][8];
 	// Toutes les pièces doivent pouvoir accéder facilement aux cases de l'échiquier. 
 	// C'est pourquoi l'attribut cases est public et qu'il n'y a pas d'encapsulation.
 };
 
-class Calcule
+class Calcule // classe virtuelle d'où provient la fonction calculeMouvements utilisée par toutes les pièces.
 {
 public:
 	virtual void calculeMouvements(Echiquier e) = 0;
 };
 
 
-class Piece : public Calcule // public QObject
+class Piece : public Calcule
 {
-	// Q_OBJECT
+
 protected:
 	std::pair<int, int> position_;
 	bool estBlanc_;
-	std::vector<std::pair<int, int>> mouvementsDisponibles_; 
+	std::vector<std::pair<int, int>> mouvementsDisponibles_;
 
-// public slots:
+
 
 public:
 	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
-	int conversionCouleurInt() const; 
+	int conversionCouleurInt() const;
 	void afficheMouvements();
 	void calculeMouvements(Echiquier e) override = 0;
 	void estCapturé() {};
@@ -46,7 +46,7 @@ public:
 };
 
 class Pion : virtual public Piece
-{	
+{
 	const static int pionBlanc_ = 6; // Ces constantes serviront plus tard à bien afficher les bonnes pièces sur l'interface
 	const static int pionNoir_ = 12;
 
@@ -56,7 +56,7 @@ public:
 };
 
 class Cavalier : virtual public Piece
-{	
+{
 	const static int cavalierBlanc_ = 3;
 	const static int cavalierNoir_ = 9;
 
@@ -86,7 +86,7 @@ public:
 };
 
 class Tour : virtual public Piece
-{	
+{
 	const static int tourBlanc_ = 4;
 	const static int tourNoir_ = 10;
 
@@ -96,7 +96,7 @@ public:
 };
 
 class Fou : virtual public Piece
-{	
+{
 	const static int fouBlanc_ = 5;
 	const static int fouNoir_ = 11;
 
