@@ -8,7 +8,6 @@
 #include <QObject>
 #pragma pop()
 #include <functional>
-
 #include <vector>
 
 class Echiquier // public QObject
@@ -20,82 +19,88 @@ public:
 	// C'est pourquoi l'attribut cases est public et qu'il n'y a pas d'encapsulation.
 };
 
-class Piece // public QObject
+class Calcule
+{
+public:
+	virtual void calculeMouvements(Echiquier e) = 0;
+};
+
+
+class Piece : public Calcule // public QObject
 {
 	// Q_OBJECT
 protected:
-	std::pair<int, int> m_position;
-	std::string m_couleur;
-	std::vector<std::pair<int, int>> m_mouvementsDisponibles; 
+	std::pair<int, int> position_;
+	bool estBlanc_;
+	std::vector<std::pair<int, int>> mouvementsDisponibles_; 
 
 // public slots:
 
 public:
-	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, std::string couleur);
-	int conversionCouleurInt(); 
+	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+	int conversionCouleurInt() const; 
 	void afficheMouvements();
+	void calculeMouvements(Echiquier e) override = 0;
 	void estCapturé() {};
-	std::vector<std::pair<int, int>> obtenirMouvements() { return m_mouvementsDisponibles; }
+	std::vector<std::pair<int, int>> obtenirMouvements() { return mouvementsDisponibles_; }
 };
 
+class Pion : virtual public Piece
+{	
+	const static int pionBlanc_ = 6; // Ces constantes serviront plus tard à bien afficher les bonnes pièces sur l'interface
+	const static int pionNoir_ = 12;
 
-class Pion : public Piece
-{
 public:
-	Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, std::string couleur);
-	void calculeMouvements(Echiquier e);
-
-private:
-	const static int m_pionBlanc = 6; // Ces constantes serviront plus tard à bien afficher les bonnes pièces sur l'interface
-	const static int m_pionNoir = 12;
+	Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+	void calculeMouvements(Echiquier e) override;
 };
 
-class Cavalier : public Piece
-{
+class Cavalier : virtual public Piece
+{	
+	const static int cavalierBlanc_ = 3;
+	const static int cavalierNoir_ = 9;
+
 public:
-	Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, std::string couleur);
-	void calculeMouvements(Echiquier e);
-private:
-	const static int m_cavalierBlanc = 3;
-	const static int m_cavalierNoir = 9;
+	Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+	void calculeMouvements(Echiquier e) override;
 };
 
-class Roi : public Piece
+class Roi : virtual public Piece
 {
+	const static int roiBlanc_ = 1;
+	const static int roiNoir_ = 7;
+
 public:
-	Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, std::string couleur);
-	void calculeMouvements(Echiquier e);
-private:
-	const static int m_roiBlanc = 1;
-	const static int m_roiNoir = 7;
+	Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+	void calculeMouvements(Echiquier e) override;
 };
 
-class Dame : public Piece
+class Dame : virtual public Piece
 {
+	const static int dameBlanc_ = 2;
+	const static int dameNoir_ = 8;
+
 public:
-	Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, std::string couleur);
-	void calculeMouvements(Echiquier e);
-private:
-	const static int m_dameBlanc = 2;
-	const static int m_dameNoir = 8;
+	Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+	void calculeMouvements(Echiquier e) override;
 };
 
-class Tour : public Piece
-{
+class Tour : virtual public Piece
+{	
+	const static int tourBlanc_ = 4;
+	const static int tourNoir_ = 10;
+
 public:
-	Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, std::string couleur);
-	void calculeMouvements(Echiquier e);
-private:
-	const static int m_tourBlanc = 4;
-	const static int m_tourNoir = 10;
+	Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+	void calculeMouvements(Echiquier e) override;
 };
 
-class Fou : public Piece
-{
+class Fou : virtual public Piece
+{	
+	const static int fouBlanc_ = 5;
+	const static int fouNoir_ = 11;
+
 public:
-	Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, std::string couleur);
-	void calculeMouvements(Echiquier e);
-private:
-	const static int m_fouBlanc = 5;
-	const static int m_fouNoir = 11;
+	Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+	void calculeMouvements(Echiquier e) override;
 };
