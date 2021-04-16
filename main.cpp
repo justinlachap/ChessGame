@@ -69,7 +69,6 @@ Cavalier::Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, boo
 {
 	nouvelEchiquier.cases[position.first][position.second] = (estBlanc) ? cavalierBlanc_ : cavalierNoir_;
 }
-
 Fou::Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
 	: Piece(nouvelEchiquier, position, estBlanc)
 {
@@ -91,7 +90,6 @@ Tour::Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBla
 	nouvelEchiquier.cases[position.first][position.second] = (estBlanc) ? tourBlanc_ : tourNoir_;
 }
 
-
 int Piece::conversionCouleurInt() const
 {
 	int blanc = 6, noir = 7;
@@ -106,8 +104,6 @@ void Piece::afficheMouvements()
 		std::cout << '(' << m.first << ", " << m.second << ") ";
 	std::cout << std::endl;
 }
-
-
 
 void Pion::calculeMouvements(Echiquier e)
 {
@@ -364,6 +360,7 @@ void Cavalier::calculeMouvements(Echiquier e)
 		}
 	}
 };
+
 void Dame::calculeMouvements(Echiquier e)
 {
 	// Pour des raisons conceptuelles, je n'ai pas fait hÈritÈ la Dame de tour et fou.
@@ -377,6 +374,15 @@ void Dame::calculeMouvements(Echiquier e)
 	for (std::pair<int, int> m : f.obtenirMouvements())
 		mouvementsDisponibles_.push_back(m);
 }
+
+bool Roi::estEn…chec(std::vector<std::pair<int, int>> mouvementsPiecesAdverses) {
+	for (std::pair<int, int> mouvement : mouvementsPiecesAdverses) {
+		if (mouvement == position_)
+			return true;
+	}
+	return false;
+};
+
 void initialiserBibliothequeCours([[maybe_unused]] int argc, [[maybe_unused]] char* argv[])
 {
 #ifdef BIBLIOTHEQUE_COURS_INCLUS

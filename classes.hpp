@@ -73,6 +73,7 @@ class Roi : virtual public Piece
 public:
 	Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 	void calculeMouvements(Echiquier e) override;
+	bool estEn…chec(std::vector<std::pair<int, int>>);
 };
 
 class Dame : virtual public Piece
