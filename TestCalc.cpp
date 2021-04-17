@@ -1,7 +1,7 @@
 ﻿// Les test pour le Modèle pour calculatrice simple.
 // Par Francois-R.Boyer@PolyMtl.ca
 
-#include "Calc.hpp"
+
 #include "classes.hpp"
 
 #if __has_include("gtest/gtest.h")

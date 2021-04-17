@@ -113,20 +113,17 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
-    <ClCompile Include="Calc.cpp" />
     <ClCompile Include="CalcWindow.cpp" />
     <ClCompile Include="googletest\src\gtest-all.cc" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="TestCalc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="Calc.hpp" />
     <QtMoc Include="CalcWindow.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cases.hpp" />
     <ClInclude Include="classes.hpp" />
-    <ClInclude Include="Scene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

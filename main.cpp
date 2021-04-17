@@ -1,4 +1,4 @@
-#include "Calc.hpp"
+
 #include "CalcWindow.hpp"
 #include <iostream>
 #include "classes.hpp"

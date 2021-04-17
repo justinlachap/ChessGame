@@ -8,7 +8,7 @@
 #include <QPushButton>
 #include <QString>
 #include <QLabel>
-#include "Scene.hpp"
+
 #pragma pop()
 
 class Case;
@@ -36,7 +36,7 @@ private:
 	//QPushButton* nouveauBouton(const QString& text, const T& slot = nullptr);
 
 	//Echiquier echiquier_;  // Le Modèle (pourrait être un pointeur mais pas nécessaire dans ce cas).
-	QGraphicsView* m_view;
-	MaScene* m_scene;
+	//QGraphicsView* m_view;
+	//MaScene* m_scene;
 	QLabel* affichage_;  // Pour la version QButtonGroup.
 };

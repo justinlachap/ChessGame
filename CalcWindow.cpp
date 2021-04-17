@@ -36,6 +36,7 @@ ChessWindow::ChessWindow(QWidget* parent) :
 	QMainWindow(parent)
 
 {
+
 	// Nom de la fenêtre
 	setWindowTitle("Jeu d'échecs");
 
@@ -73,7 +74,7 @@ ChessWindow::ChessWindow(QWidget* parent) :
 	
 	lbl3->setMinimumSize(100, 100);
 	lbl3->setPixmap(pix3.scaled(lbl3->width(), lbl3->height(), Qt::KeepAspectRatio));
-	lbl2->setGeometry(QRect(100 * c1.obtenirPosition().first, 100 * c1.obtenirPosition().second, 100, 100)); // (Qrect(x,y,height,width)
+	lbl3->setGeometry(QRect(100 * c1.obtenirPosition().first, 100 * c1.obtenirPosition().second, 100, 100)); // (Qrect(x,y,height,width)
 
 }
 
