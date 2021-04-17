@@ -97,7 +97,7 @@ int Piece::conversionCouleurInt() const
 	return delimiteur;
 }
 
-void Piece::afficheMouvements()
+void Piece::afficheMouvements() const
 {
 	std::cout << "Cette piece peut se deplacer aux cases: ";
 	for (std::pair<int, int> m : mouvementsDisponibles_)
