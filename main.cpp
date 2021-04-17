@@ -403,7 +403,8 @@ int main(int argc, char* argv[])
 	initialiserBibliothequeCours(argc, argv);
 
 	ChessWindow chessWindow;
-	chessWindow.showMaximized();
+	chessWindow.resize(800, 800);
+	chessWindow.show();
 
 	return app.exec();
 }

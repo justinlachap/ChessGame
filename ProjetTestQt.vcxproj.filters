@@ -56,5 +56,11 @@
     <ClInclude Include="classes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Scene.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cases.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

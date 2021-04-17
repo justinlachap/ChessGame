@@ -124,7 +124,9 @@
     <QtMoc Include="CalcWindow.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cases.hpp" />
     <ClInclude Include="classes.hpp" />
+    <ClInclude Include="Scene.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

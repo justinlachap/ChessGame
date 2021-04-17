@@ -8,7 +8,14 @@
 #include <QPushButton>
 #include <QString>
 #include <QLabel>
+#include "Scene.hpp"
 #pragma pop()
+
+class Case;
+
+namespace ui {
+	class MainWindow;
+}
 
 class ChessWindow : public QMainWindow {
 	Q_OBJECT
@@ -16,10 +23,12 @@ class ChessWindow : public QMainWindow {
 public:
 	ChessWindow(QWidget* parent = nullptr);
 	~ChessWindow() override = default;
+	QList<Case*> cases;
 
 public slots:
 	void changerValeurAffichee(int valeur);		// Pour la version QButtonGroup.
 	void chiffreAppuye();						//QAbstractButton* bouton);  // Pour la version setProperty.
+	
 
 
 private:
@@ -27,6 +36,7 @@ private:
 	//QPushButton* nouveauBouton(const QString& text, const T& slot = nullptr);
 
 	//Echiquier echiquier_;  // Le Modèle (pourrait être un pointeur mais pas nécessaire dans ce cas).
-
+	QGraphicsView* m_view;
+	MaScene* m_scene;
 	QLabel* affichage_;  // Pour la version QButtonGroup.
 };
