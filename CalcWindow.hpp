@@ -25,10 +25,6 @@ public:
 	~ChessWindow() override = default;
 	QList<Case*> cases;
 
-public slots:
-	void changerValeurAffichee(int valeur);		// Pour la version QButtonGroup.
-	void chiffreAppuye();						//QAbstractButton* bouton);  // Pour la version setProperty.
-	
 
 
 private:

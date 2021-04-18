@@ -45,7 +45,7 @@ ChessWindow::ChessWindow(QWidget* parent) :
 	Echiquier e;
 	e.initialiserVide();
 	Dame d1(e, std::make_pair(0, 0), false);
-	Cavalier c1(e, std::make_pair(5, 5), true);
+	Cavalier c1(e, std::make_pair(2, 2), true);
 
 	// Initialisation des labels en fonction du nombre de composantes
 	QLabel* lbl1 = new QLabel(this);
@@ -70,26 +70,10 @@ ChessWindow::ChessWindow(QWidget* parent) :
 
 	lbl2->setMinimumSize(100, 100);
 	lbl2->setPixmap(pix2.scaled(lbl2->width(), lbl2->height(), Qt::KeepAspectRatio));
-	lbl2->setGeometry(QRect(100*d1.obtenirPosition().first, 100*d1.obtenirPosition().second, 100, 100)); // (Qrect(x,y,height,width)
+	lbl2->setGeometry(QRect(100*d1.obtenirPosition().first, 100*(7-d1.obtenirPosition().second), 100, 100)); // (Qrect(x,y,height,width)
 	
 	lbl3->setMinimumSize(100, 100);
 	lbl3->setPixmap(pix3.scaled(lbl3->width(), lbl3->height(), Qt::KeepAspectRatio));
-	lbl3->setGeometry(QRect(100 * c1.obtenirPosition().first, 100 * c1.obtenirPosition().second, 100, 100)); // (Qrect(x,y,height,width)
+	lbl3->setGeometry(QRect(100 * c1.obtenirPosition().first, 100*(7 - c1.obtenirPosition().second), 100, 100)); // (Qrect(x,y,height,width)
 
-}
-
-
-// Pour la version QButtonGroup.
-// Pourrait aussi être sans paramètre et faire calc_.obtenirValeur()
-void ChessWindow::changerValeurAffichee(int valeur)
-{
-	affichage_->setText(QString::number(valeur));
-}
-
-
-// Pour la version setProperty.
-void ChessWindow::chiffreAppuye()
-{
-	// QObject::sender() est l'objet d'où vient le signal connecté à ce slot; attention qu'il sera nullptr si le slot est appelé directement au lieu de passer par un signal.
-	//calc_.ajouterChiffre(QObject::sender()->property("chiffre").value<int>());
 }
