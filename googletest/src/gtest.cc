@@ -1144,15 +1144,15 @@ class Hunk {
       case ' ':
         ++common_;
         FlushEdits();
-        hunk_.push_back(std::make_pair(' ', line));
+        hunk_.push_back(std::pair(' ', line));
         break;
       case '-':
         ++removes_;
-        hunk_removes_.push_back(std::make_pair('-', line));
+        hunk_removes_.push_back(std::pair('-', line));
         break;
       case '+':
         ++adds_;
-        hunk_adds_.push_back(std::make_pair('+', line));
+        hunk_adds_.push_back(std::pair('+', line));
         break;
     }
   }

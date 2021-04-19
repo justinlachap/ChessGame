@@ -547,7 +547,7 @@ class ThreadLocalRegistryImpl {
       MemoryIsNotDeallocated memory_is_not_deallocated;
 #endif  // _MSC_VER
       thread_local_pos = thread_to_thread_locals->insert(
-          std::make_pair(current_thread, ThreadLocalValues())).first;
+          std::pair(current_thread, ThreadLocalValues())).first;
       StartWatcherThreadFor(current_thread);
     }
     ThreadLocalValues& thread_local_values = thread_local_pos->second;
@@ -556,7 +556,7 @@ class ThreadLocalRegistryImpl {
     if (value_pos == thread_local_values.end()) {
       value_pos =
           thread_local_values
-              .insert(std::make_pair(
+              .insert(std::pair(
                   thread_local_instance,
                   std::shared_ptr<ThreadLocalValueHolderBase>(
                       thread_local_instance->NewValueForCurrentThread())))

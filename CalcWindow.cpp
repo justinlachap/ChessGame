@@ -34,9 +34,7 @@ using iter::range;
 
 ChessWindow::ChessWindow(QWidget* parent) :
 	QMainWindow(parent)
-
 {
-
 	// Nom de la fenêtre
 	setWindowTitle("Jeu d'échecs");
 
@@ -51,5 +49,4 @@ ChessWindow::ChessWindow(QWidget* parent) :
 
 	// Initialisation des pièces
 	positionInitiale(e);
-
 }

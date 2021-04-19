@@ -15,15 +15,15 @@ TEST(Mouvements, test_pions) {
 	echiquier.initialiserVide();
 
 	// initialisation de 4 pions noir et 4 pions blancs sur l'echiquier
-	Pion p1(echiquier, std::make_pair(1, 1), true);
-	Pion p2(echiquier, std::make_pair(2, 2), true);
-	Pion p3(echiquier, std::make_pair(3, 3), true);
-	Pion p4(echiquier, std::make_pair(4, 2), true);
+	Pion p1(echiquier, std::pair(1, 1), true);
+	Pion p2(echiquier, std::pair(2, 2), true);
+	Pion p3(echiquier, std::pair(3, 3), true);
+	Pion p4(echiquier, std::pair(4, 2), true);
 
-	Pion p5(echiquier, std::make_pair(2, 4), false);
-	Pion p6(echiquier, std::make_pair(3, 5), false);
-	Pion p7(echiquier, std::make_pair(1, 4), false);
-	Pion p8(echiquier, std::make_pair(0, 5), false);
+	Pion p5(echiquier, std::pair(2, 4), false);
+	Pion p6(echiquier, std::pair(3, 5), false);
+	Pion p7(echiquier, std::pair(1, 4), false);
+	Pion p8(echiquier, std::pair(0, 5), false);
 
 	// calcul des mouvements possibles pour chacun de ces pions
 	p1.calculeMouvements(echiquier);
@@ -48,15 +48,15 @@ TEST(Mouvements, test_pions) {
 	std::vector<std::pair<int, int>> calculated_p8 = p8.obtenirMouvements();
 
 	// vecteurs contenants les mouvements possibles attendues pour chaque pion
-	std::vector<std::pair<int, int>> expected_p1 = { std::make_pair(1, 3), std::make_pair(1, 2) };
-	std::vector<std::pair<int, int>> expected_p2 = { std::make_pair(2, 3) };
-	std::vector<std::pair<int, int>> expected_p3 = { std::make_pair(3, 4) , std::make_pair(2, 4) };
-	std::vector<std::pair<int, int>> expected_p4 = { std::make_pair(4, 3) };
+	std::vector<std::pair<int, int>> expected_p1 = { std::pair(1, 3), std::pair(1, 2) };
+	std::vector<std::pair<int, int>> expected_p2 = { std::pair(2, 3) };
+	std::vector<std::pair<int, int>> expected_p3 = { std::pair(3, 4) , std::pair(2, 4) };
+	std::vector<std::pair<int, int>> expected_p4 = { std::pair(4, 3) };
 
-	std::vector<std::pair<int, int>> expected_p5 = { std::make_pair(2, 3) , std::make_pair(3, 3) };
-	std::vector<std::pair<int, int>> expected_p6 = { std::make_pair(3, 4) };
-	std::vector<std::pair<int, int>> expected_p7 = { std::make_pair(1, 3) };
-	std::vector<std::pair<int, int>> expected_p8 = { std::make_pair(0, 4) };
+	std::vector<std::pair<int, int>> expected_p5 = { std::pair(2, 3) , std::pair(3, 3) };
+	std::vector<std::pair<int, int>> expected_p6 = { std::pair(3, 4) };
+	std::vector<std::pair<int, int>> expected_p7 = { std::pair(1, 3) };
+	std::vector<std::pair<int, int>> expected_p8 = { std::pair(0, 4) };
 
 	EXPECT_EQ(calculated_p1, expected_p1);
 	EXPECT_EQ(calculated_p2, expected_p2);
@@ -75,12 +75,12 @@ TEST(Mouvements, test_cavaliers) {
 	echiquier.initialiserVide();
 
 	// initialisation de 4 pions noir et 4 pions blancs sur l'echiquier
-	Cavalier c1(echiquier, std::make_pair(2, 2), true);
-	Cavalier c2(echiquier, std::make_pair(2, 5), true);
-	Pion p1(echiquier, std::make_pair(4, 3), true);
+	Cavalier c1(echiquier, std::pair(2, 2), true);
+	Cavalier c2(echiquier, std::pair(2, 5), true);
+	Pion p1(echiquier, std::pair(4, 3), true);
 
-	Cavalier c3(echiquier, std::make_pair(4, 4), false);
-	Cavalier c4(echiquier, std::make_pair(5, 5), false);
+	Cavalier c3(echiquier, std::pair(4, 4), false);
+	Cavalier c4(echiquier, std::pair(5, 5), false);
 
 	// calcul des mouvements possibles pour chacun de ces pions
 	c1.calculeMouvements(echiquier);
@@ -98,26 +98,26 @@ TEST(Mouvements, test_cavaliers) {
 
 	// vecteurs contenants les mouvements possibles attendues pour chaque pion
 	std::vector<std::pair<int, int>> expected_c1 = {
-		std::make_pair(1, 0), std::make_pair(3, 0),
-		std::make_pair(4, 1), std::make_pair(3, 4),
-		std::make_pair(1, 4), std::make_pair(0, 3),
-		std::make_pair(0, 1) };
+		std::pair(1, 0), std::pair(3, 0),
+		std::pair(4, 1), std::pair(3, 4),
+		std::pair(1, 4), std::pair(0, 3),
+		std::pair(0, 1) };
 	std::vector<std::pair<int, int>> expected_c2 = {
-		std::make_pair(1, 3), std::make_pair(3, 3),
-		std::make_pair(4, 4), std::make_pair(4, 6),
-		std::make_pair(3, 7), std::make_pair(1, 7),
-		std::make_pair(0, 6), std::make_pair(0, 4) };
+		std::pair(1, 3), std::pair(3, 3),
+		std::pair(4, 4), std::pair(4, 6),
+		std::pair(3, 7), std::pair(1, 7),
+		std::pair(0, 6), std::pair(0, 4) };
 
 	std::vector<std::pair<int, int>> expected_c3 = {
-		std::make_pair(3, 2), std::make_pair(5, 2),
-		std::make_pair(6, 3), std::make_pair(6, 5),
-		std::make_pair(5, 6), std::make_pair(3, 6),
-		std::make_pair(2, 5), std::make_pair(2, 3) };
+		std::pair(3, 2), std::pair(5, 2),
+		std::pair(6, 3), std::pair(6, 5),
+		std::pair(5, 6), std::pair(3, 6),
+		std::pair(2, 5), std::pair(2, 3) };
 	std::vector<std::pair<int, int>> expected_c4 = {
-		std::make_pair(4, 3), std::make_pair(6, 3),
-		std::make_pair(7, 4), std::make_pair(7, 6),
-		std::make_pair(6, 7), std::make_pair(4, 7),
-		std::make_pair(3, 6), std::make_pair(3, 4) };
+		std::pair(4, 3), std::pair(6, 3),
+		std::pair(7, 4), std::pair(7, 6),
+		std::pair(6, 7), std::pair(4, 7),
+		std::pair(3, 6), std::pair(3, 4) };
 
 	EXPECT_EQ(calculated_c1, expected_c1);
 	EXPECT_EQ(calculated_c2, expected_c2);
@@ -131,15 +131,15 @@ TEST(Mouvements, test_tours) {
 	echiquier.initialiserVide();
 
 	// initialisation de 4 pions noir et 4 pions blancs sur l'echiquier
-	Tour t1(echiquier, std::make_pair(0, 0), true);
-	Tour t2(echiquier, std::make_pair(7, 0), true);
-	Fou f1(echiquier, std::make_pair(2, 0), true);
-	Cavalier c1(echiquier, std::make_pair(6, 0), true);
+	Tour t1(echiquier, std::pair(0, 0), true);
+	Tour t2(echiquier, std::pair(7, 0), true);
+	Fou f1(echiquier, std::pair(2, 0), true);
+	Cavalier c1(echiquier, std::pair(6, 0), true);
 
-	Tour t3(echiquier, std::make_pair(0, 7), false);
-	Tour t4(echiquier, std::make_pair(7, 7), false);
-	Pion p1(echiquier, std::make_pair(0, 3), false);
-	Fou f2(echiquier, std::make_pair(7, 4), false);
+	Tour t3(echiquier, std::pair(0, 7), false);
+	Tour t4(echiquier, std::pair(7, 7), false);
+	Pion p1(echiquier, std::pair(0, 3), false);
+	Fou f2(echiquier, std::pair(7, 4), false);
 
 
 	// calcul des mouvements possibles pour chacun de ces pions
@@ -158,23 +158,23 @@ TEST(Mouvements, test_tours) {
 
 	// vecteurs contenants les mouvements possibles attendues pour chaque pion
 	std::vector<std::pair<int, int>> expected_t1 = {
-		std::make_pair(1, 0), std::make_pair(0, 1),
-		std::make_pair(0, 2), std::make_pair(0, 3) };
+		std::pair(1, 0), std::pair(0, 1),
+		std::pair(0, 2), std::pair(0, 3) };
 	std::vector<std::pair<int, int>> expected_t2 = {
-		std::make_pair(7, 1), std::make_pair(7, 2),
-		std::make_pair(7, 3), std::make_pair(7, 4) };
+		std::pair(7, 1), std::pair(7, 2),
+		std::pair(7, 3), std::pair(7, 4) };
 
 	std::vector<std::pair<int, int>> expected_t3 = {
-		std::make_pair(1, 7), std::make_pair(2, 7),
-		std::make_pair(3, 7), std::make_pair(4, 7),
-		std::make_pair(5, 7), std::make_pair(6, 7),
-		std::make_pair(0, 6), std::make_pair(0, 5),
-		std::make_pair(0, 4) };
+		std::pair(1, 7), std::pair(2, 7),
+		std::pair(3, 7), std::pair(4, 7),
+		std::pair(5, 7), std::pair(6, 7),
+		std::pair(0, 6), std::pair(0, 5),
+		std::pair(0, 4) };
 	std::vector<std::pair<int, int>> expected_t4 = {
-		std::make_pair(6, 7), std::make_pair(5, 7),
-		std::make_pair(4, 7), std::make_pair(3, 7),
-		std::make_pair(2, 7), std::make_pair(1, 7),
-		std::make_pair(7, 6), std::make_pair(7, 5) };
+		std::pair(6, 7), std::pair(5, 7),
+		std::pair(4, 7), std::pair(3, 7),
+		std::pair(2, 7), std::pair(1, 7),
+		std::pair(7, 6), std::pair(7, 5) };
 
 	EXPECT_EQ(calculated_t1, expected_t1);
 	EXPECT_EQ(calculated_t2, expected_t2);
