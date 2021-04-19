@@ -33,6 +33,8 @@ public:
 		lbl4->setMinimumSize(100, 100);
 		lbl4->setPixmap(pix4.scaled(lbl4->width(), lbl4->height(), Qt::KeepAspectRatio));
 		lbl4->setGeometry(QRect(100 * p->obtenirPosition().first, 100 * (7 - p->obtenirPosition().second), 100, 100)); // (Qrect(x,y,height,width)
+		lbl4->setTextInteractionFlags(Qt::TextSelectableByMouse);
+		
 	}
 	void positionInitiale(Echiquier e) {
 		Roi R1(e, std::pair(4, 0), true);

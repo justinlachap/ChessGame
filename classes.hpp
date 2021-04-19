@@ -20,7 +20,7 @@ public:
 	}
 
 private:
-	const QString echiquier = "Chess_board.png";
+	const QString echiquier = "images/Chess_board.png";
 	// Toutes les pièces doivent pouvoir accéder facilement aux cases de l'échiquier. 
 	// C'est pourquoi l'attribut cases est public et qu'il n'y a pas d'encapsulation.
 };
@@ -56,8 +56,8 @@ class Pion : virtual public Piece
 {
 	const static int pionBlanc_ = 6; // Ces constantes serviront plus tard à bien afficher les bonnes pièces sur l'interface
 	const static int pionNoir_ = 12;
-	const QString pionBlanc = "white_pawn.png";
-	const QString pionNoir = "black_pawn.png";
+	const QString pionBlanc = "images/white_pawn.png";
+	const QString pionNoir = "images/black_pawn.png";
 
 public:
 	Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
@@ -74,8 +74,8 @@ class Cavalier : virtual public Piece
 {
 	const static int cavalierBlanc_ = 3;
 	const static int cavalierNoir_ = 9;
-	const QString cavalierBlanc = "white_knight.png";
-	const QString cavalierNoir = "black_knight.png";
+	const QString cavalierBlanc = "images/white_knight.png";
+	const QString cavalierNoir = "images/black_knight.png";
 
 
 public:
@@ -94,8 +94,8 @@ class Roi : virtual public Piece
 {
 	const static int roiBlanc_ = 1;
 	const static int roiNoir_ = 7;
-	const QString roiBlanc = "white_king.png";
-	const QString roineNoir = "black_king.png";
+	const QString roiBlanc = "images/white_king.png";
+	const QString roineNoir = "images/black_king.png";
 
 public:
 	Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
@@ -114,8 +114,8 @@ class Dame : virtual public Piece
 {
 	const static int dameBlanc_ = 2;
 	const static int dameNoir_ = 8;
-	const QString reineBlanche = "white_queen.png";
-	const QString reineNoire = "black_queen.png";
+	const QString reineBlanche = "images/white_queen.png";
+	const QString reineNoire = "images/black_queen.png";
 
 
 
@@ -135,8 +135,8 @@ class Tour : virtual public Piece
 {
 	const static int tourBlanc_ = 4;
 	const static int tourNoir_ = 10;
-	const QString tourBlanche = "white_rook.png";
-	const QString tourNoire = "black_rook.png";
+	const QString tourBlanche = "images/white_rook.png";
+	const QString tourNoire = "images/black_rook.png";
 
 public:
 	Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
@@ -153,8 +153,8 @@ class Fou : virtual public Piece
 {
 	const static int fouBlanc_ = 5;
 	const static int fouNoir_ = 11;
-	const QString fouBlanc = "white_bishop.png";
-	const QString fouNoir = "black_bishop.png";
+	const QString fouBlanc = "images/white_bishop.png";
+	const QString fouNoir = "images/black_bishop.png";
 
 public:
 	Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
