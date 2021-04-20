@@ -26,15 +26,15 @@ TEST(Mouvements, test_pions) {
 	Pion p8(echiquier, std::pair(0, 5), false);
 
 	// calcul des mouvements possibles pour chacun de ces pions
-	p1.calculeMouvements(echiquier);
-	p2.calculeMouvements(echiquier);
-	p3.calculeMouvements(echiquier);
-	p4.calculeMouvements(echiquier);
+	p1.calculerMouvements(echiquier);
+	p2.calculerMouvements(echiquier);
+	p3.calculerMouvements(echiquier);
+	p4.calculerMouvements(echiquier);
 
-	p5.calculeMouvements(echiquier);
-	p6.calculeMouvements(echiquier);
-	p7.calculeMouvements(echiquier);
-	p8.calculeMouvements(echiquier);
+	p5.calculerMouvements(echiquier);
+	p6.calculerMouvements(echiquier);
+	p7.calculerMouvements(echiquier);
+	p8.calculerMouvements(echiquier);
 
 	// vecteurs contenants les mouvements possibles calculés pour chaque pion
 	std::vector<std::pair<int, int>> calculated_p1 = p1.obtenirMouvements();
@@ -83,11 +83,11 @@ TEST(Mouvements, test_cavaliers) {
 	Cavalier c4(echiquier, std::pair(5, 5), false);
 
 	// calcul des mouvements possibles pour chacun de ces pions
-	c1.calculeMouvements(echiquier);
-	c2.calculeMouvements(echiquier);
+	c1.calculerMouvements(echiquier);
+	c2.calculerMouvements(echiquier);
 
-	c3.calculeMouvements(echiquier);
-	c4.calculeMouvements(echiquier);
+	c3.calculerMouvements(echiquier);
+	c4.calculerMouvements(echiquier);
 
 	// vecteurs contenants les mouvements possibles calculés pour chaque pion
 	std::vector<std::pair<int, int>> calculated_c1 = c1.obtenirMouvements();
@@ -143,11 +143,11 @@ TEST(Mouvements, test_tours) {
 
 
 	// calcul des mouvements possibles pour chacun de ces pions
-	t1.calculeMouvements(echiquier);
-	t2.calculeMouvements(echiquier);
+	t1.calculerMouvements(echiquier);
+	t2.calculerMouvements(echiquier);
 
-	t3.calculeMouvements(echiquier);
-	t4.calculeMouvements(echiquier);
+	t3.calculerMouvements(echiquier);
+	t4.calculerMouvements(echiquier);
 
 	// vecteurs contenants les mouvements possibles calculés pour chaque pion
 	std::vector<std::pair<int, int>> calculated_t1 = t1.obtenirMouvements();

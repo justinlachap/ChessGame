@@ -1,5 +1,4 @@
-
-#include "CalcWindow.hpp"
+#include "ChessWindow.hpp"
 #include <iostream>
 #include "classes.hpp"
 #include "gsl/span"
@@ -23,79 +22,54 @@ auto& cdbg = clog;
 using namespace iter;
 using namespace gsl;
 
-static const int uneCase = 1;
-static const int tailleEchiquier = 7;
-static const int caseVide = 0;
-
-int conversionIntLimite(int caseEchiquier) // Cette fonction sera souvent comparée avec la fonction conversionCouleurInt(), pour déterminer si 2 pièces ont la même couleur.
-{
-	int delimitationBlanche = 6, delimitationNoire = 7;
-
-	if ((caseEchiquier <= delimitationBlanche) && (caseEchiquier != caseVide))
-		return delimitationBlanche;
-	else if (caseEchiquier > delimitationBlanche)
-	{
-		int noir = delimitationNoire;
-		return noir;
-	}
-	else
-	{
-		int none = 0;
-		return none;
-	}
-};
+static const int UNE_CASE = 1;
+static const int TAILLE_ECHIQUIER_MIN = 0;
+static const int TAILLE_ECHIQUIER_MAX = 7;
+static const Piece* CASE_VIDE = nullptr;
 
 void Echiquier::initialiserVide()
 {
-	for (int i = 0; i <= tailleEchiquier; i++)
+	for (int i = 0; i <= TAILLE_ECHIQUIER_MAX; i++)
 	{
-		for (int j = 0; j <= tailleEchiquier; j++)
-			cases[i][j] = 0;
+		for (int j = 0; j <= TAILLE_ECHIQUIER_MAX; j++)
+			cases[i][j] = nullptr;
 	}
 }
 
-Piece::Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
+Piece::Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, char nom, bool estBlanc)
+	: position_(position), nom_(nom), estBlanc_(estBlanc) {}
+
+Pion::Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
+	: Piece(nouvelEchiquier, position, 'P', estBlanc)
 {
-	position_ = position;
-	estBlanc_ = estBlanc;
-}
-Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
-	: Piece(nouvelEchiquier, position, estBlanc)
-{
-	nouvelEchiquier.cases[position.first][position.second] = (estBlanc) ? dameBlanc_ : dameNoir_;
+	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 Cavalier::Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
-	: Piece(nouvelEchiquier, position, estBlanc)
+	: Piece(nouvelEchiquier, position, 'C', estBlanc)
 {
-	nouvelEchiquier.cases[position.first][position.second] = (estBlanc) ? cavalierBlanc_ : cavalierNoir_;
+	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 Fou::Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
-	: Piece(nouvelEchiquier, position, estBlanc)
+	: Piece(nouvelEchiquier, position, 'F', estBlanc)
 {
-	nouvelEchiquier.cases[position.first][position.second] = (estBlanc) ? fouBlanc_ : fouNoir_;
+	nouvelEchiquier.cases[position.first][position.second] = this;
 }
-Pion::Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
-	: Piece(nouvelEchiquier, position, estBlanc)
+Tour::Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
+	: Piece(nouvelEchiquier, position, 'T', estBlanc)
 {
-	nouvelEchiquier.cases[position.first][position.second] = (estBlanc) ? pionBlanc_ : pionNoir_;
+	nouvelEchiquier.cases[position.first][position.second] = this;
+}
+Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
+	: Tour(nouvelEchiquier, position, estBlanc), Fou(nouvelEchiquier, position, estBlanc), Piece(nouvelEchiquier, position, 'D', estBlanc)
+{
+	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 Roi::Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
-	: Piece(nouvelEchiquier, position, estBlanc)
+	: Piece(nouvelEchiquier, position, 'R', estBlanc)
 {
-	nouvelEchiquier.cases[position.first][position.second] = (estBlanc) ? roiBlanc_ : roiNoir_;
+	nouvelEchiquier.cases[position.first][position.second] = this;
 };
-Tour::Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
-	: Piece(nouvelEchiquier, position, estBlanc)
-{
-	nouvelEchiquier.cases[position.first][position.second] = (estBlanc) ? tourBlanc_ : tourNoir_;
-}
 
-int Piece::conversionCouleurInt() const
-{
-	int blanc = 6, noir = 7;
-	int delimiteur = (estBlanc_) ? blanc : noir;
-	return delimiteur;
-}
 
 void Piece::afficheMouvements() const
 {
@@ -105,7 +79,7 @@ void Piece::afficheMouvements() const
 	std::cout << std::endl;
 }
 
-void Pion::calculeMouvements(Echiquier e)
+void Pion::calculerMouvements(Echiquier e)
 {
 
 	int avancerDeuxCases = 2;
@@ -113,24 +87,24 @@ void Pion::calculeMouvements(Echiquier e)
 	if (estBlanc_)
 	{
 		// si n'a pas bougé, il peut avancer de 2 cases vers l'avant
-		if ((position_.second == uneCase) && (e.cases[position_.first][position_.second + avancerDeuxCases] == caseVide))
+		if ((position_.second == UNE_CASE) && (e.cases[position_.first][position_.second + avancerDeuxCases] == CASE_VIDE))
 			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second + avancerDeuxCases));
 
 		// si la case d'en avant est disponible, il peut avancer d'une case
-		if ((e.cases[position_.first][position_.second + uneCase] == caseVide))
-			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second + uneCase));
+		if ((e.cases[position_.first][position_.second + UNE_CASE] == CASE_VIDE))
+			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second + UNE_CASE));
 
 		// si il peut manger une piece a droite, il peut avancer d'une case en diagonale
-		if (conversionIntLimite(e.cases[position_.first + uneCase][position_.second + uneCase]) != conversionCouleurInt()
-			&& conversionIntLimite(e.cases[position_.first + uneCase][position_.second + uneCase]) != caseVide
-			&& (position_.first != tailleEchiquier))
-			mouvementsDisponibles_.push_back(std::pair(position_.first + uneCase, position_.second + uneCase));
+		if (e.cases[position_.first + UNE_CASE][position_.second + UNE_CASE] != CASE_VIDE
+			&& e.cases[position_.first + UNE_CASE][position_.second + UNE_CASE]->obtenirCouleur() != this->estBlanc_
+			&& (position_.first != TAILLE_ECHIQUIER_MAX))
+			mouvementsDisponibles_.push_back(std::pair(position_.first + UNE_CASE, position_.second + UNE_CASE));
 
 		// si il peut manger une piece a gauche, il peut avancer d'une case en diagonale
-		if (conversionIntLimite(e.cases[position_.first - uneCase][position_.second + uneCase]) != conversionCouleurInt()
-			&& conversionIntLimite(e.cases[position_.first - uneCase][position_.second + uneCase]) != caseVide
-			&& (position_.first != caseVide))
-			mouvementsDisponibles_.push_back(std::pair(position_.first - uneCase, position_.second + uneCase));
+		if (e.cases[position_.first - UNE_CASE][position_.second + UNE_CASE] != CASE_VIDE
+			&& e.cases[position_.first - UNE_CASE][position_.second + UNE_CASE]->obtenirCouleur() != this->estBlanc_
+			&& (position_.first != TAILLE_ECHIQUIER_MIN))
+			mouvementsDisponibles_.push_back(std::pair(position_.first - UNE_CASE, position_.second + UNE_CASE));
 	}
 
 	// pion noir
@@ -138,213 +112,79 @@ void Pion::calculeMouvements(Echiquier e)
 	{
 		// si pion noir n'a pas bougé, il peut avancer de 2 cases vers l'avant
 		if ((position_.second == 6)
-			&& (e.cases[position_.first][position_.second - avancerDeuxCases] == caseVide))
+			&& (e.cases[position_.first][position_.second - avancerDeuxCases] == CASE_VIDE))
 			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second - avancerDeuxCases));
 
 		// si la case d'en avant est disponible, il peut avancer d'une case
-		if ((e.cases[position_.first][position_.second - uneCase] == caseVide))
-			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second - uneCase));
+		if ((e.cases[position_.first][position_.second - UNE_CASE] == CASE_VIDE))
+			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second - UNE_CASE));
 
 		// si il peut manger une piece a droite, il peut avancer d'une case en diagonale
-		if (conversionIntLimite(e.cases[position_.first - uneCase][position_.second - uneCase]) != conversionCouleurInt()
-			&& conversionIntLimite(e.cases[position_.first - uneCase][position_.second - uneCase]) != caseVide
-			&& (position_.first != caseVide))
-			mouvementsDisponibles_.push_back(std::pair(position_.first - uneCase, position_.second - uneCase));
+		if (e.cases[position_.first - UNE_CASE][position_.second - UNE_CASE] != CASE_VIDE
+			&& e.cases[position_.first - UNE_CASE][position_.second - UNE_CASE]->obtenirCouleur() != this->estBlanc_
+			&& (position_.first != TAILLE_ECHIQUIER_MIN))
+			mouvementsDisponibles_.push_back(std::pair(position_.first - UNE_CASE, position_.second - UNE_CASE));
 
 		// si il peut manger une piece a gauche, il peut avancer d'une case en diagonale
-		if (conversionIntLimite(e.cases[position_.first + uneCase][position_.second - uneCase]) != conversionCouleurInt()
-			&& conversionIntLimite(e.cases[position_.first + uneCase][position_.second - uneCase]) != caseVide
-			&& (position_.first != tailleEchiquier))
-			mouvementsDisponibles_.push_back(std::pair(position_.first + uneCase, position_.second - uneCase));
+		if (e.cases[position_.first + UNE_CASE][position_.second - UNE_CASE] != CASE_VIDE
+			&& e.cases[position_.first + UNE_CASE][position_.second - UNE_CASE]->obtenirCouleur() != this->estBlanc_
+			&& (position_.first != TAILLE_ECHIQUIER_MAX))
+			mouvementsDisponibles_.push_back(std::pair(position_.first + UNE_CASE, position_.second - UNE_CASE));
 	}
 }
 
-void Roi::calculeMouvements(Echiquier e)
+void Roi::calculerMouvements(Echiquier e)
 {
 	// vers la droite
-	if (((e.cases[position_.first + uneCase][position_.second] == caseVide)
-		|| conversionIntLimite(e.cases[position_.first + uneCase][position_.second]) != conversionCouleurInt())
-		&& (position_.first != tailleEchiquier))
-		mouvementsDisponibles_.push_back(std::pair(position_.first + uneCase, position_.second));
+	if (((e.cases[position_.first + UNE_CASE][position_.second] == CASE_VIDE)
+		|| e.cases[position_.first + UNE_CASE][position_.second]->obtenirCouleur() != this->estBlanc_)
+		&& (position_.first != TAILLE_ECHIQUIER_MAX))
+		mouvementsDisponibles_.push_back(std::pair(position_.first + UNE_CASE, position_.second));
 
 	// vers la gauche
-	if (((e.cases[position_.first - uneCase][position_.second] == caseVide)
-		|| conversionIntLimite(e.cases[position_.first - uneCase][position_.second]) != conversionCouleurInt())
-		&& (position_.first != caseVide))
-		mouvementsDisponibles_.push_back(std::pair(position_.first - uneCase, position_.second));
+	if (((e.cases[position_.first - UNE_CASE][position_.second] == CASE_VIDE)
+		|| e.cases[position_.first - UNE_CASE][position_.second]->obtenirCouleur() != this->estBlanc_)
+		&& (position_.first != TAILLE_ECHIQUIER_MIN))
+		mouvementsDisponibles_.push_back(std::pair(position_.first - UNE_CASE, position_.second));
 
 	// vers le haut
-	if (((e.cases[position_.first][position_.second + uneCase] == caseVide)
-		|| conversionIntLimite(e.cases[position_.first][position_.second + uneCase]) != conversionCouleurInt()) && (position_.second != tailleEchiquier))
-		mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second + uneCase));
+	if (((e.cases[position_.first][position_.second + UNE_CASE] == CASE_VIDE)
+		|| e.cases[position_.first][position_.second + UNE_CASE]->obtenirCouleur() != this->estBlanc_)
+		&& (position_.second != TAILLE_ECHIQUIER_MAX))
+		mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second + UNE_CASE));
 
 	// vers le bas
-	if (((e.cases[position_.first][position_.second - uneCase] == caseVide)
-		|| conversionIntLimite(e.cases[position_.first][position_.second - uneCase]) != conversionCouleurInt())
-		&& (position_.second != caseVide))
-		mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second - uneCase));
+	if (((e.cases[position_.first][position_.second - UNE_CASE] == CASE_VIDE)
+		|| e.cases[position_.first][position_.second - UNE_CASE]->obtenirCouleur() != this->estBlanc_)
+		&& (position_.second != TAILLE_ECHIQUIER_MIN))
+		mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second - UNE_CASE));
 
 	// droite-haut
-	if (((e.cases[position_.first + uneCase][position_.second + uneCase] == caseVide)
-		|| (conversionIntLimite(e.cases[position_.first + uneCase][position_.second + uneCase]) != conversionCouleurInt()))
-		&& ((position_.second != tailleEchiquier) && (position_.first != tailleEchiquier)))
-		mouvementsDisponibles_.push_back(std::pair(position_.first + uneCase, position_.second + uneCase));
+	if (((e.cases[position_.first + UNE_CASE][position_.second + UNE_CASE] == CASE_VIDE)
+		|| (e.cases[position_.first + UNE_CASE][position_.second + UNE_CASE]->obtenirCouleur() != this->estBlanc_))
+		&& ((position_.second != TAILLE_ECHIQUIER_MAX) && (position_.first != TAILLE_ECHIQUIER_MAX)))
+		mouvementsDisponibles_.push_back(std::pair(position_.first + UNE_CASE, position_.second + UNE_CASE));
 
 	// gauche-haut
-	if (((e.cases[position_.first - uneCase][position_.second + uneCase] == caseVide)
-		|| (conversionIntLimite(e.cases[position_.first - uneCase][position_.second + uneCase]) != conversionCouleurInt()))
-		&& ((position_.second != tailleEchiquier) && (position_.first != caseVide)))
-		mouvementsDisponibles_.push_back(std::pair(position_.first - uneCase, position_.second + uneCase));
+	if (((e.cases[position_.first - UNE_CASE][position_.second + UNE_CASE] == CASE_VIDE)
+		|| (e.cases[position_.first - UNE_CASE][position_.second + UNE_CASE]->obtenirCouleur() != this->estBlanc_))
+		&& ((position_.second != TAILLE_ECHIQUIER_MAX) && (position_.first != TAILLE_ECHIQUIER_MIN)))
+		mouvementsDisponibles_.push_back(std::pair(position_.first - UNE_CASE, position_.second + UNE_CASE));
 
 	// droite-bas
-	if (((e.cases[position_.first + uneCase][position_.second - uneCase] == caseVide)
-		|| (conversionIntLimite(e.cases[position_.first + uneCase][position_.second - uneCase]) != conversionCouleurInt()))
-		&& ((position_.second != caseVide) && (position_.first != tailleEchiquier)))
-		mouvementsDisponibles_.push_back(std::pair(position_.first + uneCase, position_.second - uneCase));
+	if (((e.cases[position_.first + UNE_CASE][position_.second - UNE_CASE] == CASE_VIDE)
+		|| (e.cases[position_.first + UNE_CASE][position_.second - UNE_CASE]->obtenirCouleur() != this->estBlanc_))
+		&& ((position_.second != TAILLE_ECHIQUIER_MIN) && (position_.first != TAILLE_ECHIQUIER_MAX)))
+		mouvementsDisponibles_.push_back(std::pair(position_.first + UNE_CASE, position_.second - UNE_CASE));
 
 	//mouvement gauche-bas
-	if (((e.cases[position_.first - uneCase][position_.second - uneCase] == caseVide)
-		|| (conversionIntLimite(e.cases[position_.first - uneCase][position_.second - uneCase]) != conversionCouleurInt()))
-		&& ((position_.second != caseVide) && (position_.first != caseVide)))
-		mouvementsDisponibles_.push_back(std::pair(position_.first - uneCase, position_.second - uneCase));
+	if (((e.cases[position_.first - UNE_CASE][position_.second - UNE_CASE] == CASE_VIDE)
+		|| (e.cases[position_.first - UNE_CASE][position_.second - UNE_CASE]->obtenirCouleur() != this->estBlanc_))
+		&& ((position_.second != TAILLE_ECHIQUIER_MIN) && (position_.first != TAILLE_ECHIQUIER_MIN)))
+		mouvementsDisponibles_.push_back(std::pair(position_.first - UNE_CASE, position_.second - UNE_CASE));
 };
 
-void Tour::calculeMouvements(Echiquier e)
-{
-	// nombre de position vides vers la droite
-	for (int positionsRangeeVersLaDroite : iter::range(position_.first, tailleEchiquier))
-	{
-		if (e.cases[positionsRangeeVersLaDroite + uneCase][position_.second] != caseVide)
-		{
-			if (conversionIntLimite(e.cases[positionsRangeeVersLaDroite + uneCase][position_.second]) != conversionCouleurInt())
-				mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, position_.second));
-			break;
-		}
-		if (e.cases[positionsRangeeVersLaDroite + uneCase][position_.second] == caseVide)
-			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, position_.second));
-	}
-
-	// nombre de position vides vers la gauche
-	for (int positionsRangeeVersLaGauche : iter::range(position_.first, 0, -uneCase))
-	{
-		if (e.cases[positionsRangeeVersLaGauche - uneCase][position_.second] != caseVide)
-		{
-			if (conversionIntLimite(e.cases[positionsRangeeVersLaGauche - uneCase][position_.second]) != conversionCouleurInt())
-				mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, position_.second));
-			break;
-		};
-		if (e.cases[positionsRangeeVersLaGauche - uneCase][position_.second] == caseVide)
-			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, position_.second));
-	}
-
-	// nombre de position vides vers le haut
-	for (int positionsRangeeVersLeHaut : iter::range(position_.second, tailleEchiquier))
-	{
-		if (e.cases[position_.first][positionsRangeeVersLeHaut + uneCase] != caseVide)
-		{
-			if (conversionIntLimite(e.cases[position_.first][positionsRangeeVersLeHaut + uneCase]) != conversionCouleurInt())
-				mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeHaut + uneCase));
-			break;
-		}
-		if (e.cases[position_.first][positionsRangeeVersLeHaut + uneCase] == caseVide)
-			mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeHaut + uneCase));
-	}
-
-	// nombre de position vides vers le bas
-	for (int positionsRangeeVersLeBas : iter::range(position_.second, 0, -uneCase))
-	{
-		if (e.cases[position_.first][positionsRangeeVersLeBas - uneCase] != caseVide)
-		{
-			if (conversionIntLimite(e.cases[position_.first][positionsRangeeVersLeBas - uneCase]) != conversionCouleurInt())
-				mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeBas - uneCase));
-			break;
-		}
-		if (e.cases[position_.first][positionsRangeeVersLeBas - uneCase] == caseVide)
-			mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeBas - uneCase));
-	}
-};
-
-void Fou::calculeMouvements(Echiquier e)
-{
-	// nombre de position vides vers la droite
-	int positionsRangeeVersLaDroite = position_.first;
-	// nombre de position vides vers le haut
-	int positionsRangeeVersLeHaut = position_.second;
-	while (positionsRangeeVersLaDroite < tailleEchiquier && positionsRangeeVersLeHaut < tailleEchiquier)
-	{
-		if (conversionIntLimite(e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeHaut + uneCase]) == conversionCouleurInt())
-			break;
-		else
-		{
-			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, positionsRangeeVersLeHaut + uneCase));
-			if (conversionIntLimite(e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeHaut + uneCase]) != conversionCouleurInt() &&
-				(conversionIntLimite(e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeHaut + uneCase]) != caseVide))
-				break;
-		}
-		positionsRangeeVersLaDroite += uneCase;
-		positionsRangeeVersLeHaut += uneCase;
-	}
-
-
-	int positionsRangeeVersLaGauche = position_.first; // nombre de position vides vers la droite
-	positionsRangeeVersLeHaut = position_.second; // nombre de position vides vers le haut
-
-	while (positionsRangeeVersLaGauche > 0 and positionsRangeeVersLeHaut < tailleEchiquier)
-	{
-		if (conversionIntLimite(e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeHaut + uneCase]) == conversionCouleurInt())
-			break;
-		else
-		{
-			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, positionsRangeeVersLeHaut + uneCase));
-			if (conversionIntLimite(e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeHaut + uneCase]) != conversionCouleurInt() &&
-				(conversionIntLimite(e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeHaut + uneCase]) != caseVide))
-				break;
-		}
-		positionsRangeeVersLaGauche -= uneCase;
-		positionsRangeeVersLeHaut += uneCase;
-	}
-
-
-	positionsRangeeVersLaGauche = position_.first; // nombre de position vides vers la droite
-	int positionsRangeeVersLeBas = position_.second; // nombre de position vides vers le haut
-
-	while (positionsRangeeVersLaGauche > 0 && positionsRangeeVersLeBas > 0)
-	{
-		if (conversionIntLimite(e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeBas - uneCase]) == conversionCouleurInt())
-			break;
-		else
-		{
-			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, positionsRangeeVersLeBas - uneCase));
-			if (conversionIntLimite(e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeBas - uneCase]) != conversionCouleurInt() &&
-				(conversionIntLimite(e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeBas - uneCase]) != caseVide))
-				break;
-		}
-		positionsRangeeVersLaGauche -= uneCase;
-		positionsRangeeVersLeBas -= uneCase;
-	}
-
-
-	positionsRangeeVersLaDroite = position_.first; // nombre de position vides vers la droite
-	positionsRangeeVersLeBas = position_.second; // nombre de position vides vers le haut
-
-	while (positionsRangeeVersLaDroite < tailleEchiquier && positionsRangeeVersLeBas > 0)
-	{
-		if (conversionIntLimite(e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeBas - uneCase]) == conversionCouleurInt())
-			break;
-		else
-		{
-			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, positionsRangeeVersLeBas - uneCase));
-			if (conversionIntLimite(e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeBas - uneCase]) != conversionCouleurInt() &&
-				(conversionIntLimite(e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeBas - uneCase]) != caseVide))
-				break;
-		}
-		positionsRangeeVersLaDroite += uneCase;
-		positionsRangeeVersLeBas -= uneCase;
-	}
-
-}
-
-void Cavalier::calculeMouvements(Echiquier e)
+void Cavalier::calculerMouvements(Echiquier e)
 {
 	std::pair<int, int> deplacements[8] = { std::pair(-1,-2),std::pair(1,-2),std::pair(2,-1),std::pair(2,1),std::pair(1,2),std::pair(-1,2),std::pair(-2,1),std::pair(-2,-1) };
 	const int tailleInt = 8;
@@ -354,25 +194,152 @@ void Cavalier::calculeMouvements(Echiquier e)
 	{
 		int x = position_.first + d.first;
 		int y = position_.second + d.second;
-		if (x >= 0 && x <= tailleEchiquier && y >= 0 && y <= tailleEchiquier) {
-			if (e.cases[x][y] == caseVide || (conversionIntLimite(e.cases[x][y]) != conversionCouleurInt()))
+		if (x >= 0 && x <= TAILLE_ECHIQUIER_MAX && y >= 0 && y <= TAILLE_ECHIQUIER_MAX) {
+			if (e.cases[x][y] == CASE_VIDE || (e.cases[x][y]->obtenirCouleur() != this->estBlanc_))
 				mouvementsDisponibles_.push_back(std::pair(x, y));
 		}
 	}
 };
 
-void Dame::calculeMouvements(Echiquier e)
+void Tour::calculerMouvements(Echiquier e)
 {
-	// Pour des raisons conceptuelles, je n'ai pas fait hérité la Dame de tour et fou.
-	Tour t(e, std::pair(position_.first, position_.second), estBlanc_);
-	Fou f(e, std::pair(position_.first, position_.second), estBlanc_);
-	t.calculeMouvements(e);
-	f.calculeMouvements(e);
+	// nombre de position vides vers la droite
+	for (int positionsRangeeVersLaDroite : iter::range(position_.first, TAILLE_ECHIQUIER_MAX))
+	{
+		if (e.cases[positionsRangeeVersLaDroite + UNE_CASE][position_.second] != CASE_VIDE)
+		{
+			if (e.cases[positionsRangeeVersLaDroite + UNE_CASE][position_.second]->obtenirCouleur() != this->estBlanc_)
+				mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + UNE_CASE, position_.second));
+			break;
+		}
+		if (e.cases[positionsRangeeVersLaDroite + UNE_CASE][position_.second] == CASE_VIDE)
+			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + UNE_CASE, position_.second));
+	}
 
-	for (std::pair<int, int> m : t.obtenirMouvements())
-		mouvementsDisponibles_.push_back(m);
-	for (std::pair<int, int> m : f.obtenirMouvements())
-		mouvementsDisponibles_.push_back(m);
+	// nombre de position vides vers la gauche
+	for (int positionsRangeeVersLaGauche : iter::range(position_.first, 0, -UNE_CASE))
+	{
+		if (e.cases[positionsRangeeVersLaGauche - UNE_CASE][position_.second] != CASE_VIDE)
+		{
+			if (e.cases[positionsRangeeVersLaGauche - UNE_CASE][position_.second]->obtenirCouleur() != this->estBlanc_)
+				mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - UNE_CASE, position_.second));
+			break;
+		};
+		if (e.cases[positionsRangeeVersLaGauche - UNE_CASE][position_.second] == CASE_VIDE)
+			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - UNE_CASE, position_.second));
+	}
+
+	// nombre de position vides vers le haut
+	for (int positionsRangeeVersLeHaut : iter::range(position_.second, TAILLE_ECHIQUIER_MAX))
+	{
+		if (e.cases[position_.first][positionsRangeeVersLeHaut + UNE_CASE] != CASE_VIDE)
+		{
+			if (e.cases[position_.first][positionsRangeeVersLeHaut + UNE_CASE]->obtenirCouleur() != this->estBlanc_)
+				mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeHaut + UNE_CASE));
+			break;
+		}
+		if (e.cases[position_.first][positionsRangeeVersLeHaut + UNE_CASE] == CASE_VIDE)
+			mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeHaut + UNE_CASE));
+	}
+
+	// nombre de position vides vers le bas
+	for (int positionsRangeeVersLeBas : iter::range(position_.second, 0, -UNE_CASE))
+	{
+		if (e.cases[position_.first][positionsRangeeVersLeBas - UNE_CASE] != CASE_VIDE)
+		{
+			if (e.cases[position_.first][positionsRangeeVersLeBas - UNE_CASE]->obtenirCouleur() != this->estBlanc_)
+				mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeBas - UNE_CASE));
+			break;
+		}
+		if (e.cases[position_.first][positionsRangeeVersLeBas - UNE_CASE] == CASE_VIDE)
+			mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeBas - UNE_CASE));
+	}
+};
+
+void Fou::calculerMouvements(Echiquier e)
+{
+	// nombre de position vides vers la droite
+	int positionsRangeeVersLaDroite = position_.first;
+	// nombre de position vides vers le haut
+	int positionsRangeeVersLeHaut = position_.second;
+	while (positionsRangeeVersLaDroite < TAILLE_ECHIQUIER_MAX && positionsRangeeVersLeHaut < TAILLE_ECHIQUIER_MAX)
+	{
+		if (e.cases[positionsRangeeVersLaDroite + UNE_CASE][positionsRangeeVersLeHaut + UNE_CASE]->obtenirCouleur() == this->estBlanc_)
+			break;
+		else
+		{
+			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + UNE_CASE, positionsRangeeVersLeHaut + UNE_CASE));
+			if (e.cases[positionsRangeeVersLaDroite + UNE_CASE][positionsRangeeVersLeHaut + UNE_CASE]->obtenirCouleur() != this->estBlanc_ &&
+				(e.cases[positionsRangeeVersLaDroite + UNE_CASE][positionsRangeeVersLeHaut + UNE_CASE] != CASE_VIDE))
+				break;
+		}
+		positionsRangeeVersLaDroite += UNE_CASE;
+		positionsRangeeVersLeHaut += UNE_CASE;
+	}
+
+
+	int positionsRangeeVersLaGauche = position_.first; // nombre de position vides vers la droite
+	positionsRangeeVersLeHaut = position_.second; // nombre de position vides vers le haut
+
+	while (positionsRangeeVersLaGauche > 0 and positionsRangeeVersLeHaut < TAILLE_ECHIQUIER_MAX)
+	{
+		if (e.cases[positionsRangeeVersLaGauche - UNE_CASE][positionsRangeeVersLeHaut + UNE_CASE]->obtenirCouleur() == this->estBlanc_)
+			break;
+		else
+		{
+			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - UNE_CASE, positionsRangeeVersLeHaut + UNE_CASE));
+			if (e.cases[positionsRangeeVersLaGauche - UNE_CASE][positionsRangeeVersLeHaut + UNE_CASE]->obtenirCouleur() != this->estBlanc_ &&
+				(e.cases[positionsRangeeVersLaGauche - UNE_CASE][positionsRangeeVersLeHaut + UNE_CASE] != CASE_VIDE))
+				break;
+		}
+		positionsRangeeVersLaGauche -= UNE_CASE;
+		positionsRangeeVersLeHaut += UNE_CASE;
+	}
+
+
+	positionsRangeeVersLaGauche = position_.first; // nombre de position vides vers la droite
+	int positionsRangeeVersLeBas = position_.second; // nombre de position vides vers le haut
+
+	while (positionsRangeeVersLaGauche > 0 && positionsRangeeVersLeBas > 0)
+	{
+		if (e.cases[positionsRangeeVersLaGauche - UNE_CASE][positionsRangeeVersLeBas - UNE_CASE]->obtenirCouleur() == this->estBlanc_)
+			break;
+		else
+		{
+			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - UNE_CASE, positionsRangeeVersLeBas - UNE_CASE));
+			if (e.cases[positionsRangeeVersLaGauche - UNE_CASE][positionsRangeeVersLeBas - UNE_CASE]->obtenirCouleur() != this->estBlanc_
+				&& (e.cases[positionsRangeeVersLaGauche - UNE_CASE][positionsRangeeVersLeBas - UNE_CASE] != CASE_VIDE))
+				break;
+		}
+		positionsRangeeVersLaGauche -= UNE_CASE;
+		positionsRangeeVersLeBas -= UNE_CASE;
+	}
+
+
+	positionsRangeeVersLaDroite = position_.first; // nombre de position vides vers la droite
+	positionsRangeeVersLeBas = position_.second; // nombre de position vides vers le haut
+
+	while (positionsRangeeVersLaDroite < TAILLE_ECHIQUIER_MAX && positionsRangeeVersLeBas > 0)
+	{
+		if (e.cases[positionsRangeeVersLaDroite + UNE_CASE][positionsRangeeVersLeBas - UNE_CASE]->obtenirCouleur() == this->estBlanc_)
+			break;
+		else
+		{
+			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + UNE_CASE, positionsRangeeVersLeBas - UNE_CASE));
+			if (e.cases[positionsRangeeVersLaDroite + UNE_CASE][positionsRangeeVersLeBas - UNE_CASE]->obtenirCouleur() != this->estBlanc_ &&
+				(e.cases[positionsRangeeVersLaDroite + UNE_CASE][positionsRangeeVersLeBas - UNE_CASE] != CASE_VIDE))
+				break;
+		}
+		positionsRangeeVersLaDroite += UNE_CASE;
+		positionsRangeeVersLeBas -= UNE_CASE;
+	}
+
+}
+
+void Dame::calculerMouvements(Echiquier e)
+{
+	Tour::calculerMouvements(e);
+	Fou::calculerMouvements(e);
 }
 
 bool Roi::estEnÉchec(std::vector<std::pair<int, int>> mouvementsPiecesAdverses) {

@@ -42,7 +42,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="CalcWindow.hpp">
+    <QtMoc Include="ChessWindow.hpp">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

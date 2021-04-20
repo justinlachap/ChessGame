@@ -13,18 +13,21 @@
 
 class Case;
 
-namespace ui {
+namespace ui 
+{
 	class MainWindow;
 }
 
-class ChessWindow : public QMainWindow {
+class ChessWindow : public QMainWindow 
+{
 	Q_OBJECT
-
 public:
 	ChessWindow(QWidget* parent = nullptr);
 	~ChessWindow() override = default;
 	QList<Case*> cases;
-	void ajouterPiece(Piece* p) {
+
+	void ajouterPiece(Piece* p) 
+	{
 		QLabel* lbl4 = new QLabel(this);
 		QString qstring = p->obtenirImage();
 		QPixmap pix4;
@@ -33,10 +36,11 @@ public:
 		lbl4->setMinimumSize(100, 100);
 		lbl4->setPixmap(pix4.scaled(lbl4->width(), lbl4->height(), Qt::KeepAspectRatio));
 		lbl4->setGeometry(QRect(100 * p->obtenirPosition().first, 100 * (7 - p->obtenirPosition().second), 100, 100)); // (Qrect(x,y,height,width)
-		lbl4->setTextInteractionFlags(Qt::TextSelectableByMouse);
-		
+		lbl4->setTextInteractionFlags(Qt::TextSelectableByMouse);	
 	}
-	void positionInitiale(Echiquier e) {
+
+	void positionInitiale(Echiquier e) 
+	{
 		Roi R1(e, std::pair(4, 0), true);
 		Roi R2(e, std::pair(4, 7), false);
 		Dame d1(e, std::pair(3, 0), true);
@@ -69,8 +73,6 @@ public:
 		Fou f2(e, std::pair(5, 0), true);
 		Fou f3(e, std::pair(2, 7), false);
 		Fou f4(e, std::pair(5, 7), false);
-
-
 
 		ajouterPiece(&d1);
 		ajouterPiece(&d2);

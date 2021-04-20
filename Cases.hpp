@@ -1,4 +1,4 @@
-#include "CalcWindow.hpp"
+#include "ChessWindow.hpp"
 
 #pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
 #include <QHBoxLayout>
@@ -30,5 +30,4 @@ public:
 			setBrush(QBrush(Qt::red));
 	};
 	~Case() {};
-
 };

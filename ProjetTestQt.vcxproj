@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtInstall>5.15.0_msvc2019_64</QtInstall>
     <QtModules>core;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -119,7 +119,7 @@
     <ClCompile Include="TestCalc.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="CalcWindow.hpp" />
+    <QtMoc Include="ChessWindow.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cases.hpp" />

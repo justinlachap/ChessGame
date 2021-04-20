@@ -1,7 +1,7 @@
 ﻿// La Vue-Controlleur pour calculatrice simple.
 // Par Francois-R.Boyer@PolyMtl.ca
 
-#include "CalcWindow.hpp"
+#include "ChessWindow.hpp"
 
 #pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
 #include <QHBoxLayout>
@@ -24,13 +24,7 @@
 #include <QRect>
 #include <QDebug>
 
-
-
 using iter::range;
-
-
-
-
 
 ChessWindow::ChessWindow(QWidget* parent) :
 	QMainWindow(parent)

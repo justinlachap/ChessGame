@@ -1,5 +1,5 @@
 /*
-** Livrable 1
+** Livrable 2
 ** Par Justin Lachapelle, matricule 2076412 et Esmé Généreux, matricule 2081518.
 */
 
@@ -10,12 +10,16 @@
 #include <functional>
 #include <vector>
 
+class Piece;
+
 class Echiquier // public QObject
 {
 public:
 	void initialiserVide();
-	int cases[8][8];
-	QString obtenirImage() {
+	Piece* cases[8][8];
+
+	QString obtenirImage()
+	{
 		return echiquier;
 	}
 
@@ -25,44 +29,40 @@ private:
 	// C'est pourquoi l'attribut cases est public et qu'il n'y a pas d'encapsulation.
 };
 
-class classeVirtuelle // classe virtuelle d'où provient la fonction calculeMouvements utilisée par toutes les pièces.
+class Piece
 {
-public:
-	virtual void calculeMouvements(Echiquier e) = 0;
-	virtual QString obtenirImage() const = 0;
-};
-
-
-class Piece : public classeVirtuelle
-{
-
 protected:
-	std::pair<int, int> position_;
+	char nom_;
 	bool estBlanc_;
+	std::pair<int, int> position_;
 	std::vector<std::pair<int, int>> mouvementsDisponibles_;
 
 public:
-	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
-	int conversionCouleurInt() const;
+	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, char nom, bool estBlanc);
+
+	virtual void calculerMouvements(Echiquier e) = 0;
+	virtual QString obtenirImage() const = 0;
+
 	void afficheMouvements() const;
-	void calculeMouvements(Echiquier e) override = 0;
-	QString obtenirImage() const override  = 0;
 	void estCapturé() {};
+
+	bool obtenirCouleur() { return estBlanc_; }
 	std::vector<std::pair<int, int>> obtenirMouvements() const { return mouvementsDisponibles_; }
 	std::pair<int, int> obtenirPosition() const { return position_; }
 };
 
 class Pion : virtual public Piece
 {
-	const static int pionBlanc_ = 6; // Ces constantes serviront plus tard à bien afficher les bonnes pièces sur l'interface
-	const static int pionNoir_ = 12;
 	const QString pionBlanc = "images/white_pawn.png";
 	const QString pionNoir = "images/black_pawn.png";
 
 public:
 	Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
-	void calculeMouvements(Echiquier e) override;
-	QString obtenirImage() const override {
+
+	void calculerMouvements(Echiquier e) override;
+
+	QString obtenirImage() const override
+	{
 		if (estBlanc_)
 			return pionBlanc;
 		else
@@ -72,63 +72,43 @@ public:
 
 class Cavalier : virtual public Piece
 {
-	const static int cavalierBlanc_ = 3;
-	const static int cavalierNoir_ = 9;
 	const QString cavalierBlanc = "images/white_knight.png";
 	const QString cavalierNoir = "images/black_knight.png";
 
-
 public:
 	Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
-	void calculeMouvements(Echiquier e) override;
-	QString obtenirImage() const override {
+
+	void calculerMouvements(Echiquier e) override;
+
+	QString obtenirImage() const override 
+	{
 		if (estBlanc_)
 			return cavalierBlanc;
 		else
 			return cavalierNoir;
 	}
-	
 };
 
 class Roi : virtual public Piece
 {
-	const static int roiBlanc_ = 1;
-	const static int roiNoir_ = 7;
 	const QString roiBlanc = "images/white_king.png";
 	const QString roineNoir = "images/black_king.png";
 
 public:
 	Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
-	void calculeMouvements(Echiquier e) override;
+
+	void calculerMouvements(Echiquier e) override;
+
 	bool estEnÉchec(std::vector<std::pair<int, int>>);
-	QString obtenirImage() const override {
+
+	QString obtenirImage() const override
+	{
 		if (estBlanc_)
 			return roiBlanc;
 		else
 			return roineNoir;
 	}
-	
-};
 
-class Dame : virtual public Piece
-{
-	const static int dameBlanc_ = 2;
-	const static int dameNoir_ = 8;
-	const QString reineBlanche = "images/white_queen.png";
-	const QString reineNoire = "images/black_queen.png";
-
-
-
-public:
-	Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
-	void calculeMouvements(Echiquier e) override;
-	QString obtenirImage() const override {
-		if (estBlanc_)
-			return reineBlanche;
-		else
-			return reineNoire;
-	}
-	
 };
 
 class Tour : virtual public Piece
@@ -140,8 +120,11 @@ class Tour : virtual public Piece
 
 public:
 	Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
-	void calculeMouvements(Echiquier e) override;
-	QString obtenirImage() const override {
+
+	void calculerMouvements(Echiquier e) override;
+
+	QString obtenirImage() const override
+	{
 		if (estBlanc_)
 			return tourBlanche;
 		else
@@ -158,11 +141,36 @@ class Fou : virtual public Piece
 
 public:
 	Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
-	void calculeMouvements(Echiquier e) override;
-	QString obtenirImage() const override {
+
+	void calculerMouvements(Echiquier e) override;
+
+	QString obtenirImage() const override
+	{
 		if (estBlanc_)
 			return fouBlanc;
 		else
 			return fouNoir;
 	}
+};
+
+class Dame : virtual public Piece, 
+	public Fou, 
+	public Tour
+{
+	const QString reineBlanche = "images/white_queen.png";
+	const QString reineNoire = "images/black_queen.png";
+
+public:
+	Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+
+	void calculerMouvements(Echiquier e) override;
+
+	QString obtenirImage() const override
+	{
+		if (estBlanc_)
+			return reineBlanche;
+		else
+			return reineNoire;
+	}
+
 };
