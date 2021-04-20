@@ -58,6 +58,14 @@ TEST(Mouvements, test_pions) {
 	std::vector<std::pair<int, int>> expected_p7 = { std::pair(1, 3) };
 	std::vector<std::pair<int, int>> expected_p8 = { std::pair(0, 4) };
 
+	Fou f1(echiquier, std::pair(0, 5), true);
+	Fou f2(echiquier, std::pair(1, 1), true);
+	Fou f3(echiquier, std::pair(4, 1), false);
+
+	f1.calculerMouvements(echiquier);
+	f2.calculerMouvements(echiquier);
+	f3.calculerMouvements(echiquier);
+	
 	EXPECT_EQ(calculated_p1, expected_p1);
 	EXPECT_EQ(calculated_p2, expected_p2);
 	EXPECT_EQ(calculated_p3, expected_p3);

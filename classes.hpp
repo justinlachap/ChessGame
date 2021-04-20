@@ -192,5 +192,4 @@ public:
 		else
 			return reineNoire;
 	}
-
 };
