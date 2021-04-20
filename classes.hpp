@@ -29,7 +29,26 @@ private:
 	// C'est pourquoi l'attribut cases est public et qu'il n'y a pas d'encapsulation.
 };
 
-class Piece
+namespace Logique
+{
+	class MethodeVirtuelleLogique
+	{
+	public:
+		virtual void calculerMouvements(Echiquier e) = 0;
+	};
+}
+
+namespace UI
+{
+	class MethodeVirtuelleQt
+	{
+	public:
+		virtual QString obtenirImage() const = 0;
+	};
+}
+
+class Piece : public Logique::MethodeVirtuelleLogique,
+	public UI::MethodeVirtuelleQt
 {
 protected:
 	char nom_;
@@ -40,8 +59,8 @@ protected:
 public:
 	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, char nom, bool estBlanc);
 
-	virtual void calculerMouvements(Echiquier e) = 0;
-	virtual QString obtenirImage() const = 0;
+	virtual void calculerMouvements(Echiquier e) override = 0;
+	virtual QString obtenirImage() const override = 0;
 
 	void afficheMouvements() const;
 	void estCapturé() {};

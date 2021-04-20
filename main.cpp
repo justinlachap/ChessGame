@@ -70,7 +70,6 @@ Roi::Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc
 	nouvelEchiquier.cases[position.first][position.second] = this;
 };
 
-
 void Piece::afficheMouvements() const
 {
 	std::cout << "Cette piece peut se deplacer aux cases: ";
@@ -364,12 +363,11 @@ void initialiserBibliothequeCours([[maybe_unused]] int argc, [[maybe_unused]] ch
 
 int main(int argc, char* argv[])
 {
-
 	bibliotheque_cours::VerifierFuitesAllocations verifierFuitesAllocations;
 	QApplication app(argc, argv);
 	initialiserBibliothequeCours(argc, argv);
 
-	ChessWindow chessWindow;
+	UI::ChessWindow chessWindow;
 	chessWindow.resize(800, 800);
 	chessWindow.show();
 

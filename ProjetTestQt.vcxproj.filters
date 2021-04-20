@@ -34,10 +34,10 @@
     <ClCompile Include="googletest\src\gtest-all.cc">
       <Filter>Sources Bibliotheques</Filter>
     </ClCompile>
-    <ClCompile Include="CalcWindow.cpp">
+    <ClCompile Include="ChessWindow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TestCalc.cpp">
+    <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -50,7 +50,7 @@
     <ClInclude Include="classes.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Cases.hpp">
+    <ClInclude Include="Chess.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

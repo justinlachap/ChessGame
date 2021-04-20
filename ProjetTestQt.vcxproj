@@ -113,16 +113,16 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
-    <ClCompile Include="CalcWindow.cpp" />
+    <ClCompile Include="ChessWindow.cpp" />
     <ClCompile Include="googletest\src\gtest-all.cc" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="TestCalc.cpp" />
+    <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ChessWindow.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Cases.hpp" />
+    <ClInclude Include="Chess.hpp" />
     <ClInclude Include="classes.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

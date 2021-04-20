@@ -19,9 +19,11 @@
 #include <Qgraphicsview>
 #include <QGraphicsScene>
 
-class Case : public QGraphicsRectItem {
+class Case : public QGraphicsRectItem 
+{
 public:
-	Case(bool estBlanc) {
+	Case(bool estBlanc) 
+	{
 		setRect(0, 0, 50, 50);
 		setPen(QPen(Qt::red));
 		if (estBlanc)

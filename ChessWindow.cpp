@@ -26,7 +26,7 @@
 
 using iter::range;
 
-ChessWindow::ChessWindow(QWidget* parent) :
+UI::ChessWindow::ChessWindow(QWidget* parent) :
 	QMainWindow(parent)
 {
 	// Nom de la fenêtre
