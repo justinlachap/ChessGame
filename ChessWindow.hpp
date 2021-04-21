@@ -68,13 +68,13 @@ namespace UI
 		{
 			Roi R1(e, std::pair(4, 0), true);
 			Roi R2(e, std::pair(4, 7), false);
-			//Dame d1(e, std::pair(3, 0), true);
+			Dame d1(e, std::pair(3, 0), true);
 			Dame d2(e, std::pair(3, 7), false);
 			Pion P1(e, std::pair(0, 1), true);
 			Pion P2(e, std::pair(1, 1), true);
 			Pion P3(e, std::pair(2, 1), true);
 			Pion P4(e, std::pair(3, 1), true);
-			Pion P5(e, std::pair(4, 1), true);
+			//Pion P5(e, std::pair(4, 1), true);
 			Pion P6(e, std::pair(5, 1), true);
 			Pion P7(e, std::pair(6, 1), true);
 			Pion P8(e, std::pair(7, 1), true);
@@ -99,7 +99,7 @@ namespace UI
 			Fou f3(e, std::pair(2, 7), false);
 			Fou f4(e, std::pair(5, 7), false);
 
-			//ajouterPiece(&d1);
+			ajouterPiece(&d1);
 			ajouterPiece(&d2);
 			ajouterPiece(&R1);
 			ajouterPiece(&R2);
@@ -107,7 +107,7 @@ namespace UI
 			ajouterPiece(&P2);
 			ajouterPiece(&P3);
 			ajouterPiece(&P4);
-			ajouterPiece(&P5);
+			//ajouterPiece(&P5);
 			ajouterPiece(&P6);
 			ajouterPiece(&P7);
 			ajouterPiece(&P8);
@@ -131,8 +131,8 @@ namespace UI
 			ajouterPiece(&f2);
 			ajouterPiece(&f3);
 			ajouterPiece(&f4);
-			R1.calculerMouvements(e);
-			afficherMouvementsDisponiblesEchiquier(R1.obtenirMouvements(), R1.obtenirPosition());
+			f2.calculerMouvements(e);
+			afficherMouvementsDisponiblesEchiquier(f2.obtenirMouvements(), f2.obtenirPosition());
 		}
 
 	private:
