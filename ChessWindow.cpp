@@ -23,6 +23,7 @@
 #include <QGraphicsScene>
 #include <QRect>
 #include <QDebug>
+#include< QMouseEvent >
 
 using iter::range;
 
@@ -31,7 +32,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 {
 	// Nom de la fenêtre
 	setWindowTitle("Jeu d'échecs");
-
+	setMouseTracking(true);
 	// Initalisation de l'échiquier
 	QLabel* lbl1 = new QLabel(this);
 	Echiquier e;
@@ -80,9 +81,9 @@ void UI::ChessWindow::afficherMouvementsDisponiblesEchiquier(std::vector<std::pa
 
 void UI::ChessWindow::positionInitiale(Echiquier e)
 {
-
 	Roi* R1 = new Roi(e, std::pair(4, 0), true);
 	Roi* R2 = new Roi(e, std::pair(4, 7), false);
+	Roi* R3 = new Roi(e, std::pair(3, 3), true);
 	Dame* d1 = new Dame(e, std::pair(3, 0), true);
 	Dame* d2 = new Dame(e, std::pair(3, 7), false);
 	Pion* P1 = new Pion(e, std::pair(0, 1), true);
@@ -120,4 +121,11 @@ void UI::ChessWindow::positionInitiale(Echiquier e)
 		piece->calculerMouvements(e);
 	}
 	afficherMouvementsDisponiblesEchiquier(f2->obtenirMouvements(), f2->obtenirPosition());
+}
+
+void UI::ChessWindow::mousePressEvent(QMouseEvent* event)
+{
+	qDebug() << "mousePressEvent"; // fonctionne
+	qDebug() << event->pos();        // E0393 pointer to incomplete class type is not allowed
+	QMainWindow::mousePressEvent(event); // fonctionne
 }

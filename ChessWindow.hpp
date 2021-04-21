@@ -31,7 +31,8 @@ namespace UI
 
 		void positionInitiale(Echiquier e);
 
-	
+		void mousePressEvent(QMouseEvent* event);
+
 	};
 }
 
