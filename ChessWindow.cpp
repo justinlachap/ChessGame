@@ -57,13 +57,10 @@ void UI::ChessWindow::ajouterPiece(Piece* p) {
 }
 
 void UI::ChessWindow::afficherMouvementsDisponiblesEchiquier(std::vector<std::pair<int, int>> v, std::pair<int, int> pos) {
-	//QLabel* lbl4 = new QLabel(this);
-	QString greenCircle = "images/green.png";
-	QString square = "images/sqaure.png";
 	QPixmap pix4;
-	pix4.load(greenCircle);
+	pix4.load("images/green.png");
 	QPixmap pix5;
-	pix5.load(square);
+	pix5.load("images/sqaure.png");
 	QLabel* lbl5 = new QLabel(this);
 	lbl5->setMinimumSize(100, 100);
 	lbl5->setPixmap(pix5.scaled(lbl5->width(), lbl5->height(), Qt::KeepAspectRatio));

@@ -24,7 +24,6 @@ namespace UI
 	public:
 		ChessWindow(QWidget* parent = nullptr);
 		~ChessWindow() override = default;
-		QList<Case*> cases;
 
 		void ajouterPiece(Piece* p);
 		
@@ -32,8 +31,7 @@ namespace UI
 
 		void positionInitiale(Echiquier e);
 
-	private:
-		QLabel* affichage_;  // Pour la version QButtonGroup.
+	
 	};
 }
 
