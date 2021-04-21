@@ -81,6 +81,7 @@ Roi::Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc
 	{
 		std::cout << e.what() << std::endl
 			<< "	Le roi a la position (" << obtenirPosition().first << ", " << obtenirPosition().second << ") a été détruit" << std::endl;
+		delete this;
 	}
 };
 
@@ -383,6 +384,5 @@ int main(int argc, char* argv[])
 
 	auto r7 = std::make_unique<Roi>(echiquier, std::pair(7, 4), false);
 	auto r8 = std::make_unique<Roi>(echiquier, std::pair(7, 5), false);
-	//auto r9 = std::make_unique<Roi>(echiquier, std::pair(7, 7), false);
 	return app.exec();
 }
