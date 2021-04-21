@@ -14,11 +14,11 @@
 
 class Case;
 
-namespace UI 
+namespace UI
 {
 	class MainWindow;
 
-	class ChessWindow : public QMainWindow 
+	class ChessWindow : public QMainWindow
 	{
 		Q_OBJECT
 	public:
@@ -26,7 +26,7 @@ namespace UI
 		~ChessWindow() override = default;
 		QList<Case*> cases;
 
-		void ajouterPiece(Piece* p) 
+		void ajouterPiece(Piece* p)
 		{
 			QLabel* lbl4 = new QLabel(this);
 			QString qstring = p->obtenirImage();
@@ -36,7 +36,7 @@ namespace UI
 			lbl4->setMinimumSize(100, 100);
 			lbl4->setPixmap(pix4.scaled(lbl4->width(), lbl4->height(), Qt::KeepAspectRatio));
 			lbl4->setGeometry(QRect(100 * p->obtenirPosition().first, 100 * (7 - p->obtenirPosition().second), 100, 100)); // (Qrect(x,y,height,width)
-			lbl4->setTextInteractionFlags(Qt::TextSelectableByMouse);	
+			lbl4->setTextInteractionFlags(Qt::TextSelectableByMouse);
 		}
 
 		void afficherMouvementsDisponiblesEchiquier(std::vector<std::pair<int, int>> v, std::pair<int, int> pos) {
@@ -54,7 +54,7 @@ namespace UI
 
 			lbl5->setGeometry(QRect(100 * pos.first, 100 * (7 - pos.second), 100, 100)); // (Qrect(x,y,height,width)
 			for (auto i : v) {
-				
+
 				QLabel* lbl4 = new QLabel(this);
 				lbl4->setMinimumSize(50, 50);
 				lbl4->setPixmap(pix4.scaled(lbl4->width(), lbl4->height(), Qt::KeepAspectRatio));
@@ -64,75 +64,50 @@ namespace UI
 			}
 		}
 
-		void positionInitiale(Echiquier e) 
+		void positionInitiale(Echiquier e)
 		{
-			Roi R1(e, std::pair(4, 0), true);
-			Roi R2(e, std::pair(4, 7), false);
-			Dame d1(e, std::pair(3, 0), true);
-			Dame d2(e, std::pair(3, 7), false);
-			Pion P1(e, std::pair(0, 1), true);
-			Pion P2(e, std::pair(1, 1), true);
-			Pion P3(e, std::pair(2, 1), true);
-			Pion P4(e, std::pair(3, 1), true);
-			//Pion P5(e, std::pair(4, 1), true);
-			Pion P6(e, std::pair(5, 1), true);
-			Pion P7(e, std::pair(6, 1), true);
-			Pion P8(e, std::pair(7, 1), true);
-			Pion P9(e, std::pair(0, 6), false);
-			Pion P10(e, std::pair(1, 6), false);
-			Pion P11(e, std::pair(2, 6), false);
-			Pion P12(e, std::pair(3, 6), false);
-			Pion P13(e, std::pair(4, 6), false);
-			Pion P14(e, std::pair(5, 6), false);
-			Pion P15(e, std::pair(6, 6), false);
-			Pion P16(e, std::pair(7, 6), false);
-			Cavalier c1(e, std::pair(1, 0), true);
-			Cavalier c2(e, std::pair(6, 0), true);
-			Cavalier c3(e, std::pair(1, 7), false);
-			Cavalier c4(e, std::pair(6, 7), false);
-			Tour r1(e, std::pair(0, 0), true);
-			Tour r2(e, std::pair(7, 0), true);
-			Tour r3(e, std::pair(0, 7), false);
-			Tour r4(e, std::pair(7, 7), false);
-			Fou f1(e, std::pair(2, 0), true);
-			Fou f2(e, std::pair(5, 0), true);
-			Fou f3(e, std::pair(2, 7), false);
-			Fou f4(e, std::pair(5, 7), false);
 
-			ajouterPiece(&d1);
-			ajouterPiece(&d2);
-			ajouterPiece(&R1);
-			ajouterPiece(&R2);
-			ajouterPiece(&P1);
-			ajouterPiece(&P2);
-			ajouterPiece(&P3);
-			ajouterPiece(&P4);
-			//ajouterPiece(&P5);
-			ajouterPiece(&P6);
-			ajouterPiece(&P7);
-			ajouterPiece(&P8);
-			ajouterPiece(&P9);
-			ajouterPiece(&P10);
-			ajouterPiece(&P11);
-			ajouterPiece(&P12);
-			ajouterPiece(&P13);
-			ajouterPiece(&P14);
-			ajouterPiece(&P15);
-			ajouterPiece(&P16);
-			ajouterPiece(&c1);
-			ajouterPiece(&c2);
-			ajouterPiece(&c3);
-			ajouterPiece(&c4);
-			ajouterPiece(&r1);
-			ajouterPiece(&r2);
-			ajouterPiece(&r3);
-			ajouterPiece(&r4);
-			ajouterPiece(&f1);
-			ajouterPiece(&f2);
-			ajouterPiece(&f3);
-			ajouterPiece(&f4);
-			f2.calculerMouvements(e);
-			afficherMouvementsDisponiblesEchiquier(f2.obtenirMouvements(), f2.obtenirPosition());
+			Roi* R1 = new Roi(e, std::pair(4, 0), true);
+			//Roi R1();
+
+			Roi* R2 = new Roi(e, std::pair(4, 7), false);
+			Dame* d1 = new Dame(e, std::pair(3, 0), true);
+			Dame* d2 = new Dame(e, std::pair(3, 7), false);
+			Pion* P1 = new Pion(e, std::pair(0, 1), true);
+			Pion* P2 = new Pion(e, std::pair(1, 1), true);
+			Pion* P3 = new Pion(e, std::pair(2, 1), true);
+			Pion* P4 = new Pion(e, std::pair(3, 1), true);
+			//Pion P5(e, std::pair(4, 1), true);
+			Pion* P6 = new Pion(e, std::pair(5, 1), true);
+			Pion* P7 = new Pion(e, std::pair(6, 1), true);
+			Pion* P8 = new Pion(e, std::pair(7, 1), true);
+			Pion* P9 = new Pion(e, std::pair(0, 6), false);
+			Pion* P10 = new Pion(e, std::pair(1, 6), false);
+			Pion* P11 = new Pion(e, std::pair(2, 6), false);
+			Pion* P12 = new Pion(e, std::pair(3, 6), false);
+			Pion* P13 = new Pion(e, std::pair(4, 6), false);
+			Pion* P14 = new Pion(e, std::pair(5, 6), false);
+			Pion* P15 = new Pion(e, std::pair(6, 6), false);
+			Pion* P16 = new Pion(e, std::pair(7, 6), false);
+			Cavalier* c1 = new Cavalier(e, std::pair(1, 0), true);
+			Cavalier* c2 = new Cavalier(e, std::pair(6, 0), true);
+			Cavalier* c3 = new Cavalier(e, std::pair(1, 7), false);
+			Cavalier* c4 = new Cavalier(e, std::pair(6, 7), false);
+			Tour* r1 = new Tour(e, std::pair(0, 0), true);
+			Tour* r2 = new Tour(e, std::pair(7, 0), true);
+			Tour* r3 = new Tour(e, std::pair(0, 7), false);
+			Tour* r4 = new Tour(e, std::pair(7, 7), false);
+			Fou* f1 = new Fou(e, std::pair(2, 0), true);
+			Fou* f2 = new Fou(e, std::pair(5, 0), true);
+			Fou* f3 = new Fou(e, std::pair(2, 7), false);
+			Fou* f4 = new Fou(e, std::pair(5, 7), false);
+
+			std::vector<Piece*> pieces = { R1 , R2, d1, d2, P1,P2,P3,P4,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
+			for (auto piece : pieces) {
+				ajouterPiece(piece);
+				piece->calculerMouvements(e);
+			}
+			afficherMouvementsDisponiblesEchiquier(f2->obtenirMouvements(), f2->obtenirPosition());
 		}
 
 	private:

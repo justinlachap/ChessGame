@@ -384,8 +384,5 @@ int main(int argc, char* argv[])
 	UI::ChessWindow chessWindow;
 	chessWindow.resize(800, 800);
 	chessWindow.show();
-
-	Test t;
-	t.testFou();
 	return app.exec();
 }
