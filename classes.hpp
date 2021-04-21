@@ -113,6 +113,7 @@ class Roi : virtual public Piece
 {
 	const QString roiBlanc = "images/white_king.png";
 	const QString roineNoir = "images/black_king.png";
+	inline static int compteurInstances_ = 0;
 
 public:
 	Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
@@ -128,7 +129,6 @@ public:
 		else
 			return roineNoir;
 	}
-
 };
 
 class Tour : virtual public Piece

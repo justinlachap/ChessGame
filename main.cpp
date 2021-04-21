@@ -3,6 +3,7 @@
 #include "classes.hpp"
 #include "gsl/span"
 #include "cppitertools/range.hpp"
+#include <stdexcept>
 
 #include <QApplication>
 
@@ -67,7 +68,20 @@ Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBla
 Roi::Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
 	: Piece(nouvelEchiquier, position, 'R', estBlanc)
 {
-	nouvelEchiquier.cases[position.first][position.second] = this;
+	try
+	{
+		++compteurInstances_;
+		if (compteurInstances_ > 2)
+		{
+			throw std::exception("Il ne peux pas y avoir plus de 2 rois sur l'échiquier");
+		}
+		nouvelEchiquier.cases[position.first][position.second] = this;
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+		delete this;
+	}
 };
 
 void Piece::afficheMouvements() const
@@ -258,9 +272,9 @@ void Fou::calculerMouvements(Echiquier e)
 	int positionsRangeeVersLeHaut = position_.second;	// nombre de position vides vers le haut
 	while (positionsRangeeVersLaDroite < tailleEchiquierMax && positionsRangeeVersLeHaut < tailleEchiquierMax)
 	{
-		if ((e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeHaut + uneCase] == caseVide) 
-			||(e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeHaut + uneCase]->obtenirCouleur() == estBlanc_))
-				break;
+		if ((e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeHaut + uneCase] == caseVide)
+			|| (e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeHaut + uneCase]->obtenirCouleur() == estBlanc_))
+			break;
 		else
 		{
 			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, positionsRangeeVersLeHaut + uneCase));
@@ -277,7 +291,7 @@ void Fou::calculerMouvements(Echiquier e)
 	positionsRangeeVersLeHaut = position_.second; // nombre de position vides vers le haut
 	while (positionsRangeeVersLaGauche > 0 && positionsRangeeVersLeHaut < tailleEchiquierMax)
 	{
-		if ((e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeHaut + uneCase] == caseVide) 
+		if ((e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeHaut + uneCase] == caseVide)
 			|| (e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeHaut + uneCase]->obtenirCouleur() == estBlanc_))
 			break;
 		else
@@ -364,6 +378,11 @@ int main(int argc, char* argv[])
 	UI::ChessWindow chessWindow;
 	chessWindow.resize(800, 800);
 	chessWindow.show();
-
+	Echiquier echiquier;
+	Roi r7(echiquier, std::pair(7, 4), false);
+	Roi r8(echiquier, std::pair(7, 5), false);
+	Roi r9(echiquier, std::pair(7, 7), false);
 	return app.exec();
+
+	
 }
