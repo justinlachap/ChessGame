@@ -380,9 +380,6 @@ int main(int argc, char* argv[])
 	chessWindow.resize(800, 800);
 	chessWindow.show();
 
-	Echiquier echiquier;
-
-	auto r7 = std::make_unique<Roi>(echiquier, std::pair(7, 4), false);
-	auto r8 = std::make_unique<Roi>(echiquier, std::pair(7, 5), false);
+	
 	return app.exec();
 }

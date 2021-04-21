@@ -8,6 +8,7 @@
 #include <QPushButton>
 #include <QString>
 #include <QLabel>
+#include <QPainter>
 #include "classes.hpp"
 #pragma pop()
 
@@ -38,11 +39,36 @@ namespace UI
 			lbl4->setTextInteractionFlags(Qt::TextSelectableByMouse);	
 		}
 
+		void afficherMouvementsDisponiblesEchiquier(std::vector<std::pair<int, int>> v, std::pair<int, int> pos) {
+			//QLabel* lbl4 = new QLabel(this);
+			QString greenCircle = "images/green.png";
+			QString square = "images/sqaure.png";
+			QPixmap pix4;
+			pix4.load(greenCircle);
+			QPixmap pix5;
+			pix5.load(square);
+			QLabel* lbl5 = new QLabel(this);
+			lbl5->setMinimumSize(100, 100);
+			lbl5->setPixmap(pix5.scaled(lbl5->width(), lbl5->height(), Qt::KeepAspectRatio));
+			lbl5->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+			lbl5->setGeometry(QRect(100 * pos.first, 100 * (7 - pos.second), 100, 100)); // (Qrect(x,y,height,width)
+			for (auto i : v) {
+				
+				QLabel* lbl4 = new QLabel(this);
+				lbl4->setMinimumSize(50, 50);
+				lbl4->setPixmap(pix4.scaled(lbl4->width(), lbl4->height(), Qt::KeepAspectRatio));
+				lbl4->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
+
+				lbl4->setGeometry(QRect(100 * i.first, 100 * (7 - i.second), 100, 100)); // (Qrect(x,y,height,width)
+			}
+		}
+
 		void positionInitiale(Echiquier e) 
 		{
 			Roi R1(e, std::pair(4, 0), true);
 			Roi R2(e, std::pair(4, 7), false);
-			Dame d1(e, std::pair(3, 0), true);
+			//Dame d1(e, std::pair(3, 0), true);
 			Dame d2(e, std::pair(3, 7), false);
 			Pion P1(e, std::pair(0, 1), true);
 			Pion P2(e, std::pair(1, 1), true);
@@ -73,7 +99,7 @@ namespace UI
 			Fou f3(e, std::pair(2, 7), false);
 			Fou f4(e, std::pair(5, 7), false);
 
-			ajouterPiece(&d1);
+			//ajouterPiece(&d1);
 			ajouterPiece(&d2);
 			ajouterPiece(&R1);
 			ajouterPiece(&R2);
@@ -105,6 +131,8 @@ namespace UI
 			ajouterPiece(&f2);
 			ajouterPiece(&f3);
 			ajouterPiece(&f4);
+			R1.calculerMouvements(e);
+			afficherMouvementsDisponiblesEchiquier(R1.obtenirMouvements(), R1.obtenirPosition());
 		}
 
 	private:

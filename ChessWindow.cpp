@@ -40,7 +40,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 	echiquier.load(e.obtenirImage());
 	lbl1->setMinimumSize(800, 800); // échiquier en soi
 	lbl1->setPixmap(echiquier.scaled(lbl1->width(), lbl1->height(), Qt::KeepAspectRatio));
-
+	
 	// Initialisation des pièces
 	positionInitiale(e);
 }
