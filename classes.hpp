@@ -67,6 +67,7 @@ public:
 	void estCapturé() {};
 
 	bool obtenirCouleur() { return estBlanc_; }
+	std::pair<int, int> obtenirPosition() { return position_ ; }
 	std::vector<std::pair<int, int>> obtenirMouvements() const { return mouvementsDisponibles_; }
 	std::pair<int, int> obtenirPosition() const { return position_; }
 };

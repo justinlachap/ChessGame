@@ -67,20 +67,20 @@ Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBla
 }
 Roi::Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
 	: Piece(nouvelEchiquier, position, 'R', estBlanc)
-{
+{	
 	try
 	{
-		++compteurInstances_;
+		compteurInstances_++;
 		if (compteurInstances_ > 2)
 		{
-			throw std::exception("Il ne peux pas y avoir plus de 2 rois sur l'échiquier");
+			throw std::logic_error("Il ne peux pas y avoir plus de 2 rois sur l'échiquier");
 		}
 		nouvelEchiquier.cases[position.first][position.second] = this;
 	}
-	catch (std::exception& e)
+	catch (std::logic_error& e)
 	{
-		std::cout << e.what() << std::endl;
-		delete this;
+		std::cout << e.what() << std::endl
+			<< "	Le roi a la position (" << obtenirPosition().first << ", " << obtenirPosition().second << ") a été détruit" << std::endl;
 	}
 };
 
@@ -378,11 +378,11 @@ int main(int argc, char* argv[])
 	UI::ChessWindow chessWindow;
 	chessWindow.resize(800, 800);
 	chessWindow.show();
-	Echiquier echiquier;
-	Roi r7(echiquier, std::pair(7, 4), false);
-	Roi r8(echiquier, std::pair(7, 5), false);
-	Roi r9(echiquier, std::pair(7, 7), false);
-	return app.exec();
 
-	
+	Echiquier echiquier;
+
+	auto r7 = std::make_unique<Roi>(echiquier, std::pair(7, 4), false);
+	auto r8 = std::make_unique<Roi>(echiquier, std::pair(7, 5), false);
+	//auto r9 = std::make_unique<Roi>(echiquier, std::pair(7, 7), false);
+	return app.exec();
 }
