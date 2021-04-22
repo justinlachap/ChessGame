@@ -348,6 +348,7 @@ void Fou::calculerMouvements(Echiquier e)
 		positionsRangeeVersLaDroite += uneCase;
 		positionsRangeeVersLeBas -= uneCase;
 	}
+	
 }
 void Dame::calculerMouvements(Echiquier e)
 {
@@ -385,4 +386,5 @@ int main(int argc, char* argv[])
 	chessWindow.resize(800, 800);
 	chessWindow.show();
 	return app.exec();
+	
 }

@@ -43,7 +43,11 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 	lbl1->setPixmap(echiquier.scaled(lbl1->width(), lbl1->height(), Qt::KeepAspectRatio));
 
 	// Initialisation des pièces
-	positionInitiale(e);
+	positionInitiale();
+	qDebug() << "Constructeur appele" << Qt::endl;
+	calculerMouvementsPieces();
+
+
 }
 void UI::ChessWindow::ajouterPiece(Piece* p) {
 	QLabel* lbl4 = new QLabel(this);
@@ -79,18 +83,18 @@ void UI::ChessWindow::afficherMouvementsDisponiblesEchiquier(std::vector<std::pa
 	}
 }
 
-void UI::ChessWindow::positionInitiale(Echiquier e)
+void UI::ChessWindow::positionInitiale()
 {
 	Roi* R1 = new Roi(e, std::pair(4, 0), true);
 	Roi* R2 = new Roi(e, std::pair(4, 7), false);
-	Roi* R3 = new Roi(e, std::pair(3, 3), true);
+	//Roi* R3 = new Roi(e, std::pair(3, 3), true);
 	Dame* d1 = new Dame(e, std::pair(3, 0), true);
 	Dame* d2 = new Dame(e, std::pair(3, 7), false);
 	Pion* P1 = new Pion(e, std::pair(0, 1), true);
 	Pion* P2 = new Pion(e, std::pair(1, 1), true);
 	Pion* P3 = new Pion(e, std::pair(2, 1), true);
 	Pion* P4 = new Pion(e, std::pair(3, 1), true);
-	//Pion P5(e, std::pair(4, 1), true);
+	Pion* P5 = new Pion(e, std::pair(4, 1), true);
 	Pion* P6 = new Pion(e, std::pair(5, 1), true);
 	Pion* P7 = new Pion(e, std::pair(6, 1), true);
 	Pion* P8 = new Pion(e, std::pair(7, 1), true);
@@ -114,18 +118,35 @@ void UI::ChessWindow::positionInitiale(Echiquier e)
 	Fou* f2 = new Fou(e, std::pair(5, 0), true);
 	Fou* f3 = new Fou(e, std::pair(2, 7), false);
 	Fou* f4 = new Fou(e, std::pair(5, 7), false);
+	pieces = { R1 , R2, d1, d2, P1,P2,P3,P4,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
+	calculerMouvementsPieces();
+	//afficherMouvementsDisponiblesEchiquier(pieces[0]->obtenirMouvements(), pieces[0]->obtenirPosition());
 
-	std::vector<Piece*> pieces = { R1 , R2, d1, d2, P1,P2,P3,P4,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
-	for (auto piece : pieces) {
+}
+
+void UI::ChessWindow::calculerMouvementsPieces() {
+	for (auto& piece : pieces) {
 		ajouterPiece(piece);
 		piece->calculerMouvements(e);
 	}
-	afficherMouvementsDisponiblesEchiquier(f2->obtenirMouvements(), f2->obtenirPosition());
-}
+};
 
 void UI::ChessWindow::mousePressEvent(QMouseEvent* event)
 {
 	qDebug() << "mousePressEvent"; // fonctionne
-	qDebug() << event->pos();        // E0393 pointer to incomplete class type is not allowed
+	event->accept();
+	calculerMouvementsPieces();
+	//qDebug() << pieces;
+	afficherMouvementsDisponiblesEchiquier(pieces[0]->obtenirMouvements(), pieces[0]->obtenirPosition());
+	
+
+	
+
+	dernierClic = event->pos();        // E0393 pointer to incomplete class type is not allowed
+	//Deb();
 	QMainWindow::mousePressEvent(event); // fonctionne
+	
+}
+
+void UI::ChessWindow::cliquePiece() {
 }

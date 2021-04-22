@@ -9,6 +9,7 @@
 #include <QString>
 #include <QLabel>
 #include <QPainter>
+#include <QDebug>
 #include "classes.hpp"
 #pragma pop()
 
@@ -29,11 +30,34 @@ namespace UI
 		
 		void afficherMouvementsDisponiblesEchiquier(std::vector<std::pair<int, int>> v, std::pair<int, int> pos);
 
-		void positionInitiale(Echiquier e);
-
+		void positionInitiale();
+		void calculerMouvementsPieces();
 		void mousePressEvent(QMouseEvent* event);
+		void cliquePiece();
+		void verifierClic() { 
+			for (auto p : pieces) {
+				if ((dernierClic.x() / 100 == p->obtenirPosition().first) && (7 - (dernierClic.y() / 100)) == p->obtenirPosition().second)
+				{
+					qDebug() << true;
+					positionInitiale();
+					afficherMouvementsDisponiblesEchiquier(p->obtenirMouvements(), p->obtenirPosition());
+					break;
 
+				}
+			}
+			//this->show();
+		}
+
+
+	private:
+		Echiquier e;
+		std::vector<Piece*> pieces;
+		bool tourAuxBlancs = true;
+		bool aClique = false;
+		QPoint dernierClic;
+		bool someCondition = false;
 	};
+
 }
 
 
