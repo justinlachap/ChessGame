@@ -33,7 +33,6 @@ namespace UI
 		void positionInitiale();
 		void calculerMouvementsPieces();
 		void mousePressEvent(QMouseEvent* event);
-		void cliquePiece();
 		void verifierClic() { 
 			for (auto p : pieces) {
 				if ((dernierClic.x() / 100 == p->obtenirPosition().first) && (7 - (dernierClic.y() / 100)) == p->obtenirPosition().second)
@@ -45,8 +44,8 @@ namespace UI
 
 				}
 			}
-			//this->show();
 		}
+		std::vector<Piece*> obtenirPieces() { return pieces; }
 
 
 	private:

@@ -33,6 +33,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 	// Nom de la fenêtre
 	setWindowTitle("Jeu d'échecs");
 	setMouseTracking(true);
+
 	// Initalisation de l'échiquier
 	QLabel* lbl1 = new QLabel(this);
 	Echiquier e;
@@ -85,9 +86,10 @@ void UI::ChessWindow::afficherMouvementsDisponiblesEchiquier(std::vector<std::pa
 
 void UI::ChessWindow::positionInitiale()
 {
+	qDebug() << "pos init";
 	Roi* R1 = new Roi(e, std::pair(4, 0), true);
 	Roi* R2 = new Roi(e, std::pair(4, 7), false);
-	//Roi* R3 = new Roi(e, std::pair(3, 3), true);
+	Roi* R3 = new Roi(e, std::pair(3, 3), true); // On essaie de creer un troisieme roi
 	Dame* d1 = new Dame(e, std::pair(3, 0), true);
 	Dame* d2 = new Dame(e, std::pair(3, 7), false);
 	Pion* P1 = new Pion(e, std::pair(0, 1), true);
@@ -120,8 +122,7 @@ void UI::ChessWindow::positionInitiale()
 	Fou* f4 = new Fou(e, std::pair(5, 7), false);
 	pieces = { R1 , R2, d1, d2, P1,P2,P3,P4,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
 	calculerMouvementsPieces();
-	//afficherMouvementsDisponiblesEchiquier(pieces[0]->obtenirMouvements(), pieces[0]->obtenirPosition());
-
+	afficherMouvementsDisponiblesEchiquier(c3->obtenirMouvements(), c3->obtenirPosition());
 }
 
 void UI::ChessWindow::calculerMouvementsPieces() {
@@ -133,20 +134,12 @@ void UI::ChessWindow::calculerMouvementsPieces() {
 
 void UI::ChessWindow::mousePressEvent(QMouseEvent* event)
 {
-	qDebug() << "mousePressEvent"; // fonctionne
-	event->accept();
+	qDebug() << "mousePressEvent"; 
+	qDebug() << event->pos();
 	calculerMouvementsPieces();
-	//qDebug() << pieces;
 	afficherMouvementsDisponiblesEchiquier(pieces[0]->obtenirMouvements(), pieces[0]->obtenirPosition());
-	
-
-	
-
-	dernierClic = event->pos();        // E0393 pointer to incomplete class type is not allowed
-	//Deb();
-	QMainWindow::mousePressEvent(event); // fonctionne
-	
+	dernierClic = event->pos();        
+	//verifierClic();
+	QMainWindow::mousePressEvent(event); 
 }
 
-void UI::ChessWindow::cliquePiece() {
-}

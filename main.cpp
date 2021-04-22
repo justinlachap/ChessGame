@@ -126,7 +126,7 @@ void Pion::calculerMouvements(Echiquier e)
 	else
 	{
 		// si pion noir n'a pas bougé, il peut avancer de 2 cases vers l'avant
-		if ((position_.second == 6)
+		if ((position_.second == tailleEchiquierMax-1)
 			&& (e.cases[position_.first][position_.second - avancerDeuxCases] == caseVide))
 			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second - avancerDeuxCases));
 
@@ -292,7 +292,7 @@ void Fou::calculerMouvements(Echiquier e)
 
 	int positionsRangeeVersLaGauche = position_.first; // nombre de position vides vers la gauche
 	positionsRangeeVersLeHaut = position_.second; // nombre de position vides vers le haut
-	while (positionsRangeeVersLaGauche > 0 && positionsRangeeVersLeHaut < tailleEchiquierMax)
+	while (positionsRangeeVersLaGauche > tailleEchiquierMin && positionsRangeeVersLeHaut < tailleEchiquierMax)
 	{
 		if ((e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeHaut + uneCase] == caseVide)) {
 			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, positionsRangeeVersLeHaut + uneCase));
@@ -312,7 +312,7 @@ void Fou::calculerMouvements(Echiquier e)
 
 	positionsRangeeVersLaGauche = position_.first; // nombre de position vides vers la droite
 	int positionsRangeeVersLeBas = position_.second; // nombre de position vides vers le haut
-	while (positionsRangeeVersLaGauche > 0 && positionsRangeeVersLeBas > 0)
+	while (positionsRangeeVersLaGauche > tailleEchiquierMin && positionsRangeeVersLeBas > tailleEchiquierMin)
 	{
 		if ((e.cases[positionsRangeeVersLaGauche - uneCase][positionsRangeeVersLeBas - uneCase] == caseVide)) {
 			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, positionsRangeeVersLeBas - uneCase));
@@ -332,7 +332,7 @@ void Fou::calculerMouvements(Echiquier e)
 
 	positionsRangeeVersLaDroite = position_.first; // nombre de position vides vers la droite
 	positionsRangeeVersLeBas = position_.second; // nombre de position vides vers le haut
-	while (positionsRangeeVersLaDroite < tailleEchiquierMax && positionsRangeeVersLeBas > 0)
+	while (positionsRangeeVersLaDroite < tailleEchiquierMax && positionsRangeeVersLeBas > tailleEchiquierMin)
 	{
 		if ((e.cases[positionsRangeeVersLaDroite + uneCase][positionsRangeeVersLeBas - uneCase] == caseVide)) {
 			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, positionsRangeeVersLeBas - uneCase));
@@ -381,10 +381,8 @@ int main(int argc, char* argv[])
 	bibliotheque_cours::VerifierFuitesAllocations verifierFuitesAllocations;
 	QApplication app(argc, argv);
 	initialiserBibliothequeCours(argc, argv);
-
 	UI::ChessWindow chessWindow;
 	chessWindow.resize(800, 800);
 	chessWindow.show();
 	return app.exec();
-	
 }

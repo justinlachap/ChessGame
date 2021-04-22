@@ -134,8 +134,6 @@ public:
 
 class Tour : virtual public Piece
 {
-	const static int tourBlanc_ = 4;
-	const static int tourNoir_ = 10;
 	const QString tourBlanche = "images/white_rook.png";
 	const QString tourNoire = "images/black_rook.png";
 
@@ -155,8 +153,6 @@ public:
 
 class Fou : virtual public Piece
 {
-	const static int fouBlanc_ = 5;
-	const static int fouNoir_ = 11;
 	const QString fouBlanc = "images/white_bishop.png";
 	const QString fouNoir = "images/black_bishop.png";
 
