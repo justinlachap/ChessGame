@@ -113,9 +113,17 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
+    <ClCompile Include="bishop.cpp" />
+    <ClCompile Include="chessboard.cpp" />
     <ClCompile Include="ChessWindow.cpp" />
     <ClCompile Include="googletest\src\gtest-all.cc" />
+    <ClCompile Include="king.cpp" />
+    <ClCompile Include="knight.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="pawn.cpp" />
+    <ClCompile Include="pieces.cpp" />
+    <ClCompile Include="queen.cpp" />
+    <ClCompile Include="rook.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
