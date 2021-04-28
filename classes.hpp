@@ -65,6 +65,9 @@ public:
 
 	void afficheMouvements() const;
 	void estCapturé() {};
+	void changerPos(int x, int y) { position_.first = x;
+	position_.second = y;
+	}
 
 	bool obtenirCouleur() { return estBlanc_; }
 	std::pair<int, int> obtenirPosition() { return position_ ; }

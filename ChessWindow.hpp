@@ -38,19 +38,23 @@ namespace UI
 				if ((dernierClic.x() / 100 == p->obtenirPosition().first) && (7 - (dernierClic.y() / 100)) == p->obtenirPosition().second)
 				{
 					qDebug() << true;
+					pieceSelectionnee = p;
 					positionInitiale();
 					afficherMouvementsDisponiblesEchiquier(p->obtenirMouvements(), p->obtenirPosition());
 					break;
-
 				}
 			}
+			
 		}
 		std::vector<Piece*> obtenirPieces() { return pieces; }
 
 
 	private:
 		Echiquier e;
+		QLabel* lbl1;
+		Piece* pieceSelectionnee;
 		std::vector<Piece*> pieces;
+		std::vector <QLabel*> affichages;
 		bool tourAuxBlancs = true;
 		bool aClique = false;
 		QPoint dernierClic;

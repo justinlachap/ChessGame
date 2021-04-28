@@ -35,7 +35,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 	setMouseTracking(true);
 
 	// Initalisation de l'échiquier
-	QLabel* lbl1 = new QLabel(this);
+	lbl1 = new QLabel(this);
 	Echiquier e;
 	e.initialiserVide();
 	QPixmap echiquier;
@@ -60,6 +60,7 @@ void UI::ChessWindow::ajouterPiece(Piece* p) {
 	lbl4->setPixmap(pix4.scaled(lbl4->width(), lbl4->height(), Qt::KeepAspectRatio));
 	lbl4->setGeometry(QRect(100 * p->obtenirPosition().first, 100 * (7 - p->obtenirPosition().second), 100, 100)); // (Qrect(x,y,height,width)
 	lbl4->setTextInteractionFlags(Qt::TextSelectableByMouse);
+	lbl4->show();
 }
 
 void UI::ChessWindow::afficherMouvementsDisponiblesEchiquier(std::vector<std::pair<int, int>> v, std::pair<int, int> pos) {
@@ -68,10 +69,10 @@ void UI::ChessWindow::afficherMouvementsDisponiblesEchiquier(std::vector<std::pa
 	QPixmap pix5;
 	pix5.load("images/sqaure.png");
 	QLabel* lbl5 = new QLabel(this);
+	affichages.push_back(lbl5);
 	lbl5->setMinimumSize(100, 100);
 	lbl5->setPixmap(pix5.scaled(lbl5->width(), lbl5->height(), Qt::KeepAspectRatio));
 	lbl5->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
-
 	lbl5->setGeometry(QRect(100 * pos.first, 100 * (7 - pos.second), 100, 100)); // (Qrect(x,y,height,width)
 	for (auto i : v) {
 
@@ -81,7 +82,10 @@ void UI::ChessWindow::afficherMouvementsDisponiblesEchiquier(std::vector<std::pa
 		lbl4->setAlignment(Qt::AlignHCenter | Qt::AlignVCenter);
 
 		lbl4->setGeometry(QRect(100 * i.first, 100 * (7 - i.second), 100, 100)); // (Qrect(x,y,height,width)
+		lbl4->show();
+		affichages.push_back(lbl4);
 	}
+	lbl5->show();
 }
 
 void UI::ChessWindow::positionInitiale()
@@ -92,7 +96,7 @@ void UI::ChessWindow::positionInitiale()
 	Roi* R3 = new Roi(e, std::pair(3, 3), true); // On essaie de creer un troisieme roi
 	Dame* d1 = new Dame(e, std::pair(3, 0), true);
 	Dame* d2 = new Dame(e, std::pair(3, 7), false);
-	Pion* P1 = new Pion(e, std::pair(0, 1), true);
+	//Pion* P1 = new Pion(e, std::pair(0, 1), true);
 	Pion* P2 = new Pion(e, std::pair(1, 1), true);
 	Pion* P3 = new Pion(e, std::pair(2, 1), true);
 	Pion* P4 = new Pion(e, std::pair(3, 1), true);
@@ -120,9 +124,7 @@ void UI::ChessWindow::positionInitiale()
 	Fou* f2 = new Fou(e, std::pair(5, 0), true);
 	Fou* f3 = new Fou(e, std::pair(2, 7), false);
 	Fou* f4 = new Fou(e, std::pair(5, 7), false);
-	pieces = { R1 , R2, d1, d2, P1,P2,P3,P4,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
-	calculerMouvementsPieces();
-	afficherMouvementsDisponiblesEchiquier(c3->obtenirMouvements(), c3->obtenirPosition());
+	pieces = { R1 , R2, d1, d2,P2,P3,P4,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
 }
 
 void UI::ChessWindow::calculerMouvementsPieces() {
@@ -134,12 +136,27 @@ void UI::ChessWindow::calculerMouvementsPieces() {
 
 void UI::ChessWindow::mousePressEvent(QMouseEvent* event)
 {
-	qDebug() << "mousePressEvent"; 
-	qDebug() << event->pos();
+	for (auto i : affichages)
+		i->setVisible(false);
 	calculerMouvementsPieces();
-	afficherMouvementsDisponiblesEchiquier(pieces[0]->obtenirMouvements(), pieces[0]->obtenirPosition());
+	if (pieceSelectionnee != nullptr) {
+		
+		for (auto pos : pieceSelectionnee->obtenirMouvements()) {
+			if (pos.first == event->x() / 100 and (7 - pos.second) == event->y() / 100) {
+				for (auto x : pieces)
+					if (x == pieceSelectionnee) {
+						qDebug() << "true";
+						x->changerPos(pos.first, pos.second);
+						calculerMouvementsPieces();
+						//pieceSelectionnee = nullptr;
+					}
+			}
+				
+		}
+	}
 	dernierClic = event->pos();        
-	//verifierClic();
+	verifierClic();
+	
 	QMainWindow::mousePressEvent(event); 
 }
 
