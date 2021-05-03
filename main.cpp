@@ -34,7 +34,7 @@ int main(int argc, char* argv[])
 	QApplication app(argc, argv);
 	initialiserBibliothequeCours(argc, argv);
 	UI::ChessWindow chessWindow;
-	chessWindow.resize(800, 800);
+	chessWindow.resize(810, 810);
 	chessWindow.show();
 	return app.exec();
 }

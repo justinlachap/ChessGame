@@ -11,9 +11,11 @@
 #include <QPainter>
 #include <QDebug>
 #include "classes.hpp"
+#include <QGraphicsScene>
+#include <QGraphicsPixmapItem>
 #pragma pop()
 
-class Case;
+
 
 namespace UI
 {
@@ -26,27 +28,12 @@ namespace UI
 		ChessWindow(QWidget* parent = nullptr);
 		~ChessWindow() override = default;
 
-		void ajouterPiece(Piece* p);
+		//void ajouterPiece(Piece* p);
 		
-		void afficherMouvementsDisponiblesEchiquier(std::vector<std::pair<int, int>> v, std::pair<int, int> pos);
+		//void afficherMouvementsDisponiblesEchiquier(std::vector<std::pair<int, int>> v, std::pair<int, int> pos);
 
-		void positionInitiale();
-		void calculerMouvementsPieces();
-		void mousePressEvent(QMouseEvent* event);
-		void verifierClic() { 
-			for (auto p : pieces) {
-				if ((dernierClic.x() / 100 == p->obtenirPosition().first) && (7 - (dernierClic.y() / 100)) == p->obtenirPosition().second)
-				{
-					qDebug() << true;
-					pieceSelectionnee = p;
-					positionInitiale();
-					afficherMouvementsDisponiblesEchiquier(p->obtenirMouvements(), p->obtenirPosition());
-					break;
-				}
-			}
-			
-		}
-		std::vector<Piece*> obtenirPieces() { return pieces; }
+		//void mousePressEvent(QMouseEvent* event);
+		
 
 
 	private:
@@ -55,12 +42,29 @@ namespace UI
 		Piece* pieceSelectionnee;
 		std::vector<Piece*> pieces;
 		std::vector <QLabel*> affichages;
-		bool tourAuxBlancs = true;
-		bool aClique = false;
-		QPoint dernierClic;
-		bool someCondition = false;
+		QGraphicsScene* scene;
+		QGraphicsView* view;
 	};
 
 }
 
 
+class customitem :public QGraphicsPixmapItem {
+public:
+	customitem(QPixmap img): QGraphicsPixmapItem(img) {
+		setFlag(QGraphicsItem::ItemIsMovable, true);
+		//setFlag(QGraphicsItem::ItemIsSelectable, true);
+	};
+	void setPiece(Piece* piece) {
+		p = piece;
+	}
+	void setEchiquier(Echiquier* echiquier) { ech = echiquier; }
+	void setScene(QGraphicsScene* scene) { s = scene; };
+	void mouseReleaseEvent(QGraphicsSceneMouseEvent* e);
+	void mousePressEvent(QGraphicsSceneMouseEvent* e);
+private:
+	Echiquier* ech;
+	Piece* p;
+	QGraphicsScene* s;
+	std::vector<QGraphicsPixmapItem*> v;
+};
