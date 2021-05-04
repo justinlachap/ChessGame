@@ -28,11 +28,10 @@ namespace UI
 		ChessWindow(QWidget* parent = nullptr);
 		~ChessWindow() override = default;
 
-		//void ajouterPiece(Piece* p);
-		
-		//void afficherMouvementsDisponiblesEchiquier(std::vector<std::pair<int, int>> v, std::pair<int, int> pos);
-
-		//void mousePressEvent(QMouseEvent* event);
+		void positionInitiale();
+		void berlinDefense();
+		void sicilianNajdorf();
+		void endGame();
 		
 
 
