@@ -130,7 +130,6 @@
     <QtMoc Include="ChessWindow.hpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Chess.hpp" />
     <ClInclude Include="classes.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

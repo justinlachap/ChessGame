@@ -4,29 +4,21 @@
 #include "ChessWindow.hpp"
 
 #pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
-#include <QHBoxLayout>
-#include <QPushButton>
-#include <QButtonGroup>
-#include <QLabel>
-#include <QString>
-#include <QVariant>
+
+
 #include <QPixmap>
 #pragma pop()
 #include <iostream>
-#include <type_traits>
-#include <cppitertools/range.hpp>
+
 #include "classes.hpp"
 #include <QGraphicsRectItem>
-#include <Qpen>
-#include <QPainter>
 #include <QGraphicsSceneEvent>
 #include <Qgraphicsview>
 #include <QGraphicsScene>
-#include <QRect>
 #include <QDebug>
 #include< QMouseEvent >
 
-using iter::range;
+
 
 UI::ChessWindow::ChessWindow(QWidget* parent) :
 	QMainWindow(parent)
@@ -61,10 +53,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 	for (auto& piece : pieces) {
 		QPixmap img = piece->obtenirImage();
 		img = img.scaled(100, 100, Qt::KeepAspectRatio);
-		customitem* c = new customitem(img);
-		c->setPiece(piece);
-		c->setScene(scene);
-		c->setEchiquier(&e);
+		customitem* c = new customitem(img, piece, &e, scene);
 		c->setPos(piece->obtenirPosition().first*100,100*( 7 -piece->obtenirPosition().second));
 		scene->addItem(c);
 		

@@ -5,10 +5,6 @@
 //#include "classes.hpp"
 #pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
 #include <QMainWindow>
-#include <QPushButton>
-#include <QString>
-#include <QLabel>
-#include <QPainter>
 #include <QDebug>
 #include "classes.hpp"
 #include <QGraphicsScene>
@@ -37,10 +33,7 @@ namespace UI
 
 	private:
 		Echiquier e;
-		QLabel* lbl1;
-		Piece* pieceSelectionnee;
 		std::vector<Piece*> pieces;
-		std::vector <QLabel*> affichages;
 		QGraphicsScene* scene;
 		QGraphicsView* view;
 	};
@@ -50,15 +43,13 @@ namespace UI
 
 class customitem :public QGraphicsPixmapItem {
 public:
-	customitem(QPixmap img): QGraphicsPixmapItem(img) {
+	customitem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene): QGraphicsPixmapItem(img) {
 		setFlag(QGraphicsItem::ItemIsMovable, true);
-		//setFlag(QGraphicsItem::ItemIsSelectable, true);
-	};
-	void setPiece(Piece* piece) {
 		p = piece;
-	}
-	void setEchiquier(Echiquier* echiquier) { ech = echiquier; }
-	void setScene(QGraphicsScene* scene) { s = scene; };
+		ech = echiquier;
+		s = scene;
+	};
+	
 	void mouseReleaseEvent(QGraphicsSceneMouseEvent* e);
 	void mousePressEvent(QGraphicsSceneMouseEvent* e);
 private:
