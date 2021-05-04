@@ -39,7 +39,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 
 	/*Choisir une position parmi les suivantes*/
 		//positionInitiale();
-		berlinDefense();
+	berlinDefense();
 	//sicilianNajdorf();
 	//endGame();
 /*										  */
@@ -65,7 +65,6 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 
 
 void  customitem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e) {
-	//qDebug() << pos().x();
 	for (auto& x : v) {
 		s->removeItem(x);
 	}
@@ -81,22 +80,24 @@ void  customitem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e) {
 		y = pos().y() - ((int)(pos().y()) % 100);
 
 	bool peuxBouger = false;
-	for (auto i : p->obtenirMouvements()) {
+	for (auto i : p->obtenirMouvements()) 
 		if (i.first * 100 == x && (100 * (7 - i.second) == y)) {
+			ech->cases[p->obtenirPosition().first][p->obtenirPosition().second] = nullptr;
+			for (auto item : s->items())
+				if (item->x() == x && item->y() == y)
+					s->removeItem(item);
 			setPos(x, y);
 			p->changerPos(i.first, i.second, ech);
+
 			for (int j = 0; j < 8; j++)
 				for (int k = 0; k < 8; k++) {
 					if (ech->cases[j][k] != nullptr)
 						ech->cases[j][k]->calculerMouvements(*ech);
-					// À compléter, pour les captures de pièces, enlever la piece capturee
-					/*if (ech->cases[j][k]->obtenirPosition() == pair(i.first, i.second))
-						s->removeItem*/
 				}
-			
+
 			peuxBouger = true;
 			break;
-		}
+		
 	}
 	if (!peuxBouger)
 		qDebug() << "Mouvement impossible";
