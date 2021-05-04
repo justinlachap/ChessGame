@@ -11,6 +11,7 @@ Fou::Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc
 
 void Fou::calculerMouvements(Echiquier e)
 {
+	mouvementsDisponibles_.clear();
 	int positionsRangeeVersLaDroite = position_.first;	// nombre de position vides vers la droite
 	int positionsRangeeVersLeHaut = position_.second;	// nombre de position vides vers le haut
 	while (positionsRangeeVersLaDroite < tailleEchiquierMax && positionsRangeeVersLeHaut < tailleEchiquierMax)

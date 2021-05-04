@@ -8,6 +8,7 @@ Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBla
 
 void Dame::calculerMouvements(Echiquier e)
 {
+	mouvementsDisponibles_.clear();
 	Tour::calculerMouvements(e);
 	Fou::calculerMouvements(e);
 }

@@ -14,6 +14,7 @@ Tour::Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBla
 
 void Tour::calculerMouvements(Echiquier e)
 {
+	mouvementsDisponibles_.clear();
 	// nombre de position vides vers la droite
 	for (int positionsRangeeVersLaDroite : iter::range(position_.first, tailleEchiquierMax))
 	{

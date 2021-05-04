@@ -12,12 +12,14 @@ Pion::Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBla
 
 void Pion::calculerMouvements(Echiquier e)
 {
+	mouvementsDisponibles_.clear();
 	int avancerDeuxCases = 2;
+	int avancerUneCase = 1;
 	// pion blanc
 	if (estBlanc_)
 	{
 		// si n'a pas bougé, il peut avancer de 2 cases vers l'avant
-		if ((position_.second == uneCase) && (e.cases[position_.first][position_.second + avancerDeuxCases] == caseVide))
+		if ((position_.second == uneCase) && (e.cases[position_.first][position_.second + avancerDeuxCases] == caseVide) && (e.cases[position_.first][position_.second + avancerUneCase] == caseVide))
 			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second + avancerDeuxCases));
 
 		// si la case d'en avant est disponible, il peut avancer d'une case
@@ -43,7 +45,7 @@ void Pion::calculerMouvements(Echiquier e)
 	{
 		// si pion noir n'a pas bougé, il peut avancer de 2 cases vers l'avant
 		if ((position_.second == tailleEchiquierMax - 1)
-			&& (e.cases[position_.first][position_.second - avancerDeuxCases] == caseVide))
+			&& (e.cases[position_.first][position_.second - avancerDeuxCases] == caseVide) && (e.cases[position_.first][position_.second - avancerUneCase] == caseVide))
 			mouvementsDisponibles_.push_back(std::pair(position_.first, position_.second - avancerDeuxCases));
 
 		// si la case d'en avant est disponible, il peut avancer d'une case

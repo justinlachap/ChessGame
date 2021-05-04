@@ -29,6 +29,7 @@ Roi::Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc
 
 void Roi::calculerMouvements(Echiquier e)
 {
+	mouvementsDisponibles_.clear();
 	// vers la droite
 	if (position_.first < tailleEchiquierMax)
 		if (((e.cases[position_.first + uneCase][position_.second] == caseVide)

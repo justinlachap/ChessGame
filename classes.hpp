@@ -65,8 +65,9 @@ public:
 
 	void afficheMouvements() const;
 	void estCapturé() {};
-	void changerPos(int x, int y) { position_.first = x;
+	void changerPos(int x, int y, Echiquier* e) { position_.first = x;
 	position_.second = y;
+	e->cases[x][y] = this;
 	}
 
 	bool obtenirCouleur() { return estBlanc_; }
