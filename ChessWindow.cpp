@@ -21,28 +21,42 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 	setWindowTitle("Jeu d'échecs");
 	setMouseTracking(true);
 
+
 	// Initalisation de l'échiquier
 	e.initialiserVide();
 	QPixmap echiquier;
 	echiquier.load(e.obtenirImage());
 	echiquier = echiquier.scaled(800, 800, Qt::KeepAspectRatio);
 
+
 	// Initialisation des pièces
 	scene = new QGraphicsScene(this);
 	scene->setSceneRect(0, 0, 800, 800);
 	view = new QGraphicsView(scene);
 
-
+	int i = 0;
+	std::cout << "\n";
+	std::cout << "Choisir une position parmi les suivantes en rentrant le numéro: \n";
+	std::cout << "		1. Position initiale \n";
+	std::cout << "		2. Défense berlinoise \n";
+	std::cout << "		3. Défense sicilienne variation Najdorf \n";
+	std::cout << "		4. Position de fin de partie \n";
+	while (i == 0) {
+		std::cin >> i;
+	}
 	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(echiquier);
 	item->setPos(0, 0);
 	scene->addItem(item);
 
-	/*Choisir une position parmi les suivantes*/
-		//positionInitiale();
-	berlinDefense();
-	//sicilianNajdorf();
-	//endGame();
-/*										  */
+	if (i == 1)
+		positionInitiale();
+	else if (i == 2)
+		berlinDefense();
+	else if (i == 3)
+		sicilianNajdorf();
+	else if (i == 4)
+		endGame();
+
 
 	for (auto& piece : pieces) {
 		QPixmap img = piece->obtenirImage();
@@ -80,7 +94,7 @@ void  customitem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e) {
 		y = pos().y() - ((int)(pos().y()) % 100);
 
 	bool peuxBouger = false;
-	for (auto i : p->obtenirMouvements()) 
+	for (auto i : p->obtenirMouvements())
 		if (i.first * 100 == x && (100 * (7 - i.second) == y)) {
 			ech->cases[p->obtenirPosition().first][p->obtenirPosition().second] = nullptr;
 			for (auto item : s->items())
@@ -97,8 +111,8 @@ void  customitem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e) {
 
 			peuxBouger = true;
 			break;
-		
-	}
+
+		}
 	if (!peuxBouger)
 		qDebug() << "Mouvement impossible";
 
@@ -117,7 +131,6 @@ void customitem::mousePressEvent(QGraphicsSceneMouseEvent* e) {
 	item->setPos(100 * p->obtenirPosition().first, 100 * (7 - p->obtenirPosition().second));
 	s->addItem(item);
 	v.push_back(item);
-	//p->calculerMouvements(*ech);
 	for (auto i : p->obtenirMouvements()) {
 		QPixmap pix5;
 		pix5.load("images/green.png");
@@ -248,7 +261,7 @@ void UI::ChessWindow::sicilianNajdorf()
 
 void UI::ChessWindow::endGame()
 {
-	Roi* R1 = new Roi(e, pair(0, 5), true);
+	Roi* R1 = new Roi(e, pair(0, 4), true);
 	Roi* R2 = new Roi(e, pair(1, 7), false);
 	Pion* P1 = new Pion(e, pair(1, 5), true);
 	Pion* P2 = new Pion(e, pair(6, 1), true);

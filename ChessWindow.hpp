@@ -29,8 +29,6 @@ namespace UI
 		void sicilianNajdorf();
 		void endGame();
 		
-
-
 	private:
 		Echiquier e;
 		std::vector<Piece*> pieces;
