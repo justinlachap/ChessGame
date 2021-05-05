@@ -34,27 +34,27 @@ UI::ChessWindow::ChessWindow(QWidget* parent) :
 	scene->setSceneRect(0, 0, 800, 800);
 	view = new QGraphicsView(scene);
 
-	int i = 0;
+	int choix = 0;
 	std::cout << "\n";
 	std::cout << "Choisir une position parmi les suivantes en rentrant le numéro: \n";
 	std::cout << "		1. Position initiale \n";
 	std::cout << "		2. Défense berlinoise \n";
 	std::cout << "		3. Défense sicilienne variation Najdorf \n";
 	std::cout << "		4. Position de fin de partie \n";
-	while (i == 0) {
-		std::cin >> i;
+	while (choix == 0) {
+		std::cin >> choix;
 	}
 	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(echiquier);
 	item->setPos(0, 0);
 	scene->addItem(item);
 
-	if (i == 1)
+	if (choix == 1)
 		positionInitiale();
-	else if (i == 2)
+	else if (choix == 2)
 		berlinDefense();
-	else if (i == 3)
+	else if (choix == 3)
 		sicilianNajdorf();
-	else if (i == 4)
+	else if (choix == 4)
 		endGame();
 
 
