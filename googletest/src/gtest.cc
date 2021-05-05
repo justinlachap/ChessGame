@@ -526,15 +526,15 @@ bool UnitTestOptions::FilterMatchesTest(const std::string& test_suite_name,
 
   // Split --gtest_filter at '-', if there is one, to separate into
   // positive filter and negative filter portions
-  const char* const p = GTEST_FLAG(filter).c_str();
-  const char* const dash = strchr(p, '-');
+  const char* const p_ = GTEST_FLAG(filter).c_str();
+  const char* const dash = strchr(p_, '-');
   std::string positive;
   std::string negative;
   if (dash == nullptr) {
     positive = GTEST_FLAG(filter).c_str();  // Whole string is a positive filter
     negative = "";
   } else {
-    positive = std::string(p, dash);   // Everything up to the dash
+    positive = std::string(p_, dash);   // Everything up to the dash
     negative = std::string(dash + 1);  // Everything after the dash
     if (positive.empty()) {
       // Treat '-test1' as the same as '*-test1'
@@ -2474,10 +2474,10 @@ Result HandleExceptionsInMethodIfSupported(
       // Test assertion with the intention of letting another testing
       // framework catch it.  Therefore we just re-throw it.
       throw;
-    } catch (const std::exception& e) {  // NOLINT
+    } catch (const std::exception& e_) {  // NOLINT
       internal::ReportFailureInUnknownLocation(
           TestPartResult::kFatalFailure,
-          FormatCxxExceptionMessage(e.what(), location));
+          FormatCxxExceptionMessage(e_.what(), location));
     } catch (...) {  // NOLINT
       internal::ReportFailureInUnknownLocation(
           TestPartResult::kFatalFailure,
@@ -5848,16 +5848,16 @@ static void PrintColorEncoded(const char* str) {
   // each iteration, the str pointer advances to the beginning of the
   // next segment.
   for (;;) {
-    const char* p = strchr(str, '@');
-    if (p == nullptr) {
+    const char* p_ = strchr(str, '@');
+    if (p_ == nullptr) {
       ColoredPrintf(color, "%s", str);
       return;
     }
 
-    ColoredPrintf(color, "%s", std::string(str, p).c_str());
+    ColoredPrintf(color, "%s", std::string(str, p_).c_str());
 
-    const char ch = p[1];
-    str = p + 2;
+    const char ch = p_[1];
+    str = p_ + 2;
     if (ch == '@') {
       ColoredPrintf(color, "@");
     } else if (ch == 'D') {

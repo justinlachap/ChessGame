@@ -18,7 +18,7 @@ namespace Logique
 	class MethodeVirtuelleLogique
 	{
 	public:
-		virtual void calculerMouvements(Echiquier e) = 0;
+		virtual void calculerMouvements(Echiquier e_) = 0;
 	};
 }
 
@@ -60,18 +60,20 @@ protected:
 public:
 	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, char nom, bool estBlanc);
 
-	virtual void calculerMouvements(Echiquier e) override = 0;
+	virtual void calculerMouvements(Echiquier e_) override = 0;
 	virtual QString obtenirImage() const override = 0;
 
 	void afficheMouvements() const;
 	void estCapturÈ() {};
-	void changerPos(int x, int y, Echiquier* e) { position_.first = x;
-	position_.second = y;
-	e->cases[x][y] = this;
+	void changerPos(int x, int y, Echiquier* e_)
+	{
+		position_.first = x;
+		position_.second = y;
+		e_->cases[x][y] = this;
 	}
 
 	bool obtenirCouleur() { return estBlanc_; }
-	std::pair<int, int> obtenirPosition() { return position_ ; }
+	std::pair<int, int> obtenirPosition() { return position_; }
 	std::vector<std::pair<int, int>> obtenirMouvements() const { return mouvementsDisponibles_; }
 	std::pair<int, int> obtenirPosition() const { return position_; }
 };
@@ -84,7 +86,7 @@ class Pion : virtual public Piece
 public:
 	Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
-	void calculerMouvements(Echiquier e) override;
+	void calculerMouvements(Echiquier e_) override;
 
 	QString obtenirImage() const override
 	{
@@ -103,9 +105,9 @@ class Cavalier : virtual public Piece
 public:
 	Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
-	void calculerMouvements(Echiquier e) override;
+	void calculerMouvements(Echiquier e_) override;
 
-	QString obtenirImage() const override 
+	QString obtenirImage() const override
 	{
 		if (estBlanc_)
 			return cavalierBlanc;
@@ -123,7 +125,7 @@ class Roi : virtual public Piece
 public:
 	Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
-	void calculerMouvements(Echiquier e) override;
+	void calculerMouvements(Echiquier e_) override;
 
 	bool estEn…chec(std::vector<std::pair<int, int>>);
 
@@ -144,7 +146,7 @@ class Tour : virtual public Piece
 public:
 	Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
-	void calculerMouvements(Echiquier e) override;
+	void calculerMouvements(Echiquier e_) override;
 
 	QString obtenirImage() const override
 	{
@@ -163,7 +165,7 @@ class Fou : virtual public Piece
 public:
 	Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
-	void calculerMouvements(Echiquier e) override;
+	void calculerMouvements(Echiquier e_) override;
 
 	QString obtenirImage() const override
 	{
@@ -174,8 +176,8 @@ public:
 	}
 };
 
-class Dame : virtual public Piece, 
-	public Fou, 
+class Dame : virtual public Piece,
+	public Fou,
 	public Tour
 {
 	const QString reineBlanche = "images/white_queen.png";
@@ -184,7 +186,7 @@ class Dame : virtual public Piece,
 public:
 	Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
-	void calculerMouvements(Echiquier e) override;
+	void calculerMouvements(Echiquier e_) override;
 
 	QString obtenirImage() const override
 	{

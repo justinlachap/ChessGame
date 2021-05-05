@@ -317,10 +317,10 @@ namespace details
         // clang-format off
         GSL_SUPPRESS(con.3) // NO-FORMAT: attribute // TODO: false positive
         // clang-format on
-        constexpr void _Seek_to(const pointer p) noexcept
+        constexpr void _Seek_to(const pointer p_) noexcept
         { // adjust the position of *this to previously verified location p
             // after _Unwrapped
-            current_ = p;
+            current_ = p_;
         }
 #endif
 
@@ -661,7 +661,7 @@ private:
     // Needed to remove unnecessary null check in subspans
     struct KnownNotNull
     {
-        pointer p;
+        pointer p_;
     };
 
     // this implementation detail class lets us take advantage of the
@@ -675,7 +675,7 @@ private:
         // in subspans and constructors from arrays
         template <class OtherExtentType>
         constexpr storage_type(KnownNotNull data, OtherExtentType ext)
-            : ExtentType(ext), data_(data.p)
+            : ExtentType(ext), data_(data.p_)
         {
             Expects(ExtentType::size() != dynamic_extent);
         }
@@ -779,27 +779,27 @@ namespace details
 // [span.objectrep], views of object representation
 template <class ElementType, std::size_t Extent>
 span<const byte, details::calculate_byte_size<ElementType, Extent>::value>
-as_bytes(span<ElementType, Extent> s) noexcept
+as_bytes(span<ElementType, Extent> s_) noexcept
 {
     using type = span<const byte, details::calculate_byte_size<ElementType, Extent>::value>;
 
     // clang-format off
     GSL_SUPPRESS(type.1) // NO-FORMAT: attribute
     // clang-format on
-    return type{reinterpret_cast<const byte*>(s.data()), s.size_bytes()};
+    return type{reinterpret_cast<const byte*>(s_.data()), s_.size_bytes()};
 }
 
 template <class ElementType, std::size_t Extent,
           std::enable_if_t<!std::is_const<ElementType>::value, int> = 0>
 span<byte, details::calculate_byte_size<ElementType, Extent>::value>
-as_writable_bytes(span<ElementType, Extent> s) noexcept
+as_writable_bytes(span<ElementType, Extent> s_) noexcept
 {
     using type = span<byte, details::calculate_byte_size<ElementType, Extent>::value>;
 
     // clang-format off
     GSL_SUPPRESS(type.1) // NO-FORMAT: attribute
     // clang-format on
-    return type{reinterpret_cast<byte*>(s.data()), s.size_bytes()};
+    return type{reinterpret_cast<byte*>(s_.data()), s_.size_bytes()};
 }
 
 } // namespace gsl

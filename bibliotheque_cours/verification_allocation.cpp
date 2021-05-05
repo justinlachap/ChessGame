@@ -94,41 +94,41 @@ void desactiver_verification_allocation() { SansVerifierAllocations::est_actif =
 void remplir_bloc_verification_corruption_a(void* ptr, size_t sz)
 {
 	if constexpr (a_verification_corruption) {
-		auto* p = reinterpret_cast<TypeValeurVerificationCorruption*>(ptr);
+		auto* p_ = reinterpret_cast<TypeValeurVerificationCorruption*>(ptr);
 		if constexpr (verification_contient_taille) {
-			p[0] = TypeValeurVerificationCorruption(sz);
-			p[1] = p[0] ^ valeur_verification_corruption;
+			p_[0] = TypeValeurVerificationCorruption(sz);
+			p_[1] = p_[0] ^ valeur_verification_corruption;
 		}
 		for (size_t i = verification_contient_taille ? 2 : 0; i < n_mots_verification_corruption; ++i)
-			p[i] = valeur_verification_corruption;
+			p_[i] = valeur_verification_corruption;
 	}
 }
 bool tester_bloc_verification_corruption_a(void* ptr)
 {
 	if constexpr (a_verification_corruption) {
-		auto* p = reinterpret_cast<TypeValeurVerificationCorruption*>(ptr);
+		auto* p_ = reinterpret_cast<TypeValeurVerificationCorruption*>(ptr);
 		if constexpr (verification_contient_taille) {
-			if ((p[1] ^ p[0]) != valeur_verification_corruption)
+			if ((p_[1] ^ p_[0]) != valeur_verification_corruption)
 				return false;
 		}
 		for (size_t i = verification_contient_taille ? 2 : 0; i < n_mots_verification_corruption; ++i)
-			if (p[i] != valeur_verification_corruption)
+			if (p_[i] != valeur_verification_corruption)
 				return false;
 	}
 	return true;
 }
 
 
-char* pointeur_octets(void* p) { return reinterpret_cast<char*>(p); }
+char* pointeur_octets(void* p_) { return reinterpret_cast<char*>(p_); }
 //const char* pointeur_octets(const void* p) { return reinterpret_cast<const char*>(p); }
 
 // Devrait être appelé uniquement lorsqu'on sait que le bloc n'est pas corrompu (l'assertion devrait se rendre compte d'un problème, mais ça n'est pas vérifiable dans un test).
 size_t taille_allocation_selon_verification_corruption(void* ptr)
 {
 	assert(verification_contient_taille);
-	auto* p = reinterpret_cast<TypeValeurVerificationCorruption*>(pointeur_octets(ptr) - taille_verification_corruption);
-	assert((p[1] ^ p[0]) == valeur_verification_corruption);
-	return p[0];
+	auto* p_ = reinterpret_cast<TypeValeurVerificationCorruption*>(pointeur_octets(ptr) - taille_verification_corruption);
+	assert((p_[1] ^ p_[0]) == valeur_verification_corruption);
+	return p_[0];
 }
 
 void mettre_verification_corruption_sur_allocation(void* ptr, size_t sz)

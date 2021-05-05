@@ -299,8 +299,8 @@ namespace iter {
     template <typename ItTool>
     struct Pipeable {
       template <typename T>
-      friend decltype(auto) operator|(T&& x, const Pipeable& p) {
-        return static_cast<const ItTool&>(p)(std::forward<T>(x));
+      friend decltype(auto) operator|(T&& x, const Pipeable& p_) {
+        return static_cast<const ItTool&>(p_)(std::forward<T>(x));
       }
     };
 

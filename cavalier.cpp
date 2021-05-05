@@ -1,11 +1,9 @@
-#include "cavalier.hpp"
-#include "echiquier.hpp"
+#include "classes.hpp"
 #include "gsl/span"
-#include "cppitertools/range.hpp"
-#include "constantes.hpp"
 
-using namespace iter;
 using namespace gsl;
+static const int tailleEchiquierMax = 7;
+static const Piece* caseVide = nullptr;
 
 Cavalier::Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
 	: Piece(nouvelEchiquier, position, 'C', estBlanc)
@@ -13,8 +11,9 @@ Cavalier::Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, boo
 	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 
-void Cavalier::calculerMouvements(Echiquier e)
+void Cavalier::calculerMouvements(Echiquier e_)
 {
+	mouvementsDisponibles_.clear();
 	std::pair<int, int> deplacements[8] = { std::pair(-1,-2),std::pair(1,-2),std::pair(2,-1),std::pair(2,1),std::pair(1,2),std::pair(-1,2),std::pair(-2,1),std::pair(-2,-1) };
 	const int tailleInt = 8;
 
@@ -24,7 +23,7 @@ void Cavalier::calculerMouvements(Echiquier e)
 		int x = position_.first + d.first;
 		int y = position_.second + d.second;
 		if (x >= 0 && x <= tailleEchiquierMax && y >= 0 && y <= tailleEchiquierMax) {
-			if (e.cases[x][y] == caseVide || (e.cases[x][y]->obtenirCouleur() != estBlanc_))
+			if (e_.cases[x][y] == caseVide || (e_.cases[x][y]->obtenirCouleur() != estBlanc_))
 				mouvementsDisponibles_.push_back(std::pair(x, y));
 		}
 	}

@@ -329,12 +329,12 @@ void UniversalPrintArray(const wchar_t* begin, size_t len, ostream* os) {
 }
 
 // Prints the given C string to the ostream.
-void PrintTo(const char* s, ostream* os) {
-  if (s == nullptr) {
+void PrintTo(const char* s_, ostream* os) {
+  if (s_ == nullptr) {
     *os << "NULL";
   } else {
-    *os << ImplicitCast_<const void*>(s) << " pointing to ";
-    PrintCharsAsStringTo(s, strlen(s), os);
+    *os << ImplicitCast_<const void*>(s_) << " pointing to ";
+    PrintCharsAsStringTo(s_, strlen(s_), os);
   }
 }
 
@@ -346,12 +346,12 @@ void PrintTo(const char* s, ostream* os) {
 // wchar_t is implemented as a native type.
 #if !defined(_MSC_VER) || defined(_NATIVE_WCHAR_T_DEFINED)
 // Prints the given wide C string to the ostream.
-void PrintTo(const wchar_t* s, ostream* os) {
-  if (s == nullptr) {
+void PrintTo(const wchar_t* s_, ostream* os) {
+  if (s_ == nullptr) {
     *os << "NULL";
   } else {
-    *os << ImplicitCast_<const void*>(s) << " pointing to ";
-    PrintCharsAsStringTo(s, wcslen(s), os);
+    *os << ImplicitCast_<const void*>(s_) << " pointing to ";
+    PrintCharsAsStringTo(s_, wcslen(s_), os);
   }
 }
 #endif  // wchar_t is native
@@ -359,10 +359,10 @@ void PrintTo(const wchar_t* s, ostream* os) {
 namespace {
 
 bool ContainsUnprintableControlCodes(const char* str, size_t length) {
-  const unsigned char *s = reinterpret_cast<const unsigned char *>(str);
+  const unsigned char *s_ = reinterpret_cast<const unsigned char *>(str);
 
   for (size_t i = 0; i < length; i++) {
-    unsigned char ch = *s++;
+    unsigned char ch = *s_++;
     if (std::iscntrl(ch)) {
         switch (ch) {
         case '\t':
@@ -380,32 +380,32 @@ bool ContainsUnprintableControlCodes(const char* str, size_t length) {
 bool IsUTF8TrailByte(unsigned char t) { return 0x80 <= t && t<= 0xbf; }
 
 bool IsValidUTF8(const char* str, size_t length) {
-  const unsigned char *s = reinterpret_cast<const unsigned char *>(str);
+  const unsigned char *s_ = reinterpret_cast<const unsigned char *>(str);
 
   for (size_t i = 0; i < length;) {
-    unsigned char lead = s[i++];
+    unsigned char lead = s_[i++];
 
     if (lead <= 0x7f) {
       continue;  // single-byte character (ASCII) 0..7F
     }
     if (lead < 0xc2) {
       return false;  // trail byte or non-shortest form
-    } else if (lead <= 0xdf && (i + 1) <= length && IsUTF8TrailByte(s[i])) {
+    } else if (lead <= 0xdf && (i + 1) <= length && IsUTF8TrailByte(s_[i])) {
       ++i;  // 2-byte character
     } else if (0xe0 <= lead && lead <= 0xef && (i + 2) <= length &&
-               IsUTF8TrailByte(s[i]) &&
-               IsUTF8TrailByte(s[i + 1]) &&
+               IsUTF8TrailByte(s_[i]) &&
+               IsUTF8TrailByte(s_[i + 1]) &&
                // check for non-shortest form and surrogate
-               (lead != 0xe0 || s[i] >= 0xa0) &&
-               (lead != 0xed || s[i] < 0xa0)) {
+               (lead != 0xe0 || s_[i] >= 0xa0) &&
+               (lead != 0xed || s_[i] < 0xa0)) {
       i += 2;  // 3-byte character
     } else if (0xf0 <= lead && lead <= 0xf4 && (i + 3) <= length &&
-               IsUTF8TrailByte(s[i]) &&
-               IsUTF8TrailByte(s[i + 1]) &&
-               IsUTF8TrailByte(s[i + 2]) &&
+               IsUTF8TrailByte(s_[i]) &&
+               IsUTF8TrailByte(s_[i + 1]) &&
+               IsUTF8TrailByte(s_[i + 2]) &&
                // check for non-shortest form
-               (lead != 0xf0 || s[i] >= 0x90) &&
-               (lead != 0xf4 || s[i] < 0x90)) {
+               (lead != 0xf0 || s_[i] >= 0x90) &&
+               (lead != 0xf4 || s_[i] < 0x90)) {
       i += 3;  // 4-byte character
     } else {
       return false;
@@ -423,17 +423,17 @@ void ConditionalPrintAsText(const char* str, size_t length, ostream* os) {
 
 }  // anonymous namespace
 
-void PrintStringTo(const ::std::string& s, ostream* os) {
-  if (PrintCharsAsStringTo(s.data(), s.size(), os) == kHexEscape) {
+void PrintStringTo(const ::std::string& s_, ostream* os) {
+  if (PrintCharsAsStringTo(s_.data(), s_.size(), os) == kHexEscape) {
     if (GTEST_FLAG(print_utf8)) {
-      ConditionalPrintAsText(s.data(), s.size(), os);
+      ConditionalPrintAsText(s_.data(), s_.size(), os);
     }
   }
 }
 
 #if GTEST_HAS_STD_WSTRING
-void PrintWideStringTo(const ::std::wstring& s, ostream* os) {
-  PrintCharsAsStringTo(s.data(), s.size(), os);
+void PrintWideStringTo(const ::std::wstring& s_, ostream* os) {
+  PrintCharsAsStringTo(s_.data(), s_.size(), os);
 }
 #endif  // GTEST_HAS_STD_WSTRING
 

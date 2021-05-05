@@ -42,21 +42,21 @@ namespace testing {
 
 // Constructs a matcher that matches a const std::string& whose value is
 // equal to s.
-Matcher<const std::string&>::Matcher(const std::string& s) { *this = Eq(s); }
+Matcher<const std::string&>::Matcher(const std::string& s_) { *this = Eq(s_); }
 
 // Constructs a matcher that matches a const std::string& whose value is
 // equal to s.
-Matcher<const std::string&>::Matcher(const char* s) {
-  *this = Eq(std::string(s));
+Matcher<const std::string&>::Matcher(const char* s_) {
+  *this = Eq(std::string(s_));
 }
 
 // Constructs a matcher that matches a std::string whose value is equal to
 // s.
-Matcher<std::string>::Matcher(const std::string& s) { *this = Eq(s); }
+Matcher<std::string>::Matcher(const std::string& s_) { *this = Eq(s_); }
 
 // Constructs a matcher that matches a std::string whose value is equal to
 // s.
-Matcher<std::string>::Matcher(const char* s) { *this = Eq(std::string(s)); }
+Matcher<std::string>::Matcher(const char* s_) { *this = Eq(std::string(s_)); }
 
 #if GTEST_HAS_ABSL
 // Constructs a matcher that matches a const absl::string_view& whose value is
