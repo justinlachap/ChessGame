@@ -7,6 +7,7 @@
 
 #include <QPixmap>
 #pragma pop()
+#include <QThread>
 #include <iostream>
 #include <QGraphicsSceneEvent>
 #include <Qgraphicsview>
@@ -24,7 +25,7 @@ void UI::ChessWindow::setUI() {
 	showCombobox->addItem("Nouvelle Partie"); // Index 0
 	connect(showCombobox, SIGNAL(currentIndexChanged(int)),
 		this, SLOT(filterList(int)));
-
+	
 	// Le bouton pour congédier tout le monde
 	QPushButton* nouvelePartieButton = new QPushButton(this);
 	nouvelePartieButton->setText("Nouvelle partie");
@@ -33,6 +34,7 @@ void UI::ChessWindow::setUI() {
 	QVBoxLayout* listLayout = new QVBoxLayout;
 	listLayout->addWidget(showCombobox);
 	listLayout->addWidget(nouvelePartieButton);
+	QThread::sleep(5);
 }
 
 UI::ChessWindow::ChessWindow(QWidget* parent)
@@ -42,7 +44,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 
 	setWindowTitle("Jeu d'échecs");
 	setMouseTracking(true);
-	setUI();
+	//setUI();
 
 	// Initalisation de l'échiquier
 	e_.initialiserVide();
@@ -55,7 +57,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 	view_ = new QGraphicsView(scene_);
 
 	//choisir type de layout
-	int i = 0;
+	int choix = 0;
 	std::cout << "\n";
 	std::cout << "Choisir une position parmi les suivantes en rentrant le numéro: \n";
 	std::cout << "		1. Position initiale \n";
@@ -63,15 +65,15 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 	std::cout << "		3. Défense sicilienne variation Najdorf \n";
 	std::cout << "		4. Position de fin de partie \n";
 
-	while (i == 0)
-		std::cin >> i;
+	while (choix == 0)
+		std::cin >> choix;
 
 	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(echiquier);
 	item->setPos(0, 0);
 	scene_->addItem(item);
 
 	// set position initiales des pieces de l'echiquier
-	if (i == 1)
+	if (choix == 1)
 		positionInitiale();
 	else if (choix == 2)
 		berlinDefense();
@@ -84,7 +86,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 	{
 		QPixmap img = piece->obtenirImage();
 		img = img.scaled(100, 100, Qt::KeepAspectRatio);
-		customitem* c = new customitem(img, piece, &e_, scene_);
+		customitem* c = new customitem(img, piece, &e_, scene_, &tourAuBlanc_);
 		c->setPos(piece->obtenirPosition().first * 100, 100 * (7 - piece->obtenirPosition().second));
 		scene_->addItem(c);
 	}
@@ -93,12 +95,12 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 		piece->calculerMouvements(e_);
 
 	setCentralWidget(view_);
-	// qDebug() << "Constructeur appele" << Qt::endl;
 
 }
 
 void UI::customitem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e_)
 {
+	
 	for (auto& x : v_)
 		s_->removeItem(x);
 
@@ -123,7 +125,7 @@ void UI::customitem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e_)
 	int indexEchiquierMAx = 7;
 	bool peutBouger = false;
 	for (auto i : p_->obtenirMouvements())
-		if ((i.first * uneRangee_ == x) && (uneColonne_ * (indexEchiquierMAx - i.second) == y))
+		if ((i.first * uneRangee_ == x) && (uneColonne_ * (indexEchiquierMAx - i.second) == y) && (*tourDeJouer_==p_->obtenirCouleur()))
 		{
 			// ancienne position a nullptr
 			ech_->cases[p_->obtenirPosition().first][p_->obtenirPosition().second] = nullptr;
@@ -142,11 +144,14 @@ void UI::customitem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e_)
 						ech_->cases[j][k]->calculerMouvements(*ech_);
 
 			peutBouger = true;
+			*tourDeJouer_ ^= true;
 			break;
 		}
 
-	if (!peutBouger)
-		qDebug() << "Mouvement impossible";
+	if (!peutBouger) {
+		setPos(p_->obtenirPosition().first*100, 100*(7-p_->obtenirPosition().second));
+		qDebug() << "Mouvement impossible ou ce n'est pas à votre tour de jouer!";
+	}
 
 	QGraphicsPixmapItem::mouseReleaseEvent(e_);
 };

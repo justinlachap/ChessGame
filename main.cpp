@@ -39,7 +39,7 @@ int main(int argc, char* argv[])
 	while (nouvellePartie == 'X')
 		std::cin >> nouvellePartie;
 
-	if (nouvellePartie != 'Y')
+	if (nouvellePartie != 'Y' && nouvellePartie!='y')
 		return 0;
 
 	initialiserBibliothequeCours(argc, argv);

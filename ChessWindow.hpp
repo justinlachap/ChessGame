@@ -33,18 +33,19 @@ namespace UI
 		std::vector<Piece*> pieces_;
 		QGraphicsScene* scene_;
 		QGraphicsView* view_;
-		//bool* tourAuBlanc_;
+		bool tourAuBlanc_ = true;
 	};
 
 	class customitem :public QGraphicsPixmapItem
 	{
 	public:
-		customitem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene_) : QGraphicsPixmapItem(img)
+		customitem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene_, bool* tour) : QGraphicsPixmapItem(img)
 		{
 			setFlag(QGraphicsItem::ItemIsMovable, true);
 			p_ = piece;
 			ech_ = echiquier;
 			s_ = scene_;
+			tourDeJouer_ = tour;
 		};
 		void mouseReleaseEvent(QGraphicsSceneMouseEvent* e_);
 		void mousePressEvent(QGraphicsSceneMouseEvent* e_);
@@ -56,6 +57,7 @@ namespace UI
 		std::vector<QGraphicsPixmapItem*> v_;
 		const int uneRangee_ = 100;
 		const int uneColonne_ = 100;
+		bool* tourDeJouer_;
 	};
 }
 
