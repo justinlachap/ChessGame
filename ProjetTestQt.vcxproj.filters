@@ -40,28 +40,28 @@
     <ClCompile Include="Test.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="knight.cpp">
+    <ClCompile Include="Cavalier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="chessboard.cpp">
+    <ClCompile Include="Echiquier.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pieces.cpp">
+    <ClCompile Include="Piece.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="pawn.cpp">
+    <ClCompile Include="Pion.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bishop.cpp">
+    <ClCompile Include="Fou.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="rook.cpp">
+    <ClCompile Include="Tour.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="queen.cpp">
+    <ClCompile Include="Dame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="king.cpp">
+    <ClCompile Include="Roi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -72,6 +72,30 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="classes.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Fou.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Dame.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tour.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Cavalier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Echiquier.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Roi.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Piece.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

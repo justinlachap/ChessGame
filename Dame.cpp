@@ -6,9 +6,9 @@ Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBla
 	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 
-void Dame::calculerMouvements(Echiquier e)
+void Dame::calculerMouvements(Echiquier e_)
 {
 	mouvementsDisponibles_.clear();
-	Tour::calculerMouvements(e);
-	Fou::calculerMouvements(e);
+	Tour::calculerMouvements(e_);
+	Fou::calculerMouvements(e_);
 }

@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtInstall>5.15.0_msvc2019_64</QtInstall>
     <QtModules>core;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -113,24 +113,32 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
-    <ClCompile Include="bishop.cpp" />
-    <ClCompile Include="chessboard.cpp" />
+    <ClCompile Include="Fou.cpp" />
+    <ClCompile Include="Echiquier.cpp" />
     <ClCompile Include="ChessWindow.cpp" />
     <ClCompile Include="googletest\src\gtest-all.cc" />
-    <ClCompile Include="king.cpp" />
-    <ClCompile Include="knight.cpp" />
+    <ClCompile Include="Roi.cpp" />
+    <ClCompile Include="Cavalier.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="pawn.cpp" />
-    <ClCompile Include="pieces.cpp" />
-    <ClCompile Include="queen.cpp" />
-    <ClCompile Include="rook.cpp" />
+    <ClCompile Include="Pion.cpp" />
+    <ClCompile Include="Piece.cpp" />
+    <ClCompile Include="Dame.cpp" />
+    <ClCompile Include="Tour.cpp" />
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="ChessWindow.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Cavalier.h" />
     <ClInclude Include="classes.hpp" />
+    <ClInclude Include="Dame.h" />
+    <ClInclude Include="Echiquier.h" />
+    <ClInclude Include="Fou.h" />
+    <ClInclude Include="Piece.h" />
+    <ClInclude Include="Pion.h" />
+    <ClInclude Include="Roi.h" />
+    <ClInclude Include="Tour.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">

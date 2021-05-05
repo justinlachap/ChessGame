@@ -227,8 +227,8 @@ auto remplaceConsoleOutputCP(UINT codePageId) {
 
 #endif
 
-static const char* to_const_char(const std::string& s) { return s.c_str(); }
-static const char* to_const_char(const char* s) { return s; }
+static const char* to_const_char(const std::string& s_) { return s_.c_str(); }
+static const char* to_const_char(const char* s_) { return s_; }
 
 [[nodiscard]]//("Remet l'ancienne valeur immediatément si on ne conserve pas l'objet retourné.")]] // bug de gcc 9.3: error: wrong number of arguments specified for ‘nodiscard’ attribute
 auto remplaceCLocale(int category, std::span<const char*> locales_a_essayer) {

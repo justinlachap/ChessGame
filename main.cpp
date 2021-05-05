@@ -1,6 +1,7 @@
 #include "ChessWindow.hpp"
 #include <stdexcept>
 #include <QApplication>
+#include <iostream>
 
 #if __has_include("bibliotheque_cours.hpp")
 #include "bibliotheque_cours.hpp"
@@ -32,6 +33,15 @@ int main(int argc, char* argv[])
 {
 	bibliotheque_cours::VerifierFuitesAllocations verifierFuitesAllocations;
 	QApplication app(argc, argv);
+
+	char nouvellePartie = 'X';
+	std::cout << "Aimeriez-vous commencer une nouvelle partie? [Y/n]" << std::endl;
+	while (nouvellePartie == 'X')
+		std::cin >> nouvellePartie;
+
+	if (nouvellePartie != 'Y')
+		return 0;
+
 	initialiserBibliothequeCours(argc, argv);
 	UI::ChessWindow chessWindow;
 	chessWindow.resize(810, 810);
