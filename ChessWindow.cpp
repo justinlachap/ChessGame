@@ -1,14 +1,5 @@
-﻿/////////////////////////////////////////////////////////////////////
-//																   //
-// La vue de l'interface graphique utilisateur du jeux d'échec	   //
-// 																   //
-// Par :														   //
-//		Généreux, Esmé (2081518)								   //
-//		Lachapelle, Justin (2076412)							   //
-// 																   //
-/////////////////////////////////////////////////////////////////////
-
-#include "ChessWindow.hpp"
+﻿#include "ChessWindow.h"
+#include "CustomItem.h"
 #include "Pion.h"
 #include "Tour.h"
 #include "Cavalier.h"
@@ -19,21 +10,24 @@
 #pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
 
 #include <QPixmap>
-#pragma pop()
 #include <QThread>
 #include <iostream>
+
+#include <QGraphicsview>
 #include <QGraphicsSceneEvent>
-#include <Qgraphicsview>
+#include <QGraphicsPixmapItem>
+
 #include <QDebug>
 #include <QVBoxLayout>
 #include <QComboBox>
 #include <QPushButton>
 #include <QListWidget>
+#pragma pop()
 
 using std::pair;
 
 // 100 représente un huitième de la taille de l'image pour l'echiquier (800)
-const int uneRangee = 100;		
+const int uneRangee = 100;
 const int uneColonne = 100;
 
 UI::ChessWindow::ChessWindow(QWidget* parent)
@@ -70,14 +64,15 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 	scene_->addItem(item);
 
 	// set position initiales des pieces de l'echiquier
-	if (choix == 1)
+	int classic = 1, berlinoise = 2, sicilienne = 3, finDeJeux = 4;
+	if (choix == classic)
 		positionInitiale();
-	else if (choix == 2)
-		berlinDefense();
-	else if (choix == 3)
-		sicilianNajdorf();
-	else if (choix == 4)
-		endGame();
+	else if (choix == berlinoise)
+		defenseBerlinoise();
+	else if (choix == sicilienne)
+		defenseSicilienneNajdorf();
+	else if (choix == finDeJeux)
+		finale();
 
 	for (Piece* piece : pieces_)
 	{
@@ -94,11 +89,6 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 	setCentralWidget(view_);
 }
 
-UI::CustomItem::CustomItem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene, bool* tour) 
-	: QGraphicsPixmapItem(img), p_(piece), ech_(echiquier), s_(scene), tourDeJouer_(tour)
-{
-	setFlag(QGraphicsItem::ItemIsMovable, true);
-}
 
 void UI::ChessWindow::setUI() {
 	// Le sélecteur pour filtrer ce que l'on souhaite dans la liste
@@ -118,107 +108,6 @@ void UI::ChessWindow::setUI() {
 	QThread::sleep(5);
 }
 
-/*
-**Permet de centrer les pieces lorsqu'elles sont bougées sur une case des mouvements disponibles
-*/
-void UI::CustomItem::centrerLesPiecesSurUneCase(int& x, int& y) //////////////////////////////////////////Might need to return x and y
-{
-	int milieuCase = 50;
-
-	if ((int)pos().x() % uneRangee > milieuCase)
-		x = uneRangee + pos().x() - ((int)(pos().x()) % uneRangee);
-	else
-		x = pos().x() - ((int)(pos().x()) % uneRangee);
-
-	if ((int)pos().y() % uneColonne > milieuCase)
-		y = uneColonne + pos().y() - ((int)(pos().y()) % uneColonne);
-	else
-		y = pos().y() - ((int)(pos().y()) % uneColonne);
-}
-
-/*
-** Permet de renouvler l'affichage des points verts après avoit effectuer un mouvement
-*/
-void UI::CustomItem::renouvlerMouvementsDisponibles(int& x, int& y)
-{
-	int tailleEchiquierMax = 8;
-	int tailleEchiquierMin = 0;
-	int indexEchiquierMax = 7;
-	bool peutBouger = false;
-
-	for (std::pair<int, int> i : p_->obtenirMouvements())
-		if ((i.first * uneRangee == x) && (uneColonne * (indexEchiquierMax - i.second) == y) && (*tourDeJouer_ == p_->obtenirCouleur()))
-		{
-			// ancienne position a nullptr
-			ech_->cases[p_->obtenirPosition().first][p_->obtenirPosition().second] = nullptr;
-
-			// enlever un item si il y a une capture
-			for (auto item : s_->items())
-				if (item->x() == x && item->y() == y)
-					s_->removeItem(item);
-			setPos(x, y);
-			p_->changerPos(i.first, i.second, ech_);
-
-			// recalculer les mouvements disponibles lorsqu'une piece bouge
-			for (int j = tailleEchiquierMin; j < tailleEchiquierMax; j++)
-				for (int k = tailleEchiquierMin; k < tailleEchiquierMax; k++)
-					if (ech_->cases[j][k] != nullptr)
-						ech_->cases[j][k]->calculerMouvements(*ech_);
-
-			peutBouger = true;
-			*tourDeJouer_ ^= true;
-			break;
-		}
-
-	if (!peutBouger)
-	{
-		setPos(p_->obtenirPosition().first * uneRangee, (7 - p_->obtenirPosition().second) * uneColonne);
-		qDebug() << "Mouvement impossible ou ce n'est pas à votre tour de jouer!";
-	}
-}
-
-void UI::CustomItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e)
-{
-	///////////////////////////////////////////////////////////////////////////////////////////////////// enlever quoi???
-	for (QGraphicsPixmapItem* x : v_)
-		s_->removeItem(x);
-	
-	int x(0), y(0);
-	centrerLesPiecesSurUneCase(x, y);
-	renouvlerMouvementsDisponibles(x, y);
-
-	QGraphicsPixmapItem::mouseReleaseEvent(e);
-}
-
-// permet de update les points verts selon le click sur une pièce 
-void UI::CustomItem::mousePressEvent(QGraphicsSceneMouseEvent* e)
-{
-	// enlever les points verts
-	for (QGraphicsPixmapItem* x : v_)
-		s_->removeItem(x);
-
-	int x(0), y(0);
-	QPixmap pix5;
-	pix5.load("images/sqaure.png");
-	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pix5);
-	item->setPos(uneRangee * p_->obtenirPosition().first, uneColonne * (7 - p_->obtenirPosition().second));
-	s_->addItem(item);
-	v_.push_back(item);
-
-	// rajouter les points verts
-	int grosseurImage = 50;
-	for (std::pair<int, int> i : p_->obtenirMouvements())
-	{
-		QPixmap pix5;
-		pix5.load("images/green.png");
-		pix5 = pix5.scaled(grosseurImage, grosseurImage);
-		QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pix5);
-		item->setPos(uneRangee * i.first + 25, uneColonne * (7 - i.second) + 25);
-		s_->addItem(item);
-		v_.push_back(item);
-	}
-	QGraphicsPixmapItem::mousePressEvent(e);
-}
 
 void UI::ChessWindow::positionInitiale()
 {
@@ -264,11 +153,10 @@ void UI::ChessWindow::positionInitiale()
 	pieces_ = { R1 , R2, d1, d2,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
 }
 
-void UI::ChessWindow::berlinDefense()
+void UI::ChessWindow::defenseBerlinoise()
 {
 	Roi* R1 = new Roi(e_, pair(4, 0), true);
 	Roi* R2 = new Roi(e_, pair(4, 7), false);
-	Roi* R3 = new Roi(e_, pair(3, 3), true); // On essaie de creer un troisieme roi
 
 	Dame* d1 = new Dame(e_, pair(3, 0), true);
 	Dame* d2 = new Dame(e_, pair(3, 7), false);
@@ -308,11 +196,10 @@ void UI::ChessWindow::berlinDefense()
 	pieces_ = { R1 , R2, d1, d2,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
 }
 
-void UI::ChessWindow::sicilianNajdorf()
+void UI::ChessWindow::defenseSicilienneNajdorf()
 {
 	Roi* R1 = new Roi(e_, pair(4, 0), true);
 	Roi* R2 = new Roi(e_, pair(4, 7), false);
-	Roi* R3 = new Roi(e_, pair(3, 3), true); // On essaie de creer un troisieme roi
 
 	Dame* d1 = new Dame(e_, pair(3, 0), true);
 	Dame* d2 = new Dame(e_, pair(3, 7), false);
@@ -327,7 +214,6 @@ void UI::ChessWindow::sicilianNajdorf()
 	Pion* P8 = new Pion(e_, pair(7, 1), true);
 	Pion* P9 = new Pion(e_, pair(0, 5), false);
 	Pion* P10 = new Pion(e_, pair(1, 6), false);
-	//Pion* P11 = new Pion(e, std::pair(2, 6), false);
 	Pion* P12 = new Pion(e_, pair(3, 5), false);
 	Pion* P13 = new Pion(e_, pair(4, 6), false);
 	Pion* P14 = new Pion(e_, pair(5, 6), false);
@@ -352,7 +238,7 @@ void UI::ChessWindow::sicilianNajdorf()
 	pieces_ = { R1 , R2, d1, d2,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
 }
 
-void UI::ChessWindow::endGame()
+void UI::ChessWindow::finale()
 {
 	Roi* R1 = new Roi(e_, pair(0, 4), true);
 	Roi* R2 = new Roi(e_, pair(1, 7), false);

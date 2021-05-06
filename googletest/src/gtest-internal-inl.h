@@ -297,9 +297,9 @@ void ForEach(const Container& c, Functor functor) {
 // Returns the i-th element of the vector, or default_value if i is not
 // in range [0, v.size()).
 template <typename E>
-inline E GetElementOr(const std::vector<E>& v_, int i, E default_value) {
-  return (i < 0 || i >= static_cast<int>(v_.size())) ? default_value
-                                                    : v_[static_cast<size_t>(i)];
+inline E GetElementOr(const std::vector<E>& PixmapVector_, int i, E default_value) {
+  return (i < 0 || i >= static_cast<int>(PixmapVector_.size())) ? default_value
+                                                    : PixmapVector_[static_cast<size_t>(i)];
 }
 
 // Performs an in-place shuffle of a range of the vector's elements.
@@ -308,8 +308,8 @@ inline E GetElementOr(const std::vector<E>& v_, int i, E default_value) {
 // shuffle to the end of the vector.
 template <typename E>
 void ShuffleRange(internal::Random* random, int begin, int end,
-                  std::vector<E>* v_) {
-  const int size = static_cast<int>(v_->size());
+                  std::vector<E>* PixmapVector_) {
+  const int size = static_cast<int>(PixmapVector_->size());
   GTEST_CHECK_(0 <= begin && begin <= size)
       << "Invalid shuffle range start " << begin << ": must be in range [0, "
       << size << "].";
@@ -324,15 +324,15 @@ void ShuffleRange(internal::Random* random, int begin, int end,
     const int selected =
         begin +
         static_cast<int>(random->Generate(static_cast<UInt32>(range_width)));
-    std::swap((*v_)[static_cast<size_t>(selected)],
-              (*v_)[static_cast<size_t>(last_in_range)]);
+    std::swap((*PixmapVector_)[static_cast<size_t>(selected)],
+              (*PixmapVector_)[static_cast<size_t>(last_in_range)]);
   }
 }
 
 // Performs an in-place shuffle of the vector's elements.
 template <typename E>
-inline void Shuffle(internal::Random* random, std::vector<E>* v_) {
-  ShuffleRange(random, 0, static_cast<int>(v_->size()), v_);
+inline void Shuffle(internal::Random* random, std::vector<E>* PixmapVector_) {
+  ShuffleRange(random, 0, static_cast<int>(PixmapVector_->size()), PixmapVector_);
 }
 
 // A function for deleting an object.  Handy for being used as a

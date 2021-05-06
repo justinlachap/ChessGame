@@ -113,6 +113,7 @@
   <ItemGroup>
     <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
     <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
+    <ClCompile Include="CustomItem.cpp" />
     <ClCompile Include="Fou.cpp" />
     <ClCompile Include="Echiquier.cpp" />
     <ClCompile Include="ChessWindow.cpp" />
@@ -127,10 +128,11 @@
     <ClCompile Include="Test.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <QtMoc Include="ChessWindow.hpp" />
+    <QtMoc Include="ChessWindow.h" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cavalier.h" />
+    <ClInclude Include="CustomItem.h" />
     <ClInclude Include="Dame.h" />
     <ClInclude Include="Echiquier.h" />
     <ClInclude Include="Fou.h" />
