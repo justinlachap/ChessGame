@@ -121,7 +121,7 @@ void UI::ChessWindow::setUI() {
 /*
 **Permet de centrer les pieces lorsqu'elles sont bougées sur une case des mouvements disponibles
 */
-void UI::CustomItem::centrerLesPiecesSurUneCase(int x, int y) //////////////////////////////////////////Might need to return x and y
+void UI::CustomItem::centrerLesPiecesSurUneCase(int& x, int& y) //////////////////////////////////////////Might need to return x and y
 {
 	int milieuCase = 50;
 
@@ -139,7 +139,7 @@ void UI::CustomItem::centrerLesPiecesSurUneCase(int x, int y) //////////////////
 /*
 ** Permet de renouvler l'affichage des points verts après avoit effectuer un mouvement
 */
-void UI::CustomItem::renouvlerMouvementsDisponibles(int x, int y)
+void UI::CustomItem::renouvlerMouvementsDisponibles(int& x, int& y)
 {
 	int tailleEchiquierMax = 8;
 	int tailleEchiquierMin = 0;

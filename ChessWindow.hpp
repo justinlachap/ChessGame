@@ -43,8 +43,8 @@ namespace UI
 	public:
 		CustomItem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene_, bool* tour);
 
-		void centrerLesPiecesSurUneCase(int x, int y);
-		void renouvlerMouvementsDisponibles(int x, int y);
+		void centrerLesPiecesSurUneCase(int& x, int& y);
+		void renouvlerMouvementsDisponibles(int& x, int& y);
 
 		void mouseReleaseEvent(QGraphicsSceneMouseEvent* e_);
 		void mousePressEvent(QGraphicsSceneMouseEvent* e_);
