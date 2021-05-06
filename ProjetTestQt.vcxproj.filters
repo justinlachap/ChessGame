@@ -71,9 +71,6 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="classes.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Fou.h">
       <Filter>Header Files</Filter>
     </ClInclude>

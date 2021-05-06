@@ -1,4 +1,4 @@
-#include "classes.hpp"
+#include "Roi.h"
 #include <iostream>
 
 static const int uneCase = 1;
@@ -26,9 +26,6 @@ Roi::Roi(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc
 		delete this;
 	}
 };
-
-
-
 
 void Roi::calculerMouvements(Echiquier e_)
 {
@@ -82,10 +79,6 @@ void Roi::calculerMouvements(Echiquier e_)
 			|| (e_.cases[position_.first - uneCase][position_.second - uneCase]->obtenirCouleur() != estBlanc_)))
 			mouvementsDisponibles_.push_back(std::pair(position_.first - uneCase, position_.second - uneCase));
 };
-
-
-
-
 
 bool Roi::estEn…chec(std::vector<std::pair<int, int>> mouvementsPiecesAdverses) {
 	for (std::pair<int, int> mouvement : mouvementsPiecesAdverses)

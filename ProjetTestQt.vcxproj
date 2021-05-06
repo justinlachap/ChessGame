@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>5.15.2_msvc2019_64</QtInstall>
+    <QtInstall>5.15.0_msvc2019_64</QtInstall>
     <QtModules>core;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -131,7 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Cavalier.h" />
-    <ClInclude Include="classes.hpp" />
     <ClInclude Include="Dame.h" />
     <ClInclude Include="Echiquier.h" />
     <ClInclude Include="Fou.h" />

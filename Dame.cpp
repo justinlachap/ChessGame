@@ -1,4 +1,4 @@
-#include "classes.hpp"
+#include "Dame.h"
 
 Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
 	: Tour(nouvelEchiquier, position, estBlanc), Fou(nouvelEchiquier, position, estBlanc), Piece(nouvelEchiquier, position, 'D', estBlanc)

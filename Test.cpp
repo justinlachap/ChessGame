@@ -1,8 +1,18 @@
-﻿// Les test pour le Modèle pour calculatrice simple.
-// Par Francois-R.Boyer@PolyMtl.ca
+﻿/////////////////////////////////////////////////////////////////////
+//																   //
+// Tests sur le calcul des mouvements possibles d'une pièce.	   //
+// 																   //
+// Par :														   //
+//		Esmé Généreux (2081518)									   //
+//		Justin Lachapelle (2076412)								   //
+// 																   //
+/////////////////////////////////////////////////////////////////////
 
-
-#include "classes.hpp"
+#include "Echiquier.h"
+#include "Pion.h"
+#include "Fou.h"
+#include "Cavalier.h"
+#include "Tour.h"
 
 #if __has_include("gtest/gtest.h")
 #include "gtest/gtest.h"

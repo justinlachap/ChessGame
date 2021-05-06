@@ -1,4 +1,4 @@
-#include "classes.hpp"
+#include "Echiquier.h"
 
 static const int tailleEchiquierMax = 7;
 

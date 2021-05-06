@@ -4,9 +4,10 @@
 
 //#include "classes.hpp"
 #pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
+#include "Echiquier.h"
+
 #include <QMainWindow>
 #include <QDebug>
-#include "classes.hpp"
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
 #pragma pop()
@@ -19,10 +20,11 @@ namespace UI
 	{
 		Q_OBJECT
 	public:
-		void setUI();
+		
 		ChessWindow(QWidget* parent = nullptr);
 		~ChessWindow() override = default;
-
+		
+		void setUI();
 		void positionInitiale();
 		void berlinDefense();
 		void sicilianNajdorf();
@@ -36,17 +38,14 @@ namespace UI
 		bool tourAuBlanc_ = true;
 	};
 
-	class customitem :public QGraphicsPixmapItem
+	class CustomItem :public QGraphicsPixmapItem
 	{
 	public:
-		customitem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene_, bool* tour) : QGraphicsPixmapItem(img)
-		{
-			setFlag(QGraphicsItem::ItemIsMovable, true);
-			p_ = piece;
-			ech_ = echiquier;
-			s_ = scene_;
-			tourDeJouer_ = tour;
-		};
+		CustomItem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene_, bool* tour);
+
+		void centrerLesPiecesSurUneCase(int x, int y);
+		void renouvlerMouvementsDisponibles(int x, int y);
+
 		void mouseReleaseEvent(QGraphicsSceneMouseEvent* e_);
 		void mousePressEvent(QGraphicsSceneMouseEvent* e_);
 

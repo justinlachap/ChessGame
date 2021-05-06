@@ -1,3 +1,13 @@
+/////////////////////////////////////////////////////////////////////
+//																   //
+// Projet INF1015 : Jeux d'échec								   //
+// 																   //
+// Par :														   //
+//		Généreux, Esmé (2081518)								   //
+//		Lachapelle, Justin (2076412)							   //
+// 																   //
+/////////////////////////////////////////////////////////////////////
+
 #include "ChessWindow.hpp"
 #include <stdexcept>
 #include <QApplication>
