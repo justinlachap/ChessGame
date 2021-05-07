@@ -12,7 +12,7 @@
 #include "Echiquier.h"
 #include "Piece.h"
 
-#pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
+#pragma warning(push, 0)
 
 #include <QGraphicsScene>
 #include <QGraphicsPixmapItem>
@@ -21,7 +21,6 @@
 
 namespace UI
 {
-
 	class CustomItem : public QGraphicsPixmapItem
 	{
 		Echiquier* ech_;
@@ -32,11 +31,19 @@ namespace UI
 
 	public:
 		CustomItem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene, bool* tour);
-
-
-
+		
 		/**
-		 * Défénit les opérations à effectuer lors du drag d'une pièce ("drag and drop")
+		 * Enlève les points verts provenant du dernier click
+		 */
+		void enleverAncienPointsVerts();
+		
+		/**
+		 * Affiche les mouvements disponibles sous forme de points verts lors d'un MousePressEvent
+		 */
+		void ajouterPointsVerts();
+		
+		/**
+		 * Défénit les opérations à effectuer lors du drag d'une pièce ("drag and drop"), en autre, update les points verts
 		 * @param e : événement du MousePressEvent
 		 */
 		void mousePressEvent(QGraphicsSceneMouseEvent* e);

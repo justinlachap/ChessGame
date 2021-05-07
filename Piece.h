@@ -1,7 +1,12 @@
-/*
-** Livrable 2
-** Par Justin Lachapelle, matricule 2076412 et Esmé Généreux, matricule 2081518.
-*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//																																	//
+// Une pièce à un nom, une couleur, une position, des mouvements disponibles et on y associe une image afin de l'identifier			//
+// 																																	//
+// Par :																															//
+//		Généreux, Esmé (2081518)																									//
+//		Lachapelle, Justin (2076412)																								//
+// 																																	//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
 #include "Echiquier.h"

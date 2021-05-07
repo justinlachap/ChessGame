@@ -35,7 +35,7 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 {
 	setWindowTitle("Jeu d'échecs");
 	setMouseTracking(true);
-	//setUI();
+	// setUI();
 
 	// Initalisation de l'échiquier
 	e_.initialiserVide();
@@ -47,7 +47,27 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 	scene_->setSceneRect(0, 0, 800, 800);
 	view_ = new QGraphicsView(scene_);
 
-	//choisir type de layout
+	choisirLayoutPiece(echiquier);
+
+	// afficher les bonnes image pour une pièce
+	const int indexMaxEchiquier = 7;
+	for (Piece* piece : pieces_)
+	{
+		QPixmap img = piece->obtenirImage();
+		img = img.scaled(uneRangee, uneColonne, Qt::KeepAspectRatio);
+		CustomItem* c = new CustomItem(img, piece, &e_, scene_, &tourAuBlanc_);
+		c->setPos(piece->obtenirPosition().first * uneRangee, uneColonne * (indexMaxEchiquier - piece->obtenirPosition().second));
+		scene_->addItem(c);
+	}
+
+	for (Piece* piece : pieces_)
+		piece->calculerMouvements(e_);
+
+	setCentralWidget(view_);
+}
+
+void UI::ChessWindow::choisirLayoutPiece(QPixmap& echiquier)
+{
 	int choix = 0;
 	std::cout << "\n";
 	std::cout << "Choisir une position parmi les suivantes en rentrant le numéro: \n";
@@ -73,24 +93,11 @@ UI::ChessWindow::ChessWindow(QWidget* parent)
 		defenseSicilienneNajdorf();
 	else if (choix == finDeJeux)
 		finale();
-
-	for (Piece* piece : pieces_)
-	{
-		QPixmap img = piece->obtenirImage();
-		img = img.scaled(uneRangee, uneColonne, Qt::KeepAspectRatio);
-		CustomItem* c = new CustomItem(img, piece, &e_, scene_, &tourAuBlanc_);
-		c->setPos(piece->obtenirPosition().first * uneRangee, uneColonne * (7 - piece->obtenirPosition().second));
-		scene_->addItem(c);
-	}
-
-	for (Piece* piece : pieces_)
-		piece->calculerMouvements(e_);
-
-	setCentralWidget(view_);
 }
 
 
-void UI::ChessWindow::setUI() {
+void UI::ChessWindow::setUI() 
+{
 	// Le sélecteur pour filtrer ce que l'on souhaite dans la liste
 	QComboBox* showCombobox = new QComboBox(this);
 	showCombobox->addItem("Nouvelle Partie"); // Index 0
@@ -113,7 +120,7 @@ void UI::ChessWindow::positionInitiale()
 {
 	Roi* R1 = new Roi(e_, pair(4, 0), true);
 	Roi* R2 = new Roi(e_, pair(4, 7), false);
-	Roi* R3 = new Roi(e_, pair(3, 3), true); // On essaie de creer un troisieme roi
+	Roi* R3 = new Roi(e_, pair(3, 3), true);	// On essaie de creer un troisieme roi
 
 	Dame* d1 = new Dame(e_, pair(3, 0), true);
 	Dame* d2 = new Dame(e_, pair(3, 7), false);

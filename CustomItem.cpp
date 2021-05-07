@@ -13,22 +13,14 @@ UI::CustomItem::CustomItem(QPixmap img, Piece* piece, Echiquier* echiquier, QGra
 	setFlag(QGraphicsItem::ItemIsMovable, true);
 }
 
-// permet de update les points verts selon le click sur une pièce 
-void UI::CustomItem::mousePressEvent(QGraphicsSceneMouseEvent* e)
+void UI::CustomItem::enleverAncienPointsVerts()
 {
-	// enlever les points verts
 	for (QGraphicsPixmapItem* x : PixmapVector_)
 		s_->removeItem(x);
+}
 
-	int x(0), y(0);
-	QPixmap pix5;
-	pix5.load("images/sqaure.png");
-	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pix5);
-	item->setPos(uneRangee * p_->obtenirPosition().first, uneColonne * (7 - p_->obtenirPosition().second));
-	s_->addItem(item);
-	PixmapVector_.push_back(item);
-
-	// rajouter les points verts
+void UI::CustomItem::ajouterPointsVerts()
+{
 	int grosseurImage = 50;
 	for (std::pair<int, int> i : p_->obtenirMouvements())
 	{
@@ -40,10 +32,26 @@ void UI::CustomItem::mousePressEvent(QGraphicsSceneMouseEvent* e)
 		s_->addItem(item);
 		PixmapVector_.push_back(item);
 	}
+}
+
+void UI::CustomItem::mousePressEvent(QGraphicsSceneMouseEvent* e)
+{
+	enleverAncienPointsVerts();
+
+	int x(0), y(0);
+	QPixmap pix5;
+	pix5.load("images/sqaure.png");
+	QGraphicsPixmapItem* item = new QGraphicsPixmapItem(pix5);
+	item->setPos(uneRangee * p_->obtenirPosition().first, uneColonne * (7 - p_->obtenirPosition().second));
+	s_->addItem(item);
+	PixmapVector_.push_back(item);
+
+	ajouterPointsVerts();
+	
 	QGraphicsPixmapItem::mousePressEvent(e);
 }
 
-void UI::CustomItem::centrerLesPiecesSurUneCaseVerte(int& x, int& y) //////////////////////////////////////////Might need to return x and y
+void UI::CustomItem::centrerLesPiecesSurUneCaseVerte(int& x, int& y)
 {
 	int milieuCase = 50;
 
@@ -66,7 +74,8 @@ void UI::CustomItem::renouvlerMouvementsDisponibles(int& x, int& y)
 	bool peutBouger = false;
 
 	for (std::pair<int, int> i : p_->obtenirMouvements())
-		if ((i.first * uneRangee == x) && (uneColonne * (indexEchiquierMax - i.second) == y) && (*tourDeJouer_ == p_->obtenirCouleur()))
+		if ((i.first * uneRangee == x) && (uneColonne * (indexEchiquierMax - i.second) == y) 
+			&& (*tourDeJouer_ == p_->obtenirCouleur()))
 		{
 			// ancienne position a nullptr
 			ech_->cases[p_->obtenirPosition().first][p_->obtenirPosition().second] = nullptr;
@@ -98,9 +107,7 @@ void UI::CustomItem::renouvlerMouvementsDisponibles(int& x, int& y)
 
 void UI::CustomItem::mouseReleaseEvent(QGraphicsSceneMouseEvent* e)
 {
-	///////////////////////////////////////////////////////////////////////////////////////////////////// enlever quoi???
-	for (QGraphicsPixmapItem* x : PixmapVector_)
-		s_->removeItem(x);
+	enleverAncienPointsVerts();
 
 	int x(0), y(0);
 	centrerLesPiecesSurUneCaseVerte(x, y);

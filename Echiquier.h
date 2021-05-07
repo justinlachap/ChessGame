@@ -1,13 +1,16 @@
-/*
-** Livrable 2
-** Par Justin Lachapelle, matricule 2076412 et Esmé Généreux, matricule 2081518.
-*/
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//																																	//
+// L'échiquier. Chaque case est intialisé avec des nullptr					 														//
+// 																																	//
+// Par :																															//
+//		Généreux, Esmé (2081518)																									//
+//		Lachapelle, Justin (2076412)																								//
+// 																																	//
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-#pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
+#pragma warning(push, 0)
 #include <QObject>
-#pragma pop()
-#include <functional>
 #include <vector>
 
 class Piece;

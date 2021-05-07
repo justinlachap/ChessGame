@@ -1,6 +1,6 @@
 ﻿//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																	//
-// ChessWindow : La vue de l'interface graphique utilisateur du jeux d'échec.													//
+// ChessWindow : La vue de l'interface graphique utilisateur du jeux d'échec.														//
 // 																																	//
 // Par :																															//
 //		Généreux, Esmé (2081518)																									//
@@ -11,9 +11,7 @@
 #pragma once
 
 #include "Echiquier.h"
-
-#pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
-
+#pragma warning(push, 0) 
 #include <QMainWindow>
 #include <QGraphicsScene>
 
@@ -35,6 +33,8 @@ namespace UI
 	public:
 		ChessWindow(QWidget* parent = nullptr);
 		~ChessWindow() override = default;
+
+		void choisirLayoutPiece(QPixmap& echiquier);
 		
 		/**
 		 * Donne la configuration de la fenêtre pricipaleQt
