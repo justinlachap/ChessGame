@@ -47,18 +47,23 @@ void initialiserBibliothequeCours([[maybe_unused]] int argc, [[maybe_unused]] ch
 }																																	//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////																																
 
+int nouvellePartie()
+{
+	char partie = 'X';
+	std::cout << "Aimeriez-vous commencer une partie d'échec? [Y/n]" << std::endl;
+	while (partie == 'X')
+		std::cin >> partie;
+
+	if (partie != 'Y' && partie != 'y')
+		return 0;
+}
+
 int main(int argc, char* argv[])
 {
 	bibliotheque_cours::VerifierFuitesAllocations verifierFuitesAllocations;
 	QApplication app(argc, argv);
 
-	char nouvellePartie = 'X';
-	std::cout << "Aimeriez-vous commencer une nouvelle partie? [Y/n]" << std::endl;
-	while (nouvellePartie == 'X')
-		std::cin >> nouvellePartie;
-
-	if (nouvellePartie != 'Y' && nouvellePartie!='y')
-		return 0;
+	nouvellePartie();
 
 	initialiserBibliothequeCours(argc, argv);
 	UI::ChessWindow chessWindow;

@@ -70,11 +70,6 @@ namespace UI
 		 * Calcule les mouvements possibles des pièces du vecteur de pièces présente sur l'échiquier 
 		 */
 		void calculerMouvementsVecteurPieces();
-		
-		
-
-
-		
 	};
 }
 
