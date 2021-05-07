@@ -14,7 +14,10 @@ Cavalier::Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, boo
 void Cavalier::calculerMouvements(Echiquier e_)
 {
 	mouvementsDisponibles_.clear();
-	std::pair<int, int> deplacements[8] = { std::pair(-1,-2),std::pair(1,-2),std::pair(2,-1),std::pair(2,1),std::pair(1,2),std::pair(-1,2),std::pair(-2,1),std::pair(-2,-1) };
+	std::pair<int, int> deplacements[8] = { std::pair(-1,-2), std::pair(1,-2), 
+											std::pair(2,-1), std::pair(2,1), 
+											std::pair(1,2), std::pair(-1,2), 
+											std::pair(-2,1), std::pair(-2,-1) };
 	const int tailleInt = 8;
 
 	span<std::pair<int, int>>  spanDeplacements = { deplacements, sizeof(deplacements) / tailleInt };

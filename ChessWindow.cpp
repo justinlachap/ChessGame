@@ -6,62 +6,32 @@
 #include "Fou.h"
 #include "Dame.h"
 #include "Roi.h"
-
-#pragma warning(push, 0) // Sinon Qt fait des avertissements à /W4.
-
+#pragma warning(push, 0)
+#include <iostream>
 #include <QPixmap>
 #include <QThread>
-#include <iostream>
-
 #include <QGraphicsview>
-#include <QGraphicsSceneEvent>
 #include <QGraphicsPixmapItem>
-
-#include <QDebug>
 #include <QVBoxLayout>
 #include <QComboBox>
 #include <QPushButton>
-#include <QListWidget>
-#pragma pop()
 
 using std::pair;
 
 // 100 représente un huitième de la taille de l'image pour l'echiquier (800)
 const int uneRangee = 100;
 const int uneColonne = 100;
+const int tailleImageEchiquier = 800;
 
-UI::ChessWindow::ChessWindow(QWidget* parent)
-	: QMainWindow(parent)
+UI::ChessWindow::ChessWindow(QWidget* parent) : QMainWindow(parent)
 {
 	setWindowTitle("Jeu d'échecs");
+
 	setMouseTracking(true);
-	// setUI();
 
-	// Initalisation de l'échiquier
-	e_.initialiserVide();
-	QPixmap echiquier;
-	echiquier.load(e_.obtenirImage());
-	echiquier = echiquier.scaled(800, 800, Qt::KeepAspectRatio);
+	setEchiquier();
 
-	scene_ = new QGraphicsScene(this);
-	scene_->setSceneRect(0, 0, 800, 800);
-	view_ = new QGraphicsView(scene_);
-
-	choisirLayoutPiece(echiquier);
-
-	// afficher les bonnes image pour une pièce
-	const int indexMaxEchiquier = 7;
-	for (Piece* piece : pieces_)
-	{
-		QPixmap img = piece->obtenirImage();
-		img = img.scaled(uneRangee, uneColonne, Qt::KeepAspectRatio);
-		CustomItem* c = new CustomItem(img, piece, &e_, scene_, &tourAuBlanc_);
-		c->setPos(piece->obtenirPosition().first * uneRangee, uneColonne * (indexMaxEchiquier - piece->obtenirPosition().second));
-		scene_->addItem(c);
-	}
-
-	for (Piece* piece : pieces_)
-		piece->calculerMouvements(e_);
+	calculerMouvementsVecteurPieces();
 
 	setCentralWidget(view_);
 }
@@ -94,27 +64,6 @@ void UI::ChessWindow::choisirLayoutPiece(QPixmap& echiquier)
 	else if (choix == finDeJeux)
 		finale();
 }
-
-
-void UI::ChessWindow::setUI() 
-{
-	// Le sélecteur pour filtrer ce que l'on souhaite dans la liste
-	QComboBox* showCombobox = new QComboBox(this);
-	showCombobox->addItem("Nouvelle Partie"); // Index 0
-	connect(showCombobox, SIGNAL(currentIndexChanged(int)),
-		this, SLOT(filterList(int)));
-
-	// Le bouton pour congédier tout le monde
-	QPushButton* nouvelePartieButton = new QPushButton(this);
-	nouvelePartieButton->setText("Nouvelle partie");
-	connect(nouvelePartieButton, SIGNAL(clicked()), this, SLOT(nouvellePartie()));
-
-	QVBoxLayout* listLayout = new QVBoxLayout;
-	listLayout->addWidget(showCombobox);
-	listLayout->addWidget(nouvelePartieButton);
-	QThread::sleep(5);
-}
-
 
 void UI::ChessWindow::positionInitiale()
 {
@@ -256,4 +205,39 @@ void UI::ChessWindow::finale()
 	Pion* P4 = new Pion(e_, pair(5, 4), false);
 
 	pieces_ = { R1,R2, P1, P2, P3, P4 };
+}
+
+void UI::ChessWindow::afficherImagesPieces()
+{
+	const int indexMaxEchiquier = 7;
+	for (Piece* piece : pieces_)
+	{
+		QPixmap img = piece->obtenirImage();
+		img = img.scaled(uneRangee, uneColonne, Qt::KeepAspectRatio);
+		CustomItem* c = new CustomItem(img, piece, &e_, scene_, &tourAuBlanc_);
+		c->setPos(piece->obtenirPosition().first * uneRangee, uneColonne * (indexMaxEchiquier - piece->obtenirPosition().second));
+		scene_->addItem(c);
+	}
+}
+
+void UI::ChessWindow::setEchiquier()
+{
+	e_.initialiserVide();
+	QPixmap echiquier;
+	echiquier.load(e_.obtenirImage());
+	echiquier = echiquier.scaled(tailleImageEchiquier, tailleImageEchiquier, Qt::KeepAspectRatio);
+
+	scene_ = new QGraphicsScene(this);
+	scene_->setSceneRect(0, 0, tailleImageEchiquier, tailleImageEchiquier);
+	view_ = new QGraphicsView(scene_);
+
+	choisirLayoutPiece(echiquier);
+
+	afficherImagesPieces();
+}
+
+void UI::ChessWindow::calculerMouvementsVecteurPieces()
+{
+	for (Piece* piece : pieces_)
+		piece->calculerMouvements(e_);
 }

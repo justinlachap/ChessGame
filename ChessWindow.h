@@ -9,13 +9,10 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
-
 #include "Echiquier.h"
 #pragma warning(push, 0) 
 #include <QMainWindow>
 #include <QGraphicsScene>
-
-#pragma pop()
 
 namespace UI
 {
@@ -33,14 +30,12 @@ namespace UI
 	public:
 		ChessWindow(QWidget* parent = nullptr);
 		~ChessWindow() override = default;
-
-		void choisirLayoutPiece(QPixmap& echiquier);
 		
 		/**
-		 * Donne la configuration de la fenêtre pricipaleQt
+		 * Permet à l'utilisateur de choisir de quelle manière ouvrir le jeu
 		 */
-		void setUI();
-
+		void choisirLayoutPiece(QPixmap& echiquier);
+		
 		/**
 		 * Set les pièces de l'échiquier à leur position initiale
 		 */
@@ -60,6 +55,26 @@ namespace UI
 		 * Ouvre le jeu d'échec en finale
 		 */
 		void finale();
+
+		/**
+		 * Affiche la bonne image pour chaque pièce qui se trouve sur l'échiquier
+		 */
+		void afficherImagesPieces();
+		
+		/**
+		 * Fonctions qui inititialise l'échiquier et qui fait appel aux méthodes ci-dessus
+		 */
+		void setEchiquier();
+
+		/**
+		 * Calcule les mouvements possibles des pièces du vecteur de pièces présente sur l'échiquier 
+		 */
+		void calculerMouvementsVecteurPieces();
+		
+		
+
+
+		
 	};
 }
 
