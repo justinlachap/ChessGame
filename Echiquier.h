@@ -20,6 +20,9 @@ namespace UI
 	class MethodeVirtuelleQt
 	{
 	public:
+		/**
+		 * Associe l'image d'une pièce ou d'un échiquier à une instance.
+		 */
 		virtual QString obtenirImage() const = 0;
 	};
 }
@@ -27,13 +30,21 @@ namespace UI
 class Echiquier : public UI::MethodeVirtuelleQt
 {
 public:
-	void initialiserVide();
 	Piece* cases[8][8];
 
+	/**
+	 * Remplit l'échiquier de nullptrs
+	 */
+	void initialiserVide();
+	
+	/**
+	* Associe l'image de l'échiquier à une instance d'échiquier
+	*/
 	QString obtenirImage() const override { return echiquier; }
 
 private:
-	const QString echiquier = "images/Chess_board.png";
-	// Toutes les pièces doivent pouvoir accéder facilement aux cases de l'échiquier. 
-	// C'est pourquoi l'attribut cases est public et qu'il n'y a pas d'encapsulation.
+	const QString echiquier = "images/Chess_board.png";	// Toutes les pièces doivent pouvoir accéder facilement aux cases de 
+														// l'échiquier. C'est pourquoi l'attribut cases est public et qu'il n'y a
+														// pas d'encapsulation.
+	
 };

@@ -18,13 +18,23 @@ class Fou : virtual public Piece
 public:
 	Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
+	/**
+	 * Fonctions qui calculent les mouvements disponibles sur chacune des diagonales du Fou
+	 * @param e : référence de l'echiquier sur lequel se trouve le Fou
+	 */
+	void diagonaleHautGauche(Echiquier& e);
+	void diagonaleHautDroite(Echiquier& e);
+	void diagonaleBasGauche(Echiquier& e);
+	void diagonaleBasDroite(Echiquier& e);
+
+	/**
+	 * Calcule les mouvements possibles du Fou en appelant les 4 fonctions ci-dessus
+	 * @param e_ : echiquier sur lequel se trouve le Fou
+	 */
 	void calculerMouvements(Echiquier e_) override;
 
-	QString obtenirImage() const override
-	{
-		if (estBlanc_)
-			return fouBlanc;
-		else
-			return fouNoir;
-	}
+	/**
+	 * Associe l'image d'un Fou noir ou d'un Fou blanc
+	 */
+	QString obtenirImage() const override { return estBlanc_ ? fouBlanc : fouNoir; }
 };

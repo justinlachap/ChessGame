@@ -19,13 +19,14 @@ class Cavalier : virtual public Piece
 public:
 	Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
+	/**
+	 * Calcule les mouvements possibles du Cavalier
+	 * @param e_ : echiquier sur lequel se trouve la Cavalier
+	 */
 	void calculerMouvements(Echiquier e_) override;
-
-	QString obtenirImage() const override
-	{
-		if (estBlanc_)
-			return cavalierBlanc;
-		else
-			return cavalierNoir;
-	}
+	
+	/**
+	 * Associe l'image d'un Cavalier noir ou d'un Cavalier blanc
+	 */
+	QString obtenirImage() const override { return estBlanc_ ? cavalierBlanc : cavalierNoir; }
 };

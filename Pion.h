@@ -19,13 +19,21 @@ class Pion : virtual public Piece
 public:
 	Pion(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
+	/**
+	 * Fonctions qui calculent les mouvements disponibles selon la couleur du Pion
+	 * @param e : référence de l'echiquier sur lequel se trouve le Pion
+	 */
+	void mouvementsPionBlanc(Echiquier& e);
+	void mouvementsPionNoir(Echiquier& e);
+	
+	/**
+	 * Calcule les mouvements possibles du Pion en appeleant les deux fonctions ci-dessus
+	 * @param e_ : echiquier sur lequel se trouve le Pion
+	 */
 	void calculerMouvements(Echiquier e_) override;
 
-	QString obtenirImage() const override
-	{
-		if (estBlanc_)
-			return pionBlanc;
-		else
-			return pionNoir;
-	}
+	/**
+	 * Associe l'image d'un Pion noir ou d'un Pion blanc
+	 */
+	QString obtenirImage() const override { return estBlanc_ ? pionBlanc : pionNoir; }
 };

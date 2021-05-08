@@ -19,13 +19,23 @@ class Tour : virtual public Piece
 public:
 	Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
+	/**
+	 * Fonctions qui calculent les mouvements disponibles dans chacune des quatres directions de la Tour
+	 * @param e : référence de l'echiquier sur lequel se trouve le Fou
+	 */
+	void mouvementsVersLaDroite(Echiquier& e);
+	void mouvementsVersLaGauche(Echiquier& e);
+	void mouvementsVersLeHaut(Echiquier& e);
+	void mouvementsVersLeBas(Echiquier& e);
+
+	/**
+	 * Calcule les mouvements possibles d'une Tour en appelant les 4 fonctions ci-dessus
+	 * @param e_ : echiquier sur lequel se trouve le Fou
+	 */
 	void calculerMouvements(Echiquier e_) override;
 
-	QString obtenirImage() const override
-	{
-		if (estBlanc_)
-			return tourBlanche;
-		else
-			return tourNoire;
-	}
+	/**
+	 * Associe l'image d'un Tour noir ou d'un Tour blanc
+	 */
+	QString obtenirImage() const override { return estBlanc_ ? tourBlanche : tourNoire; }
 };
