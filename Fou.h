@@ -31,7 +31,7 @@ public:
 	 * Calcule les mouvements possibles du Fou en appelant les 4 fonctions ci-dessus
 	 * @param e_ : echiquier sur lequel se trouve le Fou
 	 */
-	void calculerMouvements(Echiquier e_) override;
+	void calculerMouvements(Echiquier e) override;
 
 	/**
 	 * Associe l'image d'un Fou noir ou d'un Fou blanc

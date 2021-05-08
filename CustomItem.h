@@ -23,14 +23,14 @@ namespace UI
 {
 	class CustomItem : public QGraphicsPixmapItem
 	{
-		Echiquier* ech_;
-		Piece* p_;
+		Echiquier& ech_;
+		Piece& p_;
 		QGraphicsScene* s_;
 		std::vector<QGraphicsPixmapItem*> PixmapVector_;
 		bool* tourDeJouer_;
 
 	public:
-		CustomItem(QPixmap img, Piece* piece, Echiquier* echiquier, QGraphicsScene* scene, bool* tour);
+		CustomItem(QPixmap img, Piece& piece, Echiquier& echiquier, QGraphicsScene* scene, bool* tour);
 		
 		/**
 		 * Enlève les points verts provenant du dernier click

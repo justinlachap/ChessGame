@@ -30,7 +30,7 @@ public:
 	 * Calcule les mouvements possibles du Pion en appeleant les deux fonctions ci-dessus
 	 * @param e_ : echiquier sur lequel se trouve le Pion
 	 */
-	void calculerMouvements(Echiquier e_) override;
+	void calculerMouvements(Echiquier e) override;
 
 	/**
 	 * Associe l'image d'un Pion noir ou d'un Pion blanc

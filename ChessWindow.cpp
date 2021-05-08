@@ -71,8 +71,8 @@ void UI::ChessWindow::positionInitiale()
 	Roi* R2 = new Roi(e_, pair(4, 7), false);
 	Roi* R3 = new Roi(e_, pair(3, 3), true);	// On essaie de creer un troisieme roi
 
-	Dame* d1 = new Dame(e_, pair(3, 0), true);
-	Dame* d2 = new Dame(e_, pair(3, 7), false);
+	Dame* D1 = new Dame(e_, pair(3, 0), true);
+	Dame* D2 = new Dame(e_, pair(3, 7), false);
 
 	Pion* P1 = new Pion(e_, pair(0, 1), true);
 	Pion* P2 = new Pion(e_, pair(1, 1), true);
@@ -91,22 +91,23 @@ void UI::ChessWindow::positionInitiale()
 	Pion* P15 = new Pion(e_, pair(6, 6), false);
 	Pion* P16 = new Pion(e_, pair(7, 6), false);
 
-	Cavalier* c1 = new Cavalier(e_, pair(1, 0), true);
-	Cavalier* c2 = new Cavalier(e_, pair(6, 0), true);
-	Cavalier* c3 = new Cavalier(e_, pair(1, 7), false);
-	Cavalier* c4 = new Cavalier(e_, pair(6, 7), false);
+	Cavalier* C1 = new Cavalier(e_, pair(1, 0), true);
+	Cavalier* C2 = new Cavalier(e_, pair(6, 0), true);
+	Cavalier* C3 = new Cavalier(e_, pair(1, 7), false);
+	Cavalier* C4 = new Cavalier(e_, pair(6, 7), false);
 
-	Tour* r1 = new Tour(e_, pair(0, 0), true);
-	Tour* r2 = new Tour(e_, pair(7, 0), true);
-	Tour* r3 = new Tour(e_, pair(0, 7), false);
-	Tour* r4 = new Tour(e_, pair(7, 7), false);
+	Tour* T1 = new Tour(e_, pair(0, 0), true);
+	Tour* T2 = new Tour(e_, pair(7, 0), true);
+	Tour* T3 = new Tour(e_, pair(0, 7), false);
+	Tour* T4 = new Tour(e_, pair(7, 7), false);
 
-	Fou* f1 = new Fou(e_, pair(2, 0), true);
-	Fou* f2 = new Fou(e_, pair(5, 0), true);
-	Fou* f3 = new Fou(e_, pair(2, 7), false);
-	Fou* f4 = new Fou(e_, pair(5, 7), false);
+	Fou* F1 = new Fou(e_, pair(2, 0), true);
+	Fou* F2 = new Fou(e_, pair(5, 0), true);
+	Fou* F3 = new Fou(e_, pair(2, 7), false);
+	Fou* F4 = new Fou(e_, pair(5, 7), false);
 
-	pieces_ = { R1 , R2, d1, d2,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
+	pieces_ = { R1, R2, D1, D2, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16,
+				C1, C2, C3, C4, T1, T2, T3, T4, F1, F2, F3, F4 };
 }
 
 void UI::ChessWindow::defenseBerlinoise()
@@ -114,8 +115,8 @@ void UI::ChessWindow::defenseBerlinoise()
 	Roi* R1 = new Roi(e_, pair(4, 0), true);
 	Roi* R2 = new Roi(e_, pair(4, 7), false);
 
-	Dame* d1 = new Dame(e_, pair(3, 0), true);
-	Dame* d2 = new Dame(e_, pair(3, 7), false);
+	Dame* D1 = new Dame(e_, pair(3, 0), true);
+	Dame* D2 = new Dame(e_, pair(3, 7), false);
 
 	Pion* P1 = new Pion(e_, pair(0, 1), true);
 	Pion* P2 = new Pion(e_, pair(1, 1), true);
@@ -134,22 +135,23 @@ void UI::ChessWindow::defenseBerlinoise()
 	Pion* P15 = new Pion(e_, pair(6, 6), false);
 	Pion* P16 = new Pion(e_, pair(7, 6), false);
 
-	Cavalier* c1 = new Cavalier(e_, pair(1, 0), true);
-	Cavalier* c2 = new Cavalier(e_, pair(5, 2), true);
-	Cavalier* c3 = new Cavalier(e_, pair(2, 5), false);
-	Cavalier* c4 = new Cavalier(e_, pair(5, 5), false);
+	Cavalier* C1 = new Cavalier(e_, pair(1, 0), true);
+	Cavalier* C2 = new Cavalier(e_, pair(5, 2), true);
+	Cavalier* C3 = new Cavalier(e_, pair(2, 5), false);
+	Cavalier* C4 = new Cavalier(e_, pair(5, 5), false);
 
-	Tour* r1 = new Tour(e_, pair(0, 0), true);
-	Tour* r2 = new Tour(e_, pair(7, 0), true);
-	Tour* r3 = new Tour(e_, pair(0, 7), false);
-	Tour* r4 = new Tour(e_, pair(7, 7), false);
+	Tour* T1 = new Tour(e_, pair(0, 0), true);
+	Tour* T2 = new Tour(e_, pair(7, 0), true);
+	Tour* T3 = new Tour(e_, pair(0, 7), false);
+	Tour* T4 = new Tour(e_, pair(7, 7), false);
 
-	Fou* f1 = new Fou(e_, pair(2, 0), true);
-	Fou* f2 = new Fou(e_, pair(1, 4), true);
-	Fou* f3 = new Fou(e_, pair(2, 7), false);
-	Fou* f4 = new Fou(e_, pair(5, 7), false);
+	Fou* F1 = new Fou(e_, pair(2, 0), true);
+	Fou* F2 = new Fou(e_, pair(1, 4), true);
+	Fou* F3 = new Fou(e_, pair(2, 7), false);
+	Fou* F4 = new Fou(e_, pair(5, 7), false);
 
-	pieces_ = { R1 , R2, d1, d2,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P11,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
+	pieces_ = { R1, R2, D1, D2, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15, P16,
+				C1, C2, C3, C4, T1, T2, T3, T4, F1, F2, F3, F4 };
 }
 
 void UI::ChessWindow::defenseSicilienneNajdorf()
@@ -157,8 +159,8 @@ void UI::ChessWindow::defenseSicilienneNajdorf()
 	Roi* R1 = new Roi(e_, pair(4, 0), true);
 	Roi* R2 = new Roi(e_, pair(4, 7), false);
 
-	Dame* d1 = new Dame(e_, pair(3, 0), true);
-	Dame* d2 = new Dame(e_, pair(3, 7), false);
+	Dame* D1 = new Dame(e_, pair(3, 0), true);
+	Dame* D2 = new Dame(e_, pair(3, 7), false);
 
 	Pion* P1 = new Pion(e_, pair(0, 1), true);
 	Pion* P2 = new Pion(e_, pair(1, 1), true);
@@ -170,28 +172,29 @@ void UI::ChessWindow::defenseSicilienneNajdorf()
 	Pion* P8 = new Pion(e_, pair(7, 1), true);
 	Pion* P9 = new Pion(e_, pair(0, 5), false);
 	Pion* P10 = new Pion(e_, pair(1, 6), false);
-	Pion* P12 = new Pion(e_, pair(3, 5), false);
-	Pion* P13 = new Pion(e_, pair(4, 6), false);
-	Pion* P14 = new Pion(e_, pair(5, 6), false);
-	Pion* P15 = new Pion(e_, pair(6, 6), false);
-	Pion* P16 = new Pion(e_, pair(7, 6), false);
+	Pion* P11 = new Pion(e_, pair(3, 5), false);
+	Pion* P12 = new Pion(e_, pair(4, 6), false);
+	Pion* P13 = new Pion(e_, pair(5, 6), false);
+	Pion* P14 = new Pion(e_, pair(6, 6), false);
+	Pion* P15 = new Pion(e_, pair(7, 6), false);
 
-	Cavalier* c1 = new Cavalier(e_, pair(2, 2), true);
-	Cavalier* c2 = new Cavalier(e_, pair(3, 3), true);
-	Cavalier* c3 = new Cavalier(e_, pair(1, 7), false);
-	Cavalier* c4 = new Cavalier(e_, pair(5, 5), false);
+	Cavalier* C1 = new Cavalier(e_, pair(2, 2), true);
+	Cavalier* C2 = new Cavalier(e_, pair(3, 3), true);
+	Cavalier* C3 = new Cavalier(e_, pair(1, 7), false);
+	Cavalier* C4 = new Cavalier(e_, pair(5, 5), false);
 
-	Tour* r1 = new Tour(e_, pair(0, 0), true);
-	Tour* r2 = new Tour(e_, pair(7, 0), true);
-	Tour* r3 = new Tour(e_, pair(0, 7), false);
-	Tour* r4 = new Tour(e_, pair(7, 7), false);
+	Tour* T1 = new Tour(e_, pair(0, 0), true);
+	Tour* T2 = new Tour(e_, pair(7, 0), true);
+	Tour* T3 = new Tour(e_, pair(0, 7), false);
+	Tour* T4 = new Tour(e_, pair(7, 7), false);
 
-	Fou* f1 = new Fou(e_, pair(2, 0), true);
-	Fou* f2 = new Fou(e_, pair(5, 0), true);
-	Fou* f3 = new Fou(e_, pair(2, 7), false);
-	Fou* f4 = new Fou(e_, pair(5, 7), false);
+	Fou* F1 = new Fou(e_, pair(2, 0), true);
+	Fou* F2 = new Fou(e_, pair(5, 0), true);
+	Fou* F3 = new Fou(e_, pair(2, 7), false);
+	Fou* F4 = new Fou(e_, pair(5, 7), false);
 
-	pieces_ = { R1 , R2, d1, d2,P1,P2,P3,P4,P5,P6,P7,P8,P9,P10,P12,P13,P14,P15,P16,c1,c2,c3,c4,r1,r2,r3,r4,f1,f2,f3,f4 };
+	pieces_ = { R1, R2, D1, D2, P1, P2, P3, P4, P5, P6, P7, P8, P9, P10, P11, P12, P13, P14, P15,
+				C1, C2, C3, C4, T1, T2, T3, T4, F1, F2, F3, F4 };
 }
 
 void UI::ChessWindow::finale()
@@ -204,7 +207,7 @@ void UI::ChessWindow::finale()
 	Pion* P3 = new Pion(e_, pair(2, 6), false);
 	Pion* P4 = new Pion(e_, pair(5, 4), false);
 
-	pieces_ = { R1,R2, P1, P2, P3, P4 };
+	pieces_ = { R1, R2, P1, P2, P3, P4 };
 }
 
 void UI::ChessWindow::afficherImagesPieces()
@@ -214,7 +217,7 @@ void UI::ChessWindow::afficherImagesPieces()
 	{
 		QPixmap img = piece->obtenirImage();
 		img = img.scaled(uneRangee, uneColonne, Qt::KeepAspectRatio);
-		CustomItem* c = new CustomItem(img, piece, &e_, scene_, &tourAuBlanc_);
+		CustomItem* c = new CustomItem(img, *piece, e_, scene_, &tourAuBlanc_);
 		c->setPos(piece->obtenirPosition().first * uneRangee, uneColonne * (indexMaxEchiquier - piece->obtenirPosition().second));
 		scene_->addItem(c);
 	}

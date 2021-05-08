@@ -23,7 +23,7 @@ public:
 	 * Calcule les mouvements possibles du Cavalier
 	 * @param e_ : echiquier sur lequel se trouve la Cavalier
 	 */
-	void calculerMouvements(Echiquier e_) override;
+	void calculerMouvements(Echiquier e) override;
 	
 	/**
 	 * Associe l'image d'un Cavalier noir ou d'un Cavalier blanc

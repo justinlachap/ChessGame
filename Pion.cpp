@@ -61,12 +61,12 @@ void Pion::mouvementsPionNoir(Echiquier& e)
 			mouvementsDisponibles_.push_back(std::pair(position_.first + uneCase, position_.second - uneCase));
 }
 
-void Pion::calculerMouvements(Echiquier e_)
+void Pion::calculerMouvements(Echiquier e)
 {
 	mouvementsDisponibles_.clear();
 
 	if (estBlanc_)
-		mouvementsPionBlanc(e_);
+		mouvementsPionBlanc(e);
 	else
-		mouvementsPionNoir(e_);
+		mouvementsPionNoir(e);
 }

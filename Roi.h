@@ -33,7 +33,7 @@ public:
 	 * Calcule les mouvements possibles du Roi en appelant les 4 fonctions ci-dessus
 	 * @param e_ : echiquier sur lequel se trouve le Roi
 	 */
-	void calculerMouvements(Echiquier e_) override;
+	void calculerMouvements(Echiquier e) override;
 
 	/**
 	 * Fonction qui renvoit un bool vrai si le roi est en èchec

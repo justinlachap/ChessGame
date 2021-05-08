@@ -6,23 +6,23 @@ Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBla
 	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 
-std::vector<std::pair<int, int>> Dame::calculerMouvementsTour(Echiquier& e_)
+std::vector<std::pair<int, int>> Dame::calculerMouvementsTour(Echiquier& e)
 {
 	mouvementsDisponibles_.clear();
-	Tour::calculerMouvements(e_);
+	Tour::calculerMouvements(e);
 	std::vector<std::pair<int, int>> mouvementsDisponiblesCopie = mouvementsDisponibles_;
 	return mouvementsDisponiblesCopie;
 }
 
-void Dame::ajouterMouvementsFou(Echiquier& e_, std::vector<std::pair<int, int>>& MouvementsDipsoniblesTour)
+void Dame::ajouterMouvementsFou(Echiquier& e, std::vector<std::pair<int, int>>& mouvementsDipsoniblesTour)
 {
-	Fou::calculerMouvements(e_);
-	for (std::pair<int, int> m : MouvementsDipsoniblesTour)
+	Fou::calculerMouvements(e);
+	for (std::pair<int, int> m : mouvementsDipsoniblesTour)
 		mouvementsDisponibles_.push_back(m);
 }
 
-void Dame::calculerMouvements(Echiquier e_)
+void Dame::calculerMouvements(Echiquier e)
 {
-	std::vector<std::pair<int, int>> mouvementsDisponiblesTour = calculerMouvementsTour(e_);
-	ajouterMouvementsFou(e_, mouvementsDisponiblesTour);
+	std::vector<std::pair<int, int>> mouvementsDisponiblesTour = calculerMouvementsTour(e);
+	ajouterMouvementsFou(e, mouvementsDisponiblesTour);
 }

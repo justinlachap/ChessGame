@@ -40,7 +40,7 @@ public:
 	 * Calcule les mouvements possibles de la Dame
 	 * @param e_ : echiquier sur lequel se trouve la Dame
 	 */
-	void calculerMouvements(Echiquier e_) override;
+	void calculerMouvements(Echiquier e) override;
 
 	/**
 	 * Associe l'image d'une Dame noire ou d'une Dame blanche

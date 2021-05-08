@@ -20,7 +20,7 @@ namespace Logique
 		 * Fonction virtuelle qui calcule les mouvements possibles pour chaque type de pièce selon la disposition de l'echiquier
 		 * @ param e_ : instance de l'echiquier
 		 */
-		virtual void calculerMouvements(Echiquier e_) = 0;
+		virtual void calculerMouvements(Echiquier e) = 0;
 	};
 }
 
@@ -39,7 +39,7 @@ public:
 	/**
 	 * Déclarée dans la classe Logique::MethodeVirtuelleLogique, méthode virtuelle pure
 	 */
-	virtual void calculerMouvements(Echiquier e_) override = 0;
+	virtual void calculerMouvements(Echiquier e) override = 0;
 
 	/**
 	 * Déclarée dans la classe UI::MethodeVirtuelleQt, méthode virtuelle pure
@@ -57,7 +57,7 @@ public:
 	 * @param y : position de la pièce sur les rangées de l'échiquier
 	 * @param e_ : l'échiquier sur lequel se trouve la pièce
 	 */
-	void changerPos(int x, int y, Echiquier* e_);
+	void changerPos(int x, int y, Echiquier& e);
 
 	/**
 	 * Getters pour la couleur, la position et les mouvements disponibles d'une pièce

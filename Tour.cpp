@@ -73,12 +73,12 @@ void Tour::mouvementsVersLeBas(Echiquier& e)
 	}
 }
 
-void Tour::calculerMouvements(Echiquier e_)
+void Tour::calculerMouvements(Echiquier e)
 {
 	mouvementsDisponibles_.clear();
 
-	mouvementsVersLaDroite(e_);
-	mouvementsVersLaGauche(e_);
-	mouvementsVersLeHaut(e_);
-	mouvementsVersLeBas(e_);
+	mouvementsVersLaDroite(e);
+	mouvementsVersLaGauche(e);
+	mouvementsVersLeHaut(e);
+	mouvementsVersLeBas(e);
 }

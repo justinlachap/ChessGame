@@ -14,9 +14,9 @@ void Piece::afficheMouvements() const
 	std::cout << std::endl;
 }
 
-void Piece::changerPos(int x, int y, Echiquier* e_)
+void Piece::changerPos(int x, int y, Echiquier& e)
 {
 	position_.first = x;
 	position_.second = y;
-	e_->cases[x][y] = this;
+	e.cases[x][y] = this;
 }

@@ -88,14 +88,14 @@ void Roi::axeDiagonalDeux(Echiquier& e)
 			mouvementsDisponibles_.push_back(std::pair(position_.first + uneCase, position_.second - uneCase));
 }
 
-void Roi::calculerMouvements(Echiquier e_)
+void Roi::calculerMouvements(Echiquier e)
 {
 	mouvementsDisponibles_.clear();
 	
-	axeHorizontal(e_);
-	axeVertical(e_);
-	axeDiagonalUn(e_);
-	axeDiagonalDeux(e_);
+	axeHorizontal(e);
+	axeVertical(e);
+	axeDiagonalUn(e);
+	axeDiagonalDeux(e);
 }
 
 bool Roi::estEn…chec(std::vector<std::pair<int, int>> mouvementsPiecesAdverses) 

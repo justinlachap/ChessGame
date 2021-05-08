@@ -103,12 +103,12 @@ void Fou::diagonaleBasDroite(Echiquier& e)
 	}
 }
 
-void Fou::calculerMouvements(Echiquier e_)
+void Fou::calculerMouvements(Echiquier e)
 {
 	mouvementsDisponibles_.clear();
 	
-	diagonaleHautGauche(e_);
-	diagonaleHautDroite(e_);
-	diagonaleBasGauche(e_);
-	diagonaleBasDroite(e_);
+	diagonaleHautGauche(e);
+	diagonaleHautDroite(e);
+	diagonaleBasGauche(e);
+	diagonaleBasDroite(e);
 }

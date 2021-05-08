@@ -11,7 +11,7 @@ Cavalier::Cavalier(Echiquier& nouvelEchiquier, std::pair<int, int> position, boo
 	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 
-void Cavalier::calculerMouvements(Echiquier e_)
+void Cavalier::calculerMouvements(Echiquier e)
 {
 	mouvementsDisponibles_.clear();
 	std::pair<int, int> deplacements[8] = { std::pair(-1,-2), std::pair(1,-2), 
@@ -26,7 +26,7 @@ void Cavalier::calculerMouvements(Echiquier e_)
 		int x = position_.first + d.first;
 		int y = position_.second + d.second;
 		if (x >= 0 && x <= tailleEchiquierMax && y >= 0 && y <= tailleEchiquierMax) {
-			if (e_.cases[x][y] == caseVide || (e_.cases[x][y]->obtenirCouleur() != estBlanc_))
+			if (e.cases[x][y] == caseVide || (e.cases[x][y]->obtenirCouleur() != estBlanc_))
 				mouvementsDisponibles_.push_back(std::pair(x, y));
 		}
 	}

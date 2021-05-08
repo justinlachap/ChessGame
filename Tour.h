@@ -32,7 +32,7 @@ public:
 	 * Calcule les mouvements possibles d'une Tour en appelant les 4 fonctions ci-dessus
 	 * @param e_ : echiquier sur lequel se trouve le Fou
 	 */
-	void calculerMouvements(Echiquier e_) override;
+	void calculerMouvements(Echiquier e) override;
 
 	/**
 	 * Associe l'image d'un Tour noir ou d'un Tour blanc
