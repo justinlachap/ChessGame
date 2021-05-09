@@ -1,9 +1,9 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //																																	//
-// Projet INF1015 : Jeux d'échec																									//
+// Projet INF1015 : Jeux d'Ã©chec																									//
 // 																																	//
 // Par :																															//
-//		Généreux, Esmé (2081518)																									//
+//		GÃ©nÃ©reux, EsmÃ© (2081518)																									//
 //		Lachapelle, Justin (2076412)																								//
 // 																																	//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -13,7 +13,7 @@
 #include <QApplication>
 #include <iostream>
 
-//////////////////////// Tiré de l'exemple de projet pour une calculatrice par François Reymond-Boyer ////////////////////////////////
+//////////////////////// TirÃ© de l'exemple de projet pour une calculatrice par FranÃ§ois Reymond-Boyer ////////////////////////////////
 #if __has_include("bibliotheque_cours.hpp")																							//
 #include "bibliotheque_cours.hpp"																									//
 #define BIBLIOTHEQUE_COURS_INCLUS																									//
@@ -24,7 +24,7 @@ auto& cdbg = clog;																													//
 																																	//
 #if __has_include("verification_allocation.hpp")																					//
 #include "verification_allocation.hpp"																								//
-#include "debogage_memoire.hpp"  /* NOTE: Incompatible avec le "placement new", ne pas utiliser cette entête si vous utilisez ce    //
+#include "debogage_memoire.hpp"  /* NOTE: Incompatible avec le "placement new", ne pas utiliser cette entÃªte si vous utilisez ce    //
 								 **	type de "new" dans les lignes qui suivent cette inclusion.										//
 								 */																									//
 #endif																																//
@@ -35,14 +35,14 @@ void initialiserBibliothequeCours([[maybe_unused]] int argc, [[maybe_unused]] ch
 #ifdef BIBLIOTHEQUE_COURS_INCLUS																									//
 	bibliotheque_cours::activerCouleursAnsi();			/* Permet sous Windows les "ANSI escape code" pour changer de couleurs 		//
 														** https://en.wikipedia.org/wiki/ANSI_escape_code ; 						//
-														** les consoles Linux/Mac les supportent normalement par défaut.			//
+														** les consoles Linux/Mac les supportent normalement par dÃ©faut.			//
 														*/																			//
 	bibliotheque_cours::executerGoogleTest(argc, argv); /* Attention de ne rien afficher avant cette ligne, sinon l'Explorateur de 	//
-														** tests va tenter de lire votre affichage comme un résultat de test.		//
+														** tests va tenter de lire votre affichage comme un rÃ©sultat de test.		//
 														*/																			//
 #endif																																//
 /* NOTE: C'est normal que la couverture de code dans l'Explorateur de tests de Visual Studio ne couvre pas la fin de cette fonction //
-** ni la fin du main après l'appel à cette fonction puisqu'il exécute uniquement les tests Google Test dans l'appel ci-dessus.		//
+** ni la fin du main aprÃ¨s l'appel Ã  cette fonction puisqu'il exÃ©cute uniquement les tests Google Test dans l'appel ci-dessus.		//
 */																																	//
 }																																	//
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////																																
@@ -50,12 +50,12 @@ void initialiserBibliothequeCours([[maybe_unused]] int argc, [[maybe_unused]] ch
 int nouvellePartie()
 {
 	char partie = 'X';
-	std::cout << "Aimeriez-vous commencer une partie d'échec? [Y/n]" << std::endl;
+	std::cout << "Aimeriez-vous commencer une partie d'Ã©chec? [Y/n]" << std::endl;
 	while (partie == 'X')
 		std::cin >> partie;
 
 	if (partie != 'Y' && partie != 'y')
-		return 0;
+		exit(0);
 }
 
 int main(int argc, char* argv[])
