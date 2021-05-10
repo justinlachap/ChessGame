@@ -1,14 +1,4 @@
-﻿//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//																																	//
-// ChessWindow : La vue de l'interface graphique utilisateur du jeux d'échec.														//
-// 																																	//
-// Par :																															//
-//		Généreux, Esmé (2081518)																									//
-//		Lachapelle, Justin (2076412)																								//
-// 																																	//
-//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-#pragma once
+﻿#pragma once
 #include "Echiquier.h"
 #pragma warning(push, 0) 
 #include <QMainWindow>

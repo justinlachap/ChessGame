@@ -31,7 +31,7 @@
     <Import Project="$(QtMsBuild)\qt_defaults.props" />
   </ImportGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'" Label="QtSettings">
-    <QtInstall>5.15.0_msvc2019_64</QtInstall>
+    <QtInstall>5.15.2_msvc2019_64</QtInstall>
     <QtModules>core;widgets</QtModules>
     <QtBuildConfig>debug</QtBuildConfig>
   </PropertyGroup>
@@ -111,8 +111,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp" />
-    <ClCompile Include="bibliotheque_cours\verification_allocation.cpp" />
     <ClCompile Include="CustomItem.cpp" />
     <ClCompile Include="Fou.cpp" />
     <ClCompile Include="Echiquier.cpp" />

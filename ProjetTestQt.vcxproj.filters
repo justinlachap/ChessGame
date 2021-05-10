@@ -25,12 +25,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="bibliotheque_cours\bibliotheque_cours.cpp">
-      <Filter>Sources Bibliotheques</Filter>
-    </ClCompile>
-    <ClCompile Include="bibliotheque_cours\verification_allocation.cpp">
-      <Filter>Sources Bibliotheques</Filter>
-    </ClCompile>
     <ClCompile Include="googletest\src\gtest-all.cc">
       <Filter>Sources Bibliotheques</Filter>
     </ClCompile>
