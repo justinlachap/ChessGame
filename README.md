@@ -1,6 +1,10 @@
 # ChessGame
 
-A functional game of chess built using Qt in the context of our final project for an OOP class at Polytechnique Montréal (INF1015, H2021).
+A functional game of chess built using Qt in the context of our final project for an OOP class (INF1015, H2021) at Polytechnique Montréal.
+
+* Concepts of inheritance are used. For example, a queen inherits of the movements of both a bishop and a rook.
+* Static variables were used. For example, a static varibale to count the number of instances of a king was created in order to ensure that there were no more than 2 instances of a king on one chessboard.
+
 
 Below, a snippet of the project in action : 
 
