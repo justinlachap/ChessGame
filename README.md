@@ -2,6 +2,8 @@
 
 A functional game of chess made with Qt. Completed in the context of our final project for an OOP class (INF1015, H2021) at Polytechnique Montréal. This project is meant to sum up the most important and fundamental concepts of the course content. 
 
+---
+
 ## Inheritance
 Inheritance in our project helps to organize our code in a comprehensive manner, and helps us respect the DRY principles in many cases. 
 
@@ -21,6 +23,8 @@ Here are some example of how these concepts are used in this project :
 ### Static variables and Thrown Exceptions
 
 * A static varibale that **counts the number of instances** of a king is used in order to ensure that there are no more than 2 instances of a king on one chessboard. A simple try/catch allows us to throw an exception and delete the last created instance of a king if there were 3 kings on the board.
+
+---
 
 ##### Below, a snippet of the project in action : 
 
