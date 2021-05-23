@@ -4,10 +4,10 @@ A functional game of chess made with Qt. Completed in the context of our final p
 
 ---
 
-## Inheritance
-Inheritance in our project helps to organize our code in a comprehensive manner, and helps us respect the DRY principles in many cases. 
+### Inheritance
+Inheritance in our project helps to organize our code in a comprehensive manner, and it helps us respect the DRY principles in many cases. 
 
-Here are some example of how inheritancce is used in this project :
+Some example of how inheritancce is used in this project :
 * Each **type of piece** (Pawn, King, Bishop, ...) is a **piece** ; therefore, it inherits from a 'Piece' class containg common attribute, like color, or common functions.
 * A **queen** is a type of piece that inherits the movements of both a **bishop** and a **rook**.
 
@@ -15,7 +15,7 @@ Here are some example of how inheritancce is used in this project :
 ### Abstract Classes and Virtual Methods 
 Abstract Classes encapsulate certain general aspects of how we want the program to work. These abstract classes declare virtual methods that are overriden in the objects that we want to treat. This ensure that the right operations will be done on the object that we want to manipulate.
 
-Here are some example of how these concepts are used in this project :
+Some example of how these concepts are used in this project :
 * An abstract class dedicated to the **logic** of our game, named *ClasseVirtuelleLogique*, contains a pure virtual function, named *calculerMouvements()*, that is meant to find which movements are possible for a type of chess piece on a board with other pieces on it. The virtual function is then **overriden** in each class that represents a type of piece.
 * An abstract class dedicated to the **UI** of our game, named *ClasseVirtuelleUI*, declares a pure virtual function, named *obtenirImage()*, that associates an image to each piece that is on the board. This function is then **overriden** in the classes for the types of pieces according it's color.
 
