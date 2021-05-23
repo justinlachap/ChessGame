@@ -26,6 +26,6 @@ Here are some example of how these concepts are used in this project :
 
 ---
 
-##### Below, a snippet of the project in action : 
+### Below, a snippet of the project in action : 
 
 https://user-images.githubusercontent.com/46169956/117669379-d30b7c00-b174-11eb-8a0e-d7e574741faa.mp4
