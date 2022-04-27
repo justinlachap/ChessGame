@@ -1,12 +1,12 @@
 #include "Dame.h"
 
-Dame::Dame(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
+Dame::Dame(Echiquier &nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
 	: Tour(nouvelEchiquier, position, estBlanc), Fou(nouvelEchiquier, position, estBlanc), Piece(nouvelEchiquier, position, 'D', estBlanc)
 {
 	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 
-std::vector<std::pair<int, int>> Dame::calculerMouvementsTour(Echiquier& e)
+std::vector<std::pair<int, int>> Dame::calculerMouvementsTour(Echiquier &e)
 {
 	mouvementsDisponibles_.clear();
 	Tour::calculerMouvements(e);
@@ -14,7 +14,7 @@ std::vector<std::pair<int, int>> Dame::calculerMouvementsTour(Echiquier& e)
 	return mouvementsDisponiblesCopie;
 }
 
-void Dame::ajouterMouvementsFou(Echiquier& e, std::vector<std::pair<int, int>>& mouvementsDipsoniblesTour)
+void Dame::ajouterMouvementsFou(Echiquier &e, std::vector<std::pair<int, int>> &mouvementsDipsoniblesTour)
 {
 	Fou::calculerMouvements(e);
 	for (std::pair<int, int> m : mouvementsDipsoniblesTour)

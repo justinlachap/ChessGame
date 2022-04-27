@@ -5,15 +5,15 @@ using namespace iter;
 static const int uneCase = 1;
 static const int tailleEchiquierMin = 0;
 static const int tailleEchiquierMax = 7;
-static const Piece* caseVide = nullptr;
+static const Piece *caseVide = nullptr;
 
-Tour::Tour(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
+Tour::Tour(Echiquier &nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
 	: Piece(nouvelEchiquier, position, 'T', estBlanc)
 {
 	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 
-void Tour::mouvementsVersLaDroite(Echiquier& e)
+void Tour::mouvementsVersLaDroite(Echiquier &e)
 {
 	for (int positionsRangeeVersLaDroite : iter::range(position_.first, tailleEchiquierMax))
 	{
@@ -23,12 +23,11 @@ void Tour::mouvementsVersLaDroite(Echiquier& e)
 				mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, position_.second));
 			break;
 		}
-		if (e.cases[positionsRangeeVersLaDroite + uneCase][position_.second] == caseVide)
-			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, position_.second));
+		mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaDroite + uneCase, position_.second));
 	}
 }
 
-void Tour::mouvementsVersLaGauche(Echiquier& e)
+void Tour::mouvementsVersLaGauche(Echiquier &e)
 {
 	for (int positionsRangeeVersLaGauche : iter::range(position_.first, 0, -uneCase))
 	{
@@ -38,12 +37,11 @@ void Tour::mouvementsVersLaGauche(Echiquier& e)
 				mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, position_.second));
 			break;
 		};
-		if (e.cases[positionsRangeeVersLaGauche - uneCase][position_.second] == caseVide)
-			mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, position_.second));
+		mouvementsDisponibles_.push_back(std::pair(positionsRangeeVersLaGauche - uneCase, position_.second));
 	}
 }
 
-void Tour::mouvementsVersLeHaut(Echiquier& e)
+void Tour::mouvementsVersLeHaut(Echiquier &e)
 {
 	for (int positionsRangeeVersLeHaut : iter::range(position_.second, tailleEchiquierMax))
 	{
@@ -53,12 +51,11 @@ void Tour::mouvementsVersLeHaut(Echiquier& e)
 				mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeHaut + uneCase));
 			break;
 		}
-		if (e.cases[position_.first][positionsRangeeVersLeHaut + uneCase] == caseVide)
-			mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeHaut + uneCase));
+		mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeHaut + uneCase));
 	}
 }
 
-void Tour::mouvementsVersLeBas(Echiquier& e)
+void Tour::mouvementsVersLeBas(Echiquier &e)
 {
 	for (int positionsRangeeVersLeBas : iter::range(position_.second, 0, -uneCase))
 	{
@@ -68,8 +65,7 @@ void Tour::mouvementsVersLeBas(Echiquier& e)
 				mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeBas - uneCase));
 			break;
 		}
-		if (e.cases[position_.first][positionsRangeeVersLeBas - uneCase] == caseVide)
-			mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeBas - uneCase));
+		mouvementsDisponibles_.push_back(std::pair(position_.first, positionsRangeeVersLeBas - uneCase));
 	}
 }
 

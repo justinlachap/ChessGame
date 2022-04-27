@@ -3,7 +3,6 @@
 #include <QApplication>
 #include <iostream>
 
-
 int nouvellePartie()
 {
 	char partie = 'X';
@@ -15,7 +14,7 @@ int nouvellePartie()
 		exit(0);
 }
 
-int main(int argc, char* argv[])
+int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
 	nouvellePartie();

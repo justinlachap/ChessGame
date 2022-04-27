@@ -2,16 +2,15 @@
 static const int uneCase = 1;
 static const int tailleEchiquierMin = 0;
 static const int tailleEchiquierMax = 7;
-static const Piece* caseVide = nullptr;
+static const Piece *caseVide = nullptr;
 
-
-Fou::Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
+Fou::Fou(Echiquier &nouvelEchiquier, std::pair<int, int> position, bool estBlanc)
 	: Piece(nouvelEchiquier, position, 'F', estBlanc)
 {
 	nouvelEchiquier.cases[position.first][position.second] = this;
 }
 
-void Fou::diagonaleHautGauche(Echiquier& e)
+void Fou::diagonaleHautGauche(Echiquier &e)
 {
 	int positionsRangeeVersLaGauche = position_.first;
 	int positionsRangeeVersLeHaut = position_.second;
@@ -34,7 +33,7 @@ void Fou::diagonaleHautGauche(Echiquier& e)
 	}
 }
 
-void Fou::diagonaleHautDroite(Echiquier& e)
+void Fou::diagonaleHautDroite(Echiquier &e)
 {
 	int positionsRangeeVersLaDroite = position_.first;
 	int positionsRangeeVersLeHaut = position_.second;
@@ -57,7 +56,7 @@ void Fou::diagonaleHautDroite(Echiquier& e)
 	}
 }
 
-void Fou::diagonaleBasGauche(Echiquier& e)
+void Fou::diagonaleBasGauche(Echiquier &e)
 {
 	int positionsRangeeVersLaGauche = position_.first;
 	int positionsRangeeVersLeBas = position_.second;
@@ -80,7 +79,7 @@ void Fou::diagonaleBasGauche(Echiquier& e)
 	}
 }
 
-void Fou::diagonaleBasDroite(Echiquier& e)
+void Fou::diagonaleBasDroite(Echiquier &e)
 {
 	int positionsRangeeVersLaDroite = position_.first;
 	int positionsRangeeVersLeBas = position_.second;
@@ -106,7 +105,7 @@ void Fou::diagonaleBasDroite(Echiquier& e)
 void Fou::calculerMouvements(Echiquier e)
 {
 	mouvementsDisponibles_.clear();
-	
+
 	diagonaleHautGauche(e);
 	diagonaleHautDroite(e);
 	diagonaleBasGauche(e);
