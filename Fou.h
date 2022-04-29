@@ -7,16 +7,16 @@ class Fou : virtual public Piece
 	const QString fouNoir = "images/black_bishop.png";
 
 public:
-	Fou(Echiquier& nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
+	Fou(Echiquier &nouvelEchiquier, std::pair<int, int> position, bool estBlanc);
 
 	/**
 	 * Fonctions qui calculent les mouvements disponibles sur chacune des diagonales du Fou
-	 * @param e : référence de l'echiquier sur lequel se trouve le Fou
+	 * @param e : rï¿½fï¿½rence de l'echiquier sur lequel se trouve le Fou
 	 */
-	void diagonaleHautGauche(Echiquier& e);
-	void diagonaleHautDroite(Echiquier& e);
-	void diagonaleBasGauche(Echiquier& e);
-	void diagonaleBasDroite(Echiquier& e);
+	void diagonaleHautGauche(Echiquier &e);
+	void diagonaleHautDroite(Echiquier &e);
+	void diagonaleBasGauche(Echiquier &e);
+	void diagonaleBasDroite(Echiquier &e);
 
 	/**
 	 * Calcule les mouvements possibles du Fou en appelant les 4 fonctions ci-dessus

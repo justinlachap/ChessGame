@@ -1,7 +1,7 @@
 #include "Piece.h"
 #include <iostream>
 
-Piece::Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, char nom, bool estBlanc)
+Piece::Piece(Echiquier &nouvelEchiquier, std::pair<int, int> position, char nom, bool estBlanc)
 	: position_(position), nom_(nom), estBlanc_(estBlanc) {}
 
 void Piece::afficheMouvements() const
@@ -14,7 +14,7 @@ void Piece::afficheMouvements() const
 	std::cout << std::endl;
 }
 
-void Piece::changerPos(int x, int y, Echiquier& e)
+void Piece::changerPos(int x, int y, Echiquier &e)
 {
 	position_.first = x;
 	position_.second = y;

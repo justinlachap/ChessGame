@@ -7,7 +7,7 @@ namespace Logique
 	{
 	public:
 		/**
-		 * Fonction virtuelle qui calcule les mouvements possibles pour chaque type de pièce selon la disposition de l'echiquier
+		 * Fonction virtuelle qui calcule les mouvements possibles pour chaque type de piï¿½ce selon la disposition de l'echiquier
 		 * @ param e_ : instance de l'echiquier
 		 */
 		virtual void calculerMouvements(Echiquier e) = 0;
@@ -15,7 +15,7 @@ namespace Logique
 }
 
 class Piece : public Logique::MethodeVirtuelleLogique,
-	public UI::MethodeVirtuelleQt
+			  public UI::MethodeVirtuelleQt
 {
 protected:
 	char nom_;
@@ -24,33 +24,33 @@ protected:
 	std::vector<std::pair<int, int>> mouvementsDisponibles_;
 
 public:
-	Piece(Echiquier& nouvelEchiquier, std::pair<int, int> position, char nom, bool estBlanc);
+	Piece(Echiquier &nouvelEchiquier, std::pair<int, int> position, char nom, bool estBlanc);
 
 	/**
-	 * Déclarée dans la classe Logique::MethodeVirtuelleLogique, méthode virtuelle pure
+	 * Dï¿½clarï¿½e dans la classe Logique::MethodeVirtuelleLogique, mï¿½thode virtuelle pure
 	 */
 	virtual void calculerMouvements(Echiquier e) override = 0;
 
 	/**
-	 * Déclarée dans la classe UI::MethodeVirtuelleQt, méthode virtuelle pure
+	 * Dï¿½clarï¿½e dans la classe UI::MethodeVirtuelleQt, mï¿½thode virtuelle pure
 	 */
 	virtual QString obtenirImage() const override = 0;
 
 	/**
-	 * Permet d'afficher les mouvements possibles calculés d'une pièce (utilisée pour fin de déboggage)
+	 * Permet d'afficher les mouvements possibles calculï¿½s d'une piï¿½ce (utilisï¿½e pour fin de dï¿½boggage)
 	 */
 	void afficheMouvements() const;
 
 	/**
-	 * Permet de changer la position d'une Pièce
-	 * @param x : position de la pièce sur les colonnes de l'échiquier 
-	 * @param y : position de la pièce sur les rangées de l'échiquier
-	 * @param e_ : l'échiquier sur lequel se trouve la pièce
+	 * Permet de changer la position d'une Piï¿½ce
+	 * @param x : position de la piï¿½ce sur les colonnes de l'ï¿½chiquier
+	 * @param y : position de la piï¿½ce sur les rangï¿½es de l'ï¿½chiquier
+	 * @param e_ : l'ï¿½chiquier sur lequel se trouve la piï¿½ce
 	 */
-	void changerPos(int x, int y, Echiquier& e);
+	void changerPos(int x, int y, Echiquier &e);
 
 	/**
-	 * Getters pour la couleur, la position et les mouvements disponibles d'une pièce
+	 * Getters pour la couleur, la position et les mouvements disponibles d'une piï¿½ce
 	 */
 	bool obtenirCouleur() { return estBlanc_; }
 	std::pair<int, int> obtenirPosition() { return position_; }
